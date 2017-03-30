@@ -1,0 +1,3397 @@
+{
+  "package": "Freshdesk",
+  "tagline": "Freshdesk API",
+  "description": "Manage customer support tickets, agents and monitoring.",
+  "image": "https://logo.clearbit.com/freshdesk.com?s=128",
+  "repo": "https://github.com/RapidSoftwareSolutions/Marketplace-Freshdesk-Package",
+  "keywords": [
+    "API",
+    "customer",
+    "enterprise",
+    "marketing",
+    "service",
+    "support"
+  ],
+  "accounts": {
+    "domain": "freshdesk.com",
+    "credentials": [
+      "apiKey",
+      "domain"
+    ]
+  },
+  "blocks": [
+    {
+      "name": "getTickets",
+      "description": "Use filters to view only specific tickets (those which match the criteria that you choose). By default only tickets that have not been deleted or marked as spam will be returned, unless you use the 'deleted' filter.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "filter",
+          "type": "String",
+          "info": "The various filters available are new_and_my_open, watching, spam, deleted",
+          "required": false
+        },
+        {
+          "name": "userId",
+          "type": "Number",
+          "info": "Find Tickets by userId",
+          "required": false
+        },
+        {
+          "name": "email",
+          "type": "String",
+          "info": "Find Tickets by e-mail",
+          "required": false
+        },
+        {
+          "name": "companyId",
+          "type": "String",
+          "info": "Find Tickets be Company ID",
+          "required": false
+        },
+        {
+          "name": "updatedSince",
+          "type": "String",
+          "info": "By default only tickets that have been created within the past 30 days will be returned. For older tickets, use this field. Example: 2017-03-27 (ISO 8601)",
+          "required": false
+        },
+        {
+          "name": "orderBy",
+          "type": "String",
+          "info": "Order Tickets by created_at, due_by, updated_at, status. Default: created_at",
+          "required": false
+        },
+        {
+          "name": "orderType",
+          "type": "String",
+          "info": "asc/desc. Default: desc"
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "getSingleTicket",
+      "description": "Find Ticket by ID. By default, certain fields such as conversations, company name and requester email will not be included in the response. They can be retrieved via the embedding functionality for extra API request points.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "ticketId",
+          "type": "Number",
+          "info": "Ticket ID",
+          "required": true
+        },
+        {
+          "name": "includeConversations",
+          "type": "Boolean",
+          "info": "Will return ten conversations sorted by 'created_at' in ascending order. Including conversations will consume two API calls. In order to access more than ten conversations belonging to a ticket, use the ???. Default: false",
+          "required": false
+        },
+        {
+          "name": "includeRequester",
+          "type": "Boolean",
+          "info": "Will return the requester's email, id, mobile, name, and phone. Default: false",
+          "required": false
+        },
+        {
+          "name": "includeCompany",
+          "type": "Boolean",
+          "info": "Will return the company's id and name. Default: false",
+          "required": false
+        },
+        {
+          "name": "includeStats",
+          "type": "String",
+          "info": "Will return the ticket’s closed_at, resolved_at and first_responded_at time. Default: false",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "getAllTicketFields",
+      "description": "Get all Ticket fields",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "getContacts",
+      "description": "Get all contacts",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "getSingleContact",
+      "description": "Get user by id",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "contactId",
+          "type": "Number",
+          "info": "Contact ID",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "getAllContactField",
+      "description": "Get all field for concact",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "createTicket",
+      "description": "Create a new Ticket",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "name",
+          "type": "String",
+          "info": "Name of the requester",
+          "required": false
+        },
+        {
+          "name": "requesterId",
+          "type": "number",
+          "info": "User ID of the requester. For existing contacts, the requester_id can be passed instead of the requester's email.",
+          "required": false
+        },
+        {
+          "name": "email",
+          "type": "string",
+          "info": "Email address of the requester. If no contact exists with this email address in Freshdesk, it will be added as a new contact.",
+          "required": false
+        },
+        {
+          "name": "facebookId",
+          "type": "string",
+          "info": "Facebook ID of the requester. If no contact exists with this facebook_id, then a new contact will be created.",
+          "required": false
+        },
+        {
+          "name": "phone",
+          "type": "string",
+          "info": "Phone number of the requester. If no contact exists with this phone number in Freshdesk, it will be added as a new contact. If the phone number is set and the email address is not, then the name attribute is mandatory.",
+          "required": false
+        },
+        {
+          "name": "twitterId",
+          "type": "string",
+          "info": "Twitter handle of the requester. If no contact exists with this handle in Freshdesk, it will be added as a new contact.",
+          "required": false
+        },
+        {
+          "name": "subject",
+          "type": "string",
+          "info": "Subject of the ticket. The default Value is null.",
+          "required": true
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "info": "Helps categorize the ticket according to the different kinds of issues your support team deals with. The default Value is null.",
+          "required": false
+        },
+        {
+          "name": "status",
+          "type": "number",
+          "info": "Status of the ticket. The default Value is 2.",
+          "required": true
+        },
+        {
+          "name": "priority",
+          "type": "number",
+          "info": "Priority of the ticket. The default value is 1.",
+          "required": true
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "info": "HTML content of the ticket.",
+          "required": true
+        },
+        {
+          "name": "responderId",
+          "type": "number",
+          "info": "ID of the agent to whom the ticket has been assigned",
+          "required": false
+        },
+        {
+          "name": "attachments",
+          "type": "Array",
+          "info": "Array of file links (url). The total size of these attachments cannot exceed 15MB.",
+          "required": false
+        },
+        {
+          "name": "ccEmails",
+          "type": "Array",
+          "info": "Array of email address added in the 'cc' field of the incoming ticket email",
+          "required": false
+        },
+        {
+          "name": "customFields",
+          "type": "dictionary ?",
+          "info": "Key value pairs containing the names and values of custom fields. Read more here",
+          "required": false
+        },
+        {
+          "name": "dueBy",
+          "type": "String",
+          "info": "Timestamp that denotes when the ticket is due to be resolved",
+          "required": false
+        },
+        {
+          "name": "emailConfigId",
+          "type": "Number",
+          "info": "ID of email config which is used for this ticket. (i.e.,  support@yourcompany.com/sales@yourcompany.com) If product_id is given and email_config_id is not given, product's primary email_config_id will be set",
+          "required": false
+        },
+        {
+          "name": "frDueBy",
+          "type": "String",
+          "info": "Timestamp that denotes when the first response is due",
+          "required": false
+        },
+        {
+          "name": "groupId",
+          "type": "Number",
+          "info": "ID of the group to which the ticket has been assigned. The default value is the ID of the group that is associated with the given email_config_id",
+          "required": false
+        },
+        {
+          "name": "productId",
+          "type": "Number",
+          "info": "ID of the product to which the ticket is associated. It will be ignored if the email_config_id attribute is set in the request.",
+          "required": false
+        },
+        {
+          "name": "source",
+          "type": "Number",
+          "info": "The channel through which the ticket was created. The default value is 2.",
+          "required": false
+        },
+        {
+          "name": "tags",
+          "type": "Array",
+          "info": "Array of tags that have been associated with the ticket",
+          "required": false
+        },
+        {
+          "name": "companyId",
+          "type": "Number",
+          "info": "Company ID of the requester. This attribute can only be set if the Multiple Companies feature is enabled (Estate plan and above)",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "updateTicket",
+      "description": "Update Ticket",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "name",
+          "type": "String",
+          "info": "Name of the requester",
+          "required": false
+        },
+        {
+          "name": "requesterId",
+          "type": "number",
+          "info": "User ID of the requester. For existing contacts, the requester_id can be passed instead of the requester's email.",
+          "required": false
+        },
+        {
+          "name": "email",
+          "type": "string",
+          "info": "Email address of the requester. If no contact exists with this email address in Freshdesk, it will be added as a new contact.",
+          "required": false
+        },
+        {
+          "name": "facebookId",
+          "type": "string",
+          "info": "Facebook ID of the requester. If no contact exists with this facebook_id, then a new contact will be created.",
+          "required": false
+        },
+        {
+          "name": "phone",
+          "type": "string",
+          "info": "Phone number of the requester. If no contact exists with this phone number in Freshdesk, it will be added as a new contact. If the phone number is set and the email address is not, then the name attribute is mandatory.",
+          "required": false
+        },
+        {
+          "name": "twitterId",
+          "type": "string",
+          "info": "Twitter handle of the requester. If no contact exists with this handle in Freshdesk, it will be added as a new contact.",
+          "required": false
+        },
+        {
+          "name": "subject",
+          "type": "string",
+          "info": "Subject of the ticket. The default Value is null.",
+          "required": true
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "info": "Helps categorize the ticket according to the different kinds of issues your support team deals with. The default Value is null.",
+          "required": false
+        },
+        {
+          "name": "status",
+          "type": "number",
+          "info": "Status of the ticket. The default Value is 2.",
+          "required": true
+        },
+        {
+          "name": "priority",
+          "type": "number",
+          "info": "Priority of the ticket. The default value is 1.",
+          "required": true
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "info": "HTML content of the ticket.",
+          "required": true
+        },
+        {
+          "name": "responderId",
+          "type": "number",
+          "info": "ID of the agent to whom the ticket has been assigned",
+          "required": false
+        },
+        {
+          "name": "attachments",
+          "type": "Array",
+          "info": "Array of file links (url). The total size of these attachments cannot exceed 15MB. You can only add new attachments to existed.",
+          "required": false
+        },
+        {
+          "name": "ccEmails",
+          "type": "Array",
+          "info": "Array of email address added in the 'cc' field of the incoming ticket email",
+          "required": false
+        },
+        {
+          "name": "customFields",
+          "type": "dictionary ?",
+          "info": "Key value pairs containing the names and values of custom fields. Read more here",
+          "required": false
+        },
+        {
+          "name": "dueBy",
+          "type": "String",
+          "info": "Timestamp that denotes when the ticket is due to be resolved",
+          "required": false
+        },
+        {
+          "name": "emailConfigId",
+          "type": "Number",
+          "info": "ID of email config which is used for this ticket. (i.e.,  support@yourcompany.com/sales@yourcompany.com) If product_id is given and email_config_id is not given, product's primary email_config_id will be set",
+          "required": false
+        },
+        {
+          "name": "frDueBy",
+          "type": "String",
+          "info": "Timestamp that denotes when the first response is due",
+          "required": false
+        },
+        {
+          "name": "groupId",
+          "type": "Number",
+          "info": "ID of the group to which the ticket has been assigned. The default value is the ID of the group that is associated with the given email_config_id",
+          "required": false
+        },
+        {
+          "name": "productId",
+          "type": "Number",
+          "info": "ID of the product to which the ticket is associated. It will be ignored if the email_config_id attribute is set in the request.",
+          "required": false
+        },
+        {
+          "name": "source",
+          "type": "Number",
+          "info": "The channel through which the ticket was created. The default value is 2.",
+          "required": false
+        },
+        {
+          "name": "tags",
+          "type": "Array",
+          "info": "Array of tags that have been associated with the ticket",
+          "required": false
+        },
+        {
+          "name": "companyId",
+          "type": "Number",
+          "info": "Company ID of the requester. This attribute can only be set if the Multiple Companies feature is enabled (Estate plan and above)",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "getAllCompanyFields",
+      "description": "Get all Company fields",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "createForumCategory",
+      "description": "Create Forum category",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "name",
+          "type": "String",
+          "info": "Unique name of the forum category",
+          "required": true
+        },
+        {
+          "name": "description",
+          "type": "String",
+          "info": "Description of the forum category",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "createForum",
+      "description": "Create Forum",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "name",
+          "type": "String",
+          "info": "Unique name of the forum category",
+          "required": true
+        },
+        {
+          "name": "categoryId",
+          "type": "Number",
+          "info": "category ID",
+          "required": true
+        },
+        {
+          "name": "forumType",
+          "type": "Number",
+          "info": "Denotes the type of forum. 1 - How To's, 2- Ideas, 3 -Problems, 4 - Announcements",
+          "required": true
+        },
+        {
+          "name": "forumVisibility",
+          "type": "Number",
+          "info": "Denotes the visibility level of the forum. 1 - Everyone, 2 - Logged in users only, 3 - Agents only, 4 - Users in specific companies only",
+          "required": true
+        },
+        {
+          "name": "description",
+          "type": "String",
+          "info": "Description of the forum category",
+          "required": false
+        },
+        {
+          "name": "companyIdList",
+          "type": "Array",
+          "info": "Comma-separated list of CompanyID. If forumVisibility property is set to 4, the forum is only visible to users belonging to certain companies. Example: 1,2,3",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "updateForumCategory",
+      "description": "Update Name or Description of Category",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "categoryId",
+          "type": "Number",
+          "info": "Category ID",
+          "required": true
+        },
+        {
+          "name": "name",
+          "type": "String",
+          "info": "Unique name of the forum category",
+          "required": true
+        },
+        {
+          "name": "description",
+          "type": "String",
+          "info": "Description of the forum category",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "getForumCategory",
+      "description": "Get Forum Category by ID",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "categoryId",
+          "type": "Number",
+          "info": "Category ID",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "getAllForumCategories",
+      "description": "Get All Forum Category",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "deleteForumCategory",
+      "description": "Delete Forum Category by ID",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "categoryId",
+          "type": "Number",
+          "info": "Category ID",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "updateForum",
+      "description": "Update Forum by ID",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "forumId",
+          "type": "Number",
+          "info": "Forum ID",
+          "required": true
+        },
+        {
+          "name": "name",
+          "type": "String",
+          "info": "Unique name of Forum",
+          "required": false
+        },
+        {
+          "name": "forumType",
+          "type": "Number",
+          "info": "Denotes the type of forum. 1 - How To's, 2- Ideas, 3 -Problems, 4 - Announcements",
+          "required": false
+        },
+        {
+          "name": "forumVisibility",
+          "type": "Number",
+          "info": "Denotes the visibility level of the forum. 1 - Everyone, 2 - Logged in users only, 3 - Agents only, 4 - Users in specific companies only",
+          "required": false
+        },
+        {
+          "name": "description",
+          "type": "String",
+          "info": "Description of the forum category",
+          "required": false
+        },
+        {
+          "name": "companyIdList",
+          "type": "Array",
+          "info": "Comma-separated list of CompanyID. If forumVisibility property is set to 4, the forum is only visible to users belonging to certain companies. Example: 1,2,3",
+          "required": false
+        },
+        {
+          "name": "forumCategoryId",
+          "type": "Number",
+          "info": "ID of the category to which this forum belongs",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "getAllForumsFromCategory",
+      "description": "Get All forums in given Category",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "categoryId",
+          "type": "Number",
+          "info": "Category ID",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "getForum",
+      "description": "Get Forum by ID",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "forumId",
+          "type": "Number",
+          "info": "Forum ID",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "deleteForum",
+      "description": "Delete Forum",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "forumId",
+          "type": "Number",
+          "info": "Forum ID",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "createTopic",
+      "description": "Create Topic",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "forumId",
+          "type": "Number",
+          "info": "Forum ID",
+          "required": true
+        },
+        {
+          "name": "title",
+          "type": "String",
+          "info": "Title of the topic",
+          "required": true
+        },
+        {
+          "name": "message",
+          "type": "String",
+          "info": "Message body of the topic",
+          "required": true
+        },
+        {
+          "name": "locked",
+          "type": "Boolean",
+          "info": "Set to true if the topic is locked which means that no more posts can be added to the topic",
+          "required": false
+        },
+        {
+          "name": "sticky",
+          "type": "Boolean",
+          "info": "Set to true if the topic should stay on top of the forum for additional visibility",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "updateTopic",
+      "description": "Update Topic",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "topicId",
+          "type": "Number",
+          "info": "Topic ID",
+          "required": true
+        },
+        {
+          "name": "title",
+          "type": "String",
+          "info": "Title of the topic",
+          "required": true
+        },
+        {
+          "name": "message",
+          "type": "String",
+          "info": "Message body of the topic",
+          "required": true
+        },
+        {
+          "name": "forumId",
+          "type": "Number",
+          "info": "Forum ID",
+          "required": true
+        },
+        {
+          "name": "locked",
+          "type": "Boolean",
+          "info": "Set to true if the topic is locked which means that no more posts can be added to the topic",
+          "required": false
+        },
+        {
+          "name": "sticky",
+          "type": "Boolean",
+          "info": "Set to true if the topic should stay on top of the forum for additional visibility",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "deleteTopic",
+      "description": "Delete Topic",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "topicId",
+          "type": "Number",
+          "info": "Topic ID",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "getSingleTopic",
+      "description": "Get Topic Info by ID",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "topicId",
+          "type": "Number",
+          "info": "Topic ID",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "createComment",
+      "description": "Create Comment to Topic",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "topicId",
+          "type": "Number",
+          "info": "Topic ID",
+          "required": true
+        },
+        {
+          "name": "body",
+          "type": "String",
+          "info": "Content of the comment in HTML",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "updateComment",
+      "description": "Update Forum Comment",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "commentId",
+          "type": "Number",
+          "info": "Topic ID",
+          "required": true
+        },
+        {
+          "name": "body",
+          "type": "String",
+          "info": "Content of the comment in HTML",
+          "required": false
+        },
+        {
+          "name": "answer",
+          "type": "Boolean",
+          "info": "Indicates if the comment is marked as the answer (for forum topics of type 'Question')",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "deleteComment",
+      "description": "Delete Forum Comment",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "commentId",
+          "type": "Number",
+          "info": "Topic ID",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "monitorTopic",
+      "description": "Start monitoring of topic",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "topicId",
+          "type": "Number",
+          "info": "Topic ID",
+          "required": true
+        },
+        {
+          "name": "userId",
+          "type": "Number",
+          "info": "ID of the user who wishes to follow the forum topic. If the userId is not mentioned, then the user whose API Key was used to make the API call will be consider the recepient.",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "unMonitorTopic",
+      "description": "Stop monitoring of topic",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "topicId",
+          "type": "Number",
+          "info": "Topic ID",
+          "required": true
+        },
+        {
+          "name": "userId",
+          "type": "Number",
+          "info": "ID of the user who wishes to unfollow the forum topic. If the userId is not mentioned, then the user whose API Key was used to make the API call will be consider the recepient.",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "monitorForum",
+      "description": "Start monitoring of forum",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "forumid",
+          "type": "Number",
+          "info": "Forum ID",
+          "required": true
+        },
+        {
+          "name": "userId",
+          "type": "Number",
+          "info": "ID of the user who wishes to follow the forum. If the userId is not mentioned, then the user whose API Key was used to make the API call will be consider the recepient.",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "unMonitorForum",
+      "description": "Stop monitoring of forum",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "forumId",
+          "type": "Number",
+          "info": "Forum ID",
+          "required": true
+        },
+        {
+          "name": "userId",
+          "type": "Number",
+          "info": "ID of the user who wishes to unfollow the forum. If the userId is not mentioned, then the user whose API Key was used to make the API call will be consider the recepient.",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "getUserMonitoredTopic",
+      "description": "Get all Topics the user is following",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "topicId",
+          "type": "Number",
+          "info": "Topic ID",
+          "required": true
+        },
+        {
+          "name": "userId",
+          "type": "Number",
+          "info": "If the userId is not mentioned, then the user whose API Key was used to make the API call will be consider the recepient.",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "getMonitorStatusForTopic",
+      "description": "Get monitoring status for topic",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "userId",
+          "type": "Number",
+          "info": "If the userId is not mentioned, then the user whose API Key was used to make the API call will be consider the recepient.",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "getMonitorStatusForForum",
+      "description": "Get monitoring status for topic",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "forumId",
+          "type": "Number",
+          "info": "Forum ID",
+          "required": true
+        },
+        {
+          "name": "userId",
+          "type": "Number",
+          "info": "If the userId is not mentioned, then the user whose API Key was used to make the API call will be consider the recepient.",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "getAllAgents",
+      "description": "Get list of all Agents",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "getSingleAgent",
+      "description": "Get Agent by ID",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "agentId",
+          "type": "Number",
+          "info": "Agent ID",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "getCurrentlyAgent",
+      "description": "Get currently authenticated Agent info",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "updateAgent",
+      "description": "Update Agent info",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "agentId",
+          "type": "Number",
+          "info": "Agent ID",
+          "required": true
+        },
+        {
+          "name": "occasional",
+          "type": "Boolean",
+          "info": "Set to true if this is an occasional agent (true => occasional, false => full-time)",
+          "required": false
+        },
+        {
+          "name": "signature",
+          "type": "String",
+          "info": "Signature of the agent in HTML format",
+          "required": false
+        },
+        {
+          "name": "ticketScope",
+          "type": "Number",
+          "info": "Ticket permission of the agent (1 -> Global Access, 2 -> Group Access, 3 -> Restricted Access). Current logged in agent can't update his/her ticket_scope",
+          "required": false
+        },
+        {
+          "name": "group_ids",
+          "type": "Array",
+          "info": "Group IDs associated with the agent. Example: 1,2",
+          "required": false
+        },
+        {
+          "name": "roleIds",
+          "type": "Array",
+          "info": "Role IDs associated with the agent. Atleast one role should be assoicated with the agent. Current logged in agent can't update his/her role_ids",
+          "required": false
+        },
+        {
+          "name": "name",
+          "type": "String",
+          "info": "Name of the Agent",
+          "required": false
+        },
+        {
+          "name": "email",
+          "type": "String",
+          "info": "Email address of the Agent.",
+          "required": false
+        },
+        {
+          "name": "phone",
+          "type": "String",
+          "info": "Telephone number of the Agent.",
+          "required": false
+        },
+        {
+          "name": "mobile",
+          "type": "String",
+          "info": "Mobile number of the Agent",
+          "required": false
+        },
+        {
+          "name": "jobTitle",
+          "type": "String",
+          "info": "Job title of the Agent",
+          "required": false
+        },
+        {
+          "name": "language",
+          "type": "String",
+          "info": "Language of the Agent. Default language is 'en'",
+          "required": false
+        },
+        {
+          "name": "timeZone",
+          "type": "String",
+          "info": "Time zone of the Agent. Default value is time zone of the domain",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "getTicketConversations",
+      "description": "Get all conversations of ticket",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "ticketId",
+          "type": "Number",
+          "info": "Ticket ID",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "addNoteToTicket",
+      "description": "Add Note to Ticket",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "ticketId",
+          "type": "Number",
+          "info": "Ticket ID",
+          "required": true
+        },
+        {
+          "name": "body",
+          "type": "String",
+          "info": "Content of the note in HTML",
+          "required": true
+        },
+        {
+          "name": "attachments",
+          "type": "Array",
+          "info": "Attachments associated with the note. The total size of all of a ticket's attachments cannot exceed 15MB.",
+          "required": false
+        },
+        {
+          "name": "incoming",
+          "type": "Boolean",
+          "info": "Set to true if a particular note should appear as being created from outside (i.e., not through web portal). The default value is false",
+          "required": false
+        },
+        {
+          "name": "notifyEmails",
+          "type": "Array",
+          "info": "Email addresses of agents/users who need to be notified about this note",
+          "required": false
+        },
+        {
+          "name": "private",
+          "type": "Boolean",
+          "info": "Set to true if the note is private. The default value is true.",
+          "required": false
+        },
+        {
+          "name": "userId",
+          "type": "Number",
+          "info": "ID of the agent/user who is adding the note",
+          "required": "false"
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "createContact",
+      "description": "Create Contact",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "name",
+          "type": "String",
+          "info": "Name of the contact",
+          "required": true
+        },
+        {
+          "name": "email",
+          "type": "String",
+          "info": "Primary email address of the contact. If you want to associate additional email(s) with this contact, use the other_emails attribute.",
+          "required": false
+        },
+        {
+          "name": "phone",
+          "type": "String",
+          "info": "Telephone number of the contact",
+          "required": false
+        },
+        {
+          "name": "mobile",
+          "type": "String",
+          "info": "Mobile number of the contact",
+          "required": false
+        },
+        {
+          "name": "twitterId",
+          "type": "String",
+          "info": "Twitter handle of the contact",
+          "required": false
+        },
+        {
+          "name": "otherEmails",
+          "type": "Array",
+          "info": "Additional emails associated with the contact",
+          "required": false
+        },
+        {
+          "name": "companyId",
+          "type": "Number",
+          "info": "ID of the primary company to which this contact belongs",
+          "required": false
+        },
+        {
+          "name": "viewAllTickets",
+          "type": "Boolean",
+          "info": "Set to true if the contact can see all the tickets that are associated with the company to which he belong",
+          "required": false
+        },
+        {
+          "name": "otherCompanies",
+          "type": "Array",
+          "info": "Additional companies associated with the contact. This attribute can only be set if the Multiple Companies feature is enabled (Estate plan and above)",
+          "required": false
+        },
+        {
+          "name": "address",
+          "type": "String",
+          "info": "Address of the contact.",
+          "required": false
+        },
+        {
+          "name": "avatar",
+          "type": "File",
+          "info": "Avatar image of the contact The maximum file size is 5MB and the supported file types are .jpg, .jpeg, .jpe, and .png",
+          "required": false
+        },
+        {
+          "name": "customFields",
+          "type": "Dictionary",
+          "info": "Key value pairs containing the name and value of the custom field. Only dates in the format YYYY-MM-DD are accepted as input for custom date fields. Read more here",
+          "required": false
+        },
+        {
+          "name": "description",
+          "type": "String",
+          "info": "A small description of the contact",
+          "required": false
+        },
+        {
+          "name": "jobTitle",
+          "type": "String",
+          "info": "Job title of the contact",
+          "required": false
+        },
+        {
+          "name": "language",
+          "type": "String",
+          "info": "Language of the contact. Default language is en. This attribute can only be set if the Multiple Language feature is enabled (Garden plan and above)",
+          "required": false
+        },
+        {
+          "name": "tags",
+          "type": "Array",
+          "info": "Comma-separated tags associated with this contact",
+          "required": false
+        },
+        {
+          "name": "timeZone",
+          "type": "string",
+          "info": "Time zone of the contact. Default value is the time zone of the domain. This attribute can only be set if the Multiple Time Zone feature is enabled (Garden plan and above)",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "updateContact",
+      "description": "Update Contact",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "name",
+          "type": "String",
+          "info": "Name of the contact",
+          "required": true
+        },
+        {
+          "name": "email",
+          "type": "String",
+          "info": "Primary email address of the contact. If you want to associate additional email(s) with this contact, use the other_emails attribute.",
+          "required": false
+        },
+        {
+          "name": "phone",
+          "type": "String",
+          "info": "Telephone number of the contact",
+          "required": false
+        },
+        {
+          "name": "mobile",
+          "type": "String",
+          "info": "Mobile number of the contact",
+          "required": false
+        },
+        {
+          "name": "twitterId",
+          "type": "String",
+          "info": "Twitter handle of the contact",
+          "required": false
+        },
+        {
+          "name": "otherEmails",
+          "type": "Array",
+          "info": "Additional emails associated with the contact",
+          "required": false
+        },
+        {
+          "name": "companyId",
+          "type": "Number",
+          "info": "ID of the primary company to which this contact belongs",
+          "required": false
+        },
+        {
+          "name": "viewAllTickets",
+          "type": "Boolean",
+          "info": "Set to true if the contact can see all the tickets that are associated with the company to which he belong",
+          "required": false
+        },
+        {
+          "name": "otherCompanies",
+          "type": "Array",
+          "info": "Additional companies associated with the contact. This attribute can only be set if the Multiple Companies feature is enabled (Estate plan and above)",
+          "required": false
+        },
+        {
+          "name": "address",
+          "type": "String",
+          "info": "Address of the contact.",
+          "required": false
+        },
+        {
+          "name": "avatar",
+          "type": "File",
+          "info": "Avatar image of the contact The maximum file size is 5MB and the supported file types are .jpg, .jpeg, .jpe, and .png",
+          "required": false
+        },
+        {
+          "name": "customFields",
+          "type": "Dictionary",
+          "info": "Key value pairs containing the name and value of the custom field. Only dates in the format YYYY-MM-DD are accepted as input for custom date fields. Read more here",
+          "required": false
+        },
+        {
+          "name": "description",
+          "type": "String",
+          "info": "A small description of the contact",
+          "required": false
+        },
+        {
+          "name": "jobTitle",
+          "type": "String",
+          "info": "Job title of the contact",
+          "required": false
+        },
+        {
+          "name": "language",
+          "type": "String",
+          "info": "Language of the contact. Default language is en. This attribute can only be set if the Multiple Language feature is enabled (Garden plan and above)",
+          "required": false
+        },
+        {
+          "name": "tags",
+          "type": "Array",
+          "info": "Comma-separated tags associated with this contact",
+          "required": false
+        },
+        {
+          "name": "timeZone",
+          "type": "string",
+          "info": "Time zone of the contact. Default value is the time zone of the domain. This attribute can only be set if the Multiple Time Zone feature is enabled (Garden plan and above)",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "makeAgent",
+      "description": "Make Agent from Contact",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "contactId",
+          "type": "Number",
+          "info": "Contact ID",
+          "required": true
+        },
+        {
+          "name": "occasional",
+          "type": "boolean",
+          "info": "Set to true if this is an occasional agent (true => occasional, false => full-time)",
+          "required": false
+        },
+        {
+          "name": "signature",
+          "type": "string",
+          "info": "Signature of the agent in HTML format",
+          "required": false
+        },
+        {
+          "name": "ticketScope",
+          "type": "number",
+          "info": "Ticket permission of the agent (1 -> Global Access, 2 -> Group Access, 3 -> Restricted Access). Current logged in agent can't update his/her ticket_scope",
+          "required": false
+        },
+        {
+          "name": "groupIds",
+          "type": "array of numbers",
+          "info": "Group IDs associated with the agent",
+          "required": false
+        },
+        {
+          "name": "roleIds",
+          "type": "array of numbers",
+          "info": "Role IDs associated with the agent. Atleast one role should be assoicated with the agent. Current logged in agent can't update his/her role_ids",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "deleteContact",
+      "description": "Delete Contact",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "contactId",
+          "type": "Number",
+          "info": "Contact ID",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "deleteAgent",
+      "description": "Delete Agent. Deleting an agent will downgrade the agent into a contact.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "agentId",
+          "type": "Number",
+          "info": "Agent ID",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "createCompany",
+      "description": "Create Company",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "name",
+          "type": "String",
+          "info": "Name of the company",
+          "required": true
+        },
+        {
+          "name": "customFields",
+          "type": "Dictionary",
+          "info": "Key value pairs containing the names and values of custom fields. Only dates in the format YYYY-MM-DD are accepted as input for custom date fields. Read more here",
+          "required": false
+        },
+        {
+          "name": "description",
+          "type": "String",
+          "info": "Description of the company",
+          "required": false
+        },
+        {
+          "name": "domains",
+          "type": "Array",
+          "info": "Domains of the company. Email addresses of contacts that contain this domain will be associated with that company automatically.",
+          "required": false
+        },
+        {
+          "name": "note",
+          "type": "String",
+          "info": "Any specific note about the company",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "updateCompany",
+      "description": "Update Company",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "companyId",
+          "type": "Number",
+          "info": "Company ID",
+          "required": true
+        },
+        {
+          "name": "name",
+          "type": "String",
+          "info": "Name of the company",
+          "required": false
+        },
+        {
+          "name": "customFields",
+          "type": "Dictionary",
+          "info": "Key value pairs containing the names and values of custom fields. Only dates in the format YYYY-MM-DD are accepted as input for custom date fields. Read more here",
+          "required": false
+        },
+        {
+          "name": "description",
+          "type": "String",
+          "info": "Description of the company",
+          "required": false
+        },
+        {
+          "name": "domains",
+          "type": "Array",
+          "info": "Domains of the company. Email addresses of contacts that contain this domain will be associated with that company automatically.",
+          "required": false
+        },
+        {
+          "name": "note",
+          "type": "String",
+          "info": "Any specific note about the company",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "getSingleCompany",
+      "description": "Get Company info by ID",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "companyId",
+          "type": "Number",
+          "info": "Company ID",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "getAllCompanies",
+      "description": "Get list of all Companies",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "deleteCompany",
+      "description": "Delete Company",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "companyId",
+          "type": "Number",
+          "info": "Company ID",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "deleteCompanyDomains",
+      "description": "Delete all domains from company",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "companyId",
+          "type": "Number",
+          "info": "Company ID",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "createSolutionCategory",
+      "description": "Create a Solution Category",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "name",
+          "type": "String",
+          "info": "Unique name of the solution category",
+          "required": true
+        },
+        {
+          "name": "description",
+          "type": "String",
+          "info": "Description of the solution category",
+          "required": false
+        },
+        {
+          "name": "visibleInPortals",
+          "type": "Array",
+          "info": "List of portal IDs where this category is visible. Allowed only if the account is configured with multiple portals. Example: 1,2,3",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "createTranslatedSolutionCategory",
+      "description": "Create a translated solution category to original solution Category ID",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "name",
+          "type": "String",
+          "info": "Unique name of the solution category",
+          "required": true
+        },
+        {
+          "name": "categoryId",
+          "type": "Number",
+          "info": "Original category ID",
+          "required": true
+        },
+        {
+          "name": "language",
+          "type": "String",
+          "info": "Create a translated solution category. (Multilingual Feature must be enabled for the account. Supported languages have to be configured from Admin > General Settings > Helpdesk. Configured languages can be retrieved from Helpdesk Settings)",
+          "required": true
+        },
+        {
+          "name": "description",
+          "type": "String",
+          "info": "Description of the solution category",
+          "required": false
+        },
+        {
+          "name": "visibleInPortals",
+          "type": "Array",
+          "info": "List of portal IDs where this category is visible. Allowed only if the account is configured with multiple portals. Example: 1,2,3",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "updateSolutionCategory",
+      "description": "Update a Solution Category",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "name",
+          "type": "String",
+          "info": "Unique name of the solution category",
+          "required": false
+        },
+        {
+          "name": "description",
+          "type": "String",
+          "info": "Description of the solution category",
+          "required": false
+        },
+        {
+          "name": "visibleInPortals",
+          "type": "Array",
+          "info": "List of portal IDs where this category is visible. Allowed only if the account is configured with multiple portals. Example: 1,2,3",
+          "required": false
+        },
+        {
+          "name": "language",
+          "type": "String",
+          "info": "Update a translated solution category.",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "getSolutionCategory",
+      "description": "Get a Solution Category",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "categoryId",
+          "type": "Number",
+          "info": "Solution category ID",
+          "required": true
+        },
+        {
+          "name": "language",
+          "type": "String",
+          "info": "Language of category. If category has more then one language",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "getAllSolutionCategories",
+      "description": "Get list of all Solution Categories",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "language",
+          "type": "String",
+          "info": "Get all categories with this language translation.",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "deleteSolutionCategory",
+      "description": "Delete Solution Category. When deleted, all translated versions will be deleted too.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "categoryId",
+          "type": "Number",
+          "info": "Solution Category Id",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "createSolutionFolder",
+      "description": "Create Solution Folder in Solution Category",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "categoryId",
+          "type": "Number",
+          "info": "Solution Category Id",
+          "required": true
+        },
+        {
+          "name": "name",
+          "type": "String",
+          "info": "Unique name of the solution folder",
+          "required": true
+        },
+        {
+          "name": "visibility",
+          "type": "Number",
+          "info": "Accessibility of this folder. 1 - All Users, 2 - Logged in Users, 3 - Agents, 4 - Selected Companies.",
+          "required": true
+        },
+        {
+          "name": "description",
+          "type": "String",
+          "info": "Description of the solution folder",
+          "required": false
+        },
+        {
+          "name": "companyIds",
+          "type": "Array",
+          "info": "Comma-separated IDs of the companies to whom this solution folder is visible. Example: 1,2,3",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "createTranslatedSolutionFolder",
+      "description": "Create translated Solution Folder in Solution Category",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "folderId",
+          "type": "Number",
+          "info": "Solution Folder Id",
+          "required": true
+        },
+        {
+          "name": "name",
+          "type": "String",
+          "info": "Unique name of the solution folder",
+          "required": true
+        },
+        {
+          "name": "language",
+          "type": "String",
+          "info": "Create a translated solution folder.",
+          "required": true
+        },
+        {
+          "name": "description",
+          "type": "String",
+          "info": "Description of the solution folder",
+          "required": false
+        },
+        {
+          "name": "companyIds",
+          "type": "Array",
+          "info": "Comma-separated IDs of the companies to whom this solution folder is visible. Example: 1,2,3",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "updateSolutionFolder",
+      "description": "Update Solution Folder",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "folderId",
+          "type": "Number",
+          "info": "Solution Folder Id",
+          "required": true
+        },
+        {
+          "name": "name",
+          "type": "String",
+          "info": "Unique name of the solution folder",
+          "required": false
+        },
+        {
+          "name": "description",
+          "type": "String",
+          "info": "Description of the solution folder",
+          "required": false
+        },
+        {
+          "name": "companyIds",
+          "type": "Array",
+          "info": "Comma-separated IDs of the companies to whom this solution folder is visible. Example: 1,2,3",
+          "required": false
+        },
+        {
+          "name": "visibility",
+          "type": "Number",
+          "info": "Folder visibility. 1 - All Users, 2 - Logged in Users, 3 - Agents, 4 - Selected Companies.",
+          "required": false
+        },
+        {
+          "name": "language",
+          "type": "String",
+          "info": "Update a translated solution folder",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "getSolutionFolder",
+      "description": "Get Solution Folder",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "folderId",
+          "type": "Number",
+          "info": "Solution Folder Id",
+          "required": true
+        },
+        {
+          "name": "language",
+          "type": "String",
+          "info": "Get a translated solution folder",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "getAllSolutionFolders",
+      "description": "Get all Solution Folder",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "categoryId",
+          "type": "Number",
+          "info": "Solution Category Id",
+          "required": true
+        },
+        {
+          "name": "language",
+          "type": "String",
+          "info": "Get a translated solution folder",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "deleteSolutionFolder",
+      "description": "Delete Solution Folder",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "folderId",
+          "type": "Number",
+          "info": "Solution Folder Id",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "createSolutionArticle",
+      "description": "Create Solution Article",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "folderId",
+          "type": "Number",
+          "info": "Solution Folder Id",
+          "required": true
+        },
+        {
+          "name": "description",
+          "type": "String",
+          "info": "Description of the solution article",
+          "required": true
+        },
+        {
+          "name": "status",
+          "type": "Number",
+          "info": "Status of the solution article. (1 - draft, 2 - published)",
+          "required": true
+        },
+        {
+          "name": "title",
+          "type": "String",
+          "info": "Title of the solution article",
+          "required": true
+        },
+        {
+          "name": "type",
+          "type": "Number",
+          "info": "The type of the solution article. (1 - permenant, 2 - workaround)",
+          "required": true
+        },
+        {
+          "name": "tags",
+          "type": "Array",
+          "info": "Comma-separated strings. Tags that have been associated with the solution article",
+          "required": false
+        },
+        {
+          "name": "metaTitle",
+          "type": "String",
+          "info": "Part of SEO-data",
+          "required": false
+        },
+        {
+          "name": "metaDescription",
+          "type": "String",
+          "info": "Part of SEO-data",
+          "required": false
+        },
+        {
+          "name": "metaKeywords",
+          "type": "Array",
+          "info": "Comma-separated keywords. Part of SEO-data",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "createTranslatedSolutionArticle",
+      "description": "Create Solution Article",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "articleId",
+          "type": "Number",
+          "info": "Solution Article Id",
+          "required": true
+        },
+        {
+          "name": "description",
+          "type": "String",
+          "info": "Description of the solution article",
+          "required": true
+        },
+        {
+          "name": "status",
+          "type": "Number",
+          "info": "Status of the solution article. (1 - draft, 2 - published)",
+          "required": true
+        },
+        {
+          "name": "title",
+          "type": "String",
+          "info": "Title of the solution article",
+          "required": true
+        },
+        {
+          "name": "type",
+          "type": "Number",
+          "info": "The type of the solution article. (1 - permenant, 2 - workaround)",
+          "required": true
+        },
+        {
+          "name": "tags",
+          "type": "Array",
+          "info": "Comma-separated strings. Tags that have been associated with the solution article",
+          "required": false
+        },
+        {
+          "name": "metaTitle",
+          "type": "String",
+          "info": "Part of SEO-data",
+          "required": false
+        },
+        {
+          "name": "metaDescription",
+          "type": "String",
+          "info": "Part of SEO-data",
+          "required": false
+        },
+        {
+          "name": "metaKeywords",
+          "type": "Array",
+          "info": "Comma-separated keywords. Part of SEO-data",
+          "required": false
+        },
+        {
+          "name": "language",
+          "type": "String",
+          "info": "Create a translated solution article.",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "updateSolutionArticle",
+      "description": "Update Solution Article",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "articleId",
+          "type": "Number",
+          "info": "Solution Article Id",
+          "required": true
+        },
+        {
+          "name": "agentId",
+          "type": "Number",
+          "info": "ID of the agent who created the solution article",
+          "required": false
+        },
+        {
+          "name": "description",
+          "type": "String",
+          "info": "Description of the solution article",
+          "required": false
+        },
+        {
+          "name": "status",
+          "type": "Number",
+          "info": "Status of the solution article. (1 - draft, 2 - published)",
+          "required": false
+        },
+        {
+          "name": "metaTitle",
+          "type": "String",
+          "info": "Part of SEO-data",
+          "required": false
+        },
+        {
+          "name": "metaDescription",
+          "type": "String",
+          "info": "Part of SEO-data",
+          "required": false
+        },
+        {
+          "name": "metaKeywords",
+          "type": "Array",
+          "info": "Comma-separated keywords. Part of SEO-data",
+          "required": false
+        },
+        {
+          "name": "tags",
+          "type": "Array Of Strings",
+          "info": "Tags that have been associated with the solution article",
+          "required": false
+        },
+        {
+          "name": "title",
+          "type": "String",
+          "info": "Title of the solution article",
+          "required": false
+        },
+        {
+          "name": "type",
+          "type": "Number",
+          "info": "The type of the solution article. (1 - permenant, 2 - workaround)",
+          "required": false
+        },
+        {
+          "name": "language",
+          "type": "String",
+          "info": "Update a translated solution folder",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    }
+  ]
+}

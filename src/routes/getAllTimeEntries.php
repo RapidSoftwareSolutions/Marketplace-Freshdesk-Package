@@ -14,16 +14,34 @@ $app->post('/api/Freshdesk/getAllTimeEntries', function ($request, $response) {
         $postData = $validateRes;
     }
 
-    $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/";
+    $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/time_entries";
 
     $headers['Authorization'] = "Basic " . base64_encode($postData['args']['apiKey']);
     $headers['Content-Type'] = 'application/json';
+
+    $param = [];
+    if (!empty($postData['args']['companyId'])) {
+        $param['company_id'] = (int)$postData['args']['companyId'];
+    }
+    if (!empty($postData['args']['agentId'])) {
+        $param['agent_id'] = (int) $postData['args']['agentId'];
+    }
+    if (isset($postData['args']['executedAfter']) && strlen($postData['args']['executedAfter']) > 0) {
+        $param['executed_after'] = $postData['args']['executedAfter'];
+    }
+    if (isset($postData['args']['executedBefore']) && strlen($postData['args']['executedBefore']) > 0) {
+        $param['executed_before'] = $postData['args']['executedBefore'];
+    }
+    if (isset($postData['args']['billable']) && strlen($postData['args']['billable']) > 0) {
+        $param['billable'] = filter_var($postData['args']['billable'], FILTER_VALIDATE_BOOLEAN);
+    }
 
     try {
         /** @var GuzzleHttp\Client $client */
         $client = $this->httpClient;
         $vendorResponse = $client->get($url, [
-            'headers' => $headers
+            'headers' => $headers,
+            'query' => $param
         ]);
         $vendorResponseBody = $vendorResponse->getBody()->getContents();
         if ($vendorResponse->getStatusCode() == 200) {

@@ -3582,6 +3582,64 @@
           "info": "Success"
         }
       ]
+    },
+    {
+      "name": "getAllTimeEntries",
+      "description": "Use filters to view only specific time entries (those which match the criteria that you choose). The filters listed in the table below can also be combined.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "companyId",
+          "type": "Number",
+          "info": "Filter by Company ID",
+          "required": false
+        },
+        {
+          "name": "agentId",
+          "type": "Number",
+          "info": "Filter by Agent ID",
+          "required": false
+        },
+        {
+          "name": "executedAfter",
+          "type": "String",
+          "info": "Filter by Executed After time",
+          "required": false
+        },
+        {
+          "name": "executedBefore",
+          "type": "String",
+          "info": "Filter by Executed Before time",
+          "required": false
+        },
+        {
+          "name": "billable",
+          "type": "Boolean",
+          "info": "Filter by billable",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
     }
   ]
 }

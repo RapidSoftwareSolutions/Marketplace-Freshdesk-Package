@@ -1,6 +1,6 @@
 <?php
 
-$app->post('/api/Freshdesk/getAgents', function ($request, $response) {
+$app->post('/api/Freshdesk/getAllAgents', function ($request, $response) {
     /** @var \Slim\Http\Response $response */
     /** @var \Slim\Http\Request $request */
     /** @var \Models\checkRequest $checkRequest */

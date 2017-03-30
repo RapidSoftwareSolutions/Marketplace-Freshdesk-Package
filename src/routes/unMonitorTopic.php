@@ -1,6 +1,6 @@
 <?php
 
-$app->post('/api/Freshdesk/monitorTopic', function ($request, $response) {
+$app->post('/api/Freshdesk/unMonitorTopic', function ($request, $response) {
     /** @var \Slim\Http\Response $response */
     /** @var \Slim\Http\Request $request */
     /** @var \Models\checkRequest $checkRequest */
@@ -27,7 +27,7 @@ $app->post('/api/Freshdesk/monitorTopic', function ($request, $response) {
     try {
         /** @var GuzzleHttp\Client $client */
         $client = $this->httpClient;
-        $vendorResponse = $client->post($url, [
+        $vendorResponse = $client->delete($url, [
             'headers' => $headers,
             'query' => $json
         ]);

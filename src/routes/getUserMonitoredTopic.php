@@ -1,6 +1,6 @@
 <?php
 
-$app->post('/api/Freshdesk/blank', function ($request, $response) {
+$app->post('/api/Freshdesk/getUserMonitoredTopic', function ($request, $response) {
     /** @var \Slim\Http\Response $response */
     /** @var \Slim\Http\Request $request */
     /** @var \Models\checkRequest $checkRequest */
@@ -14,7 +14,12 @@ $app->post('/api/Freshdesk/blank', function ($request, $response) {
         $postData = $validateRes;
     }
 
-    $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/";
+    $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/discussions/topics/followed_by";
+
+    $params = [];
+    if (isset($postData['args']['userId']) && strlen($postData['args']['userId']) > 0) {
+        $params['user_id'] = $postData['args']['userId'];
+    }
 
     $headers['Authorization'] = "Basic " . base64_encode($postData['args']['apiKey']);
     $headers['Content-Type'] = 'application/json';
@@ -23,7 +28,8 @@ $app->post('/api/Freshdesk/blank', function ($request, $response) {
         /** @var GuzzleHttp\Client $client */
         $client = $this->httpClient;
         $vendorResponse = $client->get($url, [
-            'headers' => $headers
+            'headers' => $headers,
+            'query' => $params
         ]);
         $vendorResponseBody = $vendorResponse->getBody()->getContents();
         if ($vendorResponse->getStatusCode() == 200) {
@@ -37,8 +43,7 @@ $app->post('/api/Freshdesk/blank', function ($request, $response) {
                     "X-RateLimit-Used-CurrentRequest" => $vendorResponse->getHeader("X-RateLimit-Used-CurrentRequest")[0]
                 ]
             ];
-        }
-        else {
+        } else {
             $result['callback'] = 'error';
             $result['contextWrites']['to']['status_code'] = 'API_ERROR';
             $result['contextWrites']['to']['status_msg'] = is_array($vendorResponseBody) ? $vendorResponseBody : json_decode($vendorResponseBody);

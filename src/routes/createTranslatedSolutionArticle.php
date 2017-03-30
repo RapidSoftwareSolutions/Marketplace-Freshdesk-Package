@@ -1,20 +1,20 @@
 <?php
 
-$app->post('/api/Freshdesk/createSolutionArticle', function ($request, $response) {
+    $app->post('/api/Freshdesk/createTranslatedSolutionArticle', function ($request, $response) {
     /** @var \Slim\Http\Response $response */
     /** @var \Slim\Http\Request $request */
     /** @var \Models\checkRequest $checkRequest */
 
     $settings = $this->settings;
     $checkRequest = $this->validation;
-    $validateRes = $checkRequest->validate($request, ['apiKey', 'domain', 'folderId', 'title', 'description', 'status', 'type']);
+    $validateRes = $checkRequest->validate($request, ['apiKey', 'domain', 'articleId', 'language', 'title', 'description', 'status']);
     if (!empty($validateRes) && isset($validateRes['callback']) && $validateRes['callback'] == 'error') {
         return $response->withHeader('Content-type', 'application/json')->withStatus(200)->withJson($validateRes);
     } else {
         $postData = $validateRes;
     }
 
-    $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/solutions/folders/" . $postData['args']['folderId'] . "/articles";
+    $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/solutions/articles/" . $postData['args']['articleId'] . "/" . $postData['args']['language'];
 
     $headers['Authorization'] = "Basic " . base64_encode($postData['args']['apiKey']);
     $headers['Content-Type'] = 'application/json';
@@ -22,7 +22,7 @@ $app->post('/api/Freshdesk/createSolutionArticle', function ($request, $response
     $json['title'] = $postData['args']['title'];
     $json['description'] = $postData['args']['description'];
     $json['status'] = (int) $postData['args']['status'];
-    $json['type'] = (int) $postData['args']['type'];
+//    $json['type'] = (int) $postData['args']['type'];
     if (!empty($postData['args']['tags'])) {
         if (is_array($postData['args']['tags'])) {
             $json['tags'] = $postData['args']['tags'];

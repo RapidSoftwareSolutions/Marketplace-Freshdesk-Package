@@ -1,6 +1,6 @@
 <?php
 
-$app->post('/api/Freshdesk/blank', function ($request, $response) {
+$app->post('/api/Freshdesk/getAllSolutionCategories', function ($request, $response) {
     /** @var \Slim\Http\Response $response */
     /** @var \Slim\Http\Request $request */
     /** @var \Models\checkRequest $checkRequest */
@@ -14,7 +14,10 @@ $app->post('/api/Freshdesk/blank', function ($request, $response) {
         $postData = $validateRes;
     }
 
-    $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/";
+    $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/solutions/categories";
+    if (isset($postData['args']['language']) && strlen($postData['args']['language']) > 0) {
+        $url .= "/" . $postData['args']['language'];
+    }
 
     $headers['Authorization'] = "Basic " . base64_encode($postData['args']['apiKey']);
     $headers['Content-Type'] = 'application/json';

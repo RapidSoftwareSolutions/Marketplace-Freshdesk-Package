@@ -1,6 +1,6 @@
 <?php
 
-$app->post('/api/Freshdesk/getSingleUser', function ($request, $response) {
+$app->post('/api/Freshdesk/getSingleContact', function ($request, $response) {
     /** @var \Slim\Http\Response $response */
     /** @var \Slim\Http\Request $request */
     /** @var \Models\checkRequest $checkRequest */

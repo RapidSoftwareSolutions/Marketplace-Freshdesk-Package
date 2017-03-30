@@ -1,29 +1,43 @@
 <?php
 
-$app->post('/api/Freshdesk/blank', function ($request, $response) {
+$app->post('/api/Freshdesk/createSolutionCategory', function ($request, $response) {
     /** @var \Slim\Http\Response $response */
     /** @var \Slim\Http\Request $request */
     /** @var \Models\checkRequest $checkRequest */
 
     $settings = $this->settings;
     $checkRequest = $this->validation;
-    $validateRes = $checkRequest->validate($request, ['apiKey', 'domain']);
+    $validateRes = $checkRequest->validate($request, ['apiKey', 'domain', 'name']);
     if (!empty($validateRes) && isset($validateRes['callback']) && $validateRes['callback'] == 'error') {
         return $response->withHeader('Content-type', 'application/json')->withStatus(200)->withJson($validateRes);
     } else {
         $postData = $validateRes;
     }
 
-    $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/";
+    $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/solutions/categories";
 
     $headers['Authorization'] = "Basic " . base64_encode($postData['args']['apiKey']);
     $headers['Content-Type'] = 'application/json';
 
+    $json['name'] = $postData['args']['name'];
+    if (isset($postData['args']['description']) && strlen($postData['args']['description']) > 0) {
+        $json['description'] = $postData['args']['description'];
+    }
+    if (isset($postData['args']['visibleInPortals']) && !empty($postData['args']['visibleInPortals'])) {
+        if (is_array($postData['args']['visibleInPortals'])) {
+            $json['visible_in_portals'] = $postData['args']['visibleInPortals'];
+        }
+        else {
+            $json['visible_in_portals'] = explode(',', $postData['args']['visibleInPortals']);
+        }
+    }
+
     try {
         /** @var GuzzleHttp\Client $client */
         $client = $this->httpClient;
-        $vendorResponse = $client->get($url, [
-            'headers' => $headers
+        $vendorResponse = $client->post($url, [
+            'headers' => $headers,
+            'json' => $json
         ]);
         $vendorResponseBody = $vendorResponse->getBody()->getContents();
         if ($vendorResponse->getStatusCode() == 200) {

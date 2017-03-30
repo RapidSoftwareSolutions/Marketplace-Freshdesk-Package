@@ -1,6 +1,6 @@
 <?php
 
-$app->post('/api/Freshdesk/deleteUser', function ($request, $response) {
+$app->post('/api/Freshdesk/deleteContact', function ($request, $response) {
     /** @var \Slim\Http\Response $response */
     /** @var \Slim\Http\Request $request */
     /** @var \Models\checkRequest $checkRequest */

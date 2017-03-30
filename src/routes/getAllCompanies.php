@@ -1,6 +1,6 @@
 <?php
 
-$app->post('/api/Freshdesk/blank', function ($request, $response) {
+$app->post('/api/Freshdesk/getAllCompanies', function ($request, $response) {
     /** @var \Slim\Http\Response $response */
     /** @var \Slim\Http\Request $request */
     /** @var \Models\checkRequest $checkRequest */
@@ -14,7 +14,7 @@ $app->post('/api/Freshdesk/blank', function ($request, $response) {
         $postData = $validateRes;
     }
 
-    $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/";
+    $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/companies";
 
     $headers['Authorization'] = "Basic " . base64_encode($postData['args']['apiKey']);
     $headers['Content-Type'] = 'application/json';

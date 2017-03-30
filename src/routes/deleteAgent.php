@@ -1,20 +1,20 @@
 <?php
 
-$app->post('/api/Freshdesk/blank', function ($request, $response) {
+$app->post('/api/Freshdesk/deleteAgent', function ($request, $response) {
     /** @var \Slim\Http\Response $response */
     /** @var \Slim\Http\Request $request */
     /** @var \Models\checkRequest $checkRequest */
 
     $settings = $this->settings;
     $checkRequest = $this->validation;
-    $validateRes = $checkRequest->validate($request, ['apiKey', 'domain']);
+    $validateRes = $checkRequest->validate($request, ['apiKey', 'domain', 'agentId']);
     if (!empty($validateRes) && isset($validateRes['callback']) && $validateRes['callback'] == 'error') {
         return $response->withHeader('Content-type', 'application/json')->withStatus(200)->withJson($validateRes);
     } else {
         $postData = $validateRes;
     }
 
-    $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/";
+    $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/agents/" . $postData['args']['agentId'];
 
     $headers['Authorization'] = "Basic " . base64_encode($postData['args']['apiKey']);
     $headers['Content-Type'] = 'application/json';
@@ -22,11 +22,11 @@ $app->post('/api/Freshdesk/blank', function ($request, $response) {
     try {
         /** @var GuzzleHttp\Client $client */
         $client = $this->httpClient;
-        $vendorResponse = $client->get($url, [
+        $vendorResponse = $client->delete($url, [
             'headers' => $headers
         ]);
         $vendorResponseBody = $vendorResponse->getBody()->getContents();
-        if ($vendorResponse->getStatusCode() == 200) {
+        if ($vendorResponse->getStatusCode() == 204) {
             $result['callback'] = 'success';
             $result['contextWrites']['to'] = [
                 "result" => json_decode($vendorResponse->getBody()),

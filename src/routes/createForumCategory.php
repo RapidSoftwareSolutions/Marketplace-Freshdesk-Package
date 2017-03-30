@@ -1,31 +1,37 @@
 <?php
 
-$app->post('/api/Freshdesk/createForum', function ($request, $response) {
+$app->post('/api/Freshdesk/createForumCategory', function ($request, $response) {
     /** @var \Slim\Http\Response $response */
     /** @var \Slim\Http\Request $request */
     /** @var \Models\checkRequest $checkRequest */
 
     $settings = $this->settings;
     $checkRequest = $this->validation;
-    $validateRes = $checkRequest->validate($request, ['apiKey', 'domain']);
+    $validateRes = $checkRequest->validate($request, ['apiKey', 'domain', 'name']);
     if (!empty($validateRes) && isset($validateRes['callback']) && $validateRes['callback'] == 'error') {
         return $response->withHeader('Content-type', 'application/json')->withStatus(200)->withJson($validateRes);
     } else {
         $postData = $validateRes;
     }
 
-    $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/";
+    $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/discussions/categories";
 
     $headers['Authorization'] = "Basic " . base64_encode($postData['args']['apiKey']);
+
+    $json['name'] = $postData['args']['name'];
+    if (isset($postData['args']['description']) && strlen($postData['args']['description']) > 0) {
+        $json['description'] = $postData['args']['description'];
+    }
 
     try {
         /** @var GuzzleHttp\Client $client */
         $client = $this->httpClient;
-        $vendorResponse = $client->get($url, [
-            'headers' => $headers
+        $vendorResponse = $client->post($url, [
+            'headers' => $headers,
+            'json' => $json
         ]);
         $vendorResponseBody = $vendorResponse->getBody()->getContents();
-        if ($vendorResponse->getStatusCode() == 200) {
+        if ($vendorResponse->getStatusCode() == 201) {
             $result['callback'] = 'success';
             $result['contextWrites']['to'] = [
                 "result" => json_decode($vendorResponse->getBody()),

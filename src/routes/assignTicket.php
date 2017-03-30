@@ -1,29 +1,34 @@
 <?php
 
-$app->post('/api/Freshdesk/blank', function ($request, $response) {
+$app->post('/api/Freshdesk/assignTicket', function ($request, $response) {
     /** @var \Slim\Http\Response $response */
     /** @var \Slim\Http\Request $request */
     /** @var \Models\checkRequest $checkRequest */
 
     $settings = $this->settings;
     $checkRequest = $this->validation;
-    $validateRes = $checkRequest->validate($request, ['apiKey', 'domain']);
+    $validateRes = $checkRequest->validate($request, ['apiKey', 'domain', 'ticketId', 'contactId']);
     if (!empty($validateRes) && isset($validateRes['callback']) && $validateRes['callback'] == 'error') {
         return $response->withHeader('Content-type', 'application/json')->withStatus(200)->withJson($validateRes);
     } else {
         $postData = $validateRes;
     }
 
-    $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/";
+    $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/tickets/" . $postData['args']['ticketId'];
 
     $headers['Authorization'] = "Basic " . base64_encode($postData['args']['apiKey']);
-    $headers['Content-Type'] = 'application/json';
+
+    $formData[] = [
+        "name" => "responder_id",
+        "contents" => $postData['args']['contactId']
+    ];
 
     try {
         /** @var GuzzleHttp\Client $client */
         $client = $this->httpClient;
-        $vendorResponse = $client->get($url, [
-            'headers' => $headers
+        $vendorResponse = $client->put($url, [
+            'headers' => $headers,
+            'multipart' => $formData
         ]);
         $vendorResponseBody = $vendorResponse->getBody()->getContents();
         if ($vendorResponse->getStatusCode() == 200) {
@@ -37,8 +42,7 @@ $app->post('/api/Freshdesk/blank', function ($request, $response) {
                     "X-RateLimit-Used-CurrentRequest" => $vendorResponse->getHeader("X-RateLimit-Used-CurrentRequest")[0]
                 ]
             ];
-        }
-        else {
+        } else {
             $result['callback'] = 'error';
             $result['contextWrites']['to']['status_code'] = 'API_ERROR';
             $result['contextWrites']['to']['status_msg'] = is_array($vendorResponseBody) ? $vendorResponseBody : json_decode($vendorResponseBody);

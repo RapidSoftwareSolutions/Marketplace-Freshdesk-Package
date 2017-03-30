@@ -1,37 +1,32 @@
 <?php
 
-$app->post('/api/Freshdesk/createForumCategory', function ($request, $response) {
+$app->post('/api/Freshdesk/getForumCategory', function ($request, $response) {
     /** @var \Slim\Http\Response $response */
     /** @var \Slim\Http\Request $request */
     /** @var \Models\checkRequest $checkRequest */
 
     $settings = $this->settings;
     $checkRequest = $this->validation;
-    $validateRes = $checkRequest->validate($request, ['apiKey', 'domain', 'name']);
+    $validateRes = $checkRequest->validate($request, ['apiKey', 'domain', 'categoryId']);
     if (!empty($validateRes) && isset($validateRes['callback']) && $validateRes['callback'] == 'error') {
         return $response->withHeader('Content-type', 'application/json')->withStatus(200)->withJson($validateRes);
     } else {
         $postData = $validateRes;
     }
 
-    $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/discussions/categories";
+    $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/discussions/categories/" . $postData['args']['categoryId'];
 
     $headers['Authorization'] = "Basic " . base64_encode($postData['args']['apiKey']);
-
-    $json['name'] = $postData['args']['name'];
-    if (isset($postData['args']['description']) && strlen($postData['args']['description']) > 0) {
-        $json['description'] = $postData['args']['description'];
-    }
+    $headers['Content-Type'] = 'application/json';
 
     try {
         /** @var GuzzleHttp\Client $client */
         $client = $this->httpClient;
-        $vendorResponse = $client->post($url, [
+        $vendorResponse = $client->get($url, [
             'headers' => $headers,
-            'json' => $json
         ]);
         $vendorResponseBody = $vendorResponse->getBody()->getContents();
-        if ($vendorResponse->getStatusCode() == 201) {
+        if ($vendorResponse->getStatusCode() == 200) {
             $result['callback'] = 'success';
             $result['contextWrites']['to'] = [
                 "result" => json_decode($vendorResponse->getBody()),

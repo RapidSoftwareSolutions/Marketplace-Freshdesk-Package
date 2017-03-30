@@ -1,29 +1,76 @@
 <?php
 
-$app->post('/api/Freshdesk/blank', function ($request, $response) {
+$app->post('/api/Freshdesk/addNoteToTicket', function ($request, $response) {
     /** @var \Slim\Http\Response $response */
     /** @var \Slim\Http\Request $request */
     /** @var \Models\checkRequest $checkRequest */
 
     $settings = $this->settings;
     $checkRequest = $this->validation;
-    $validateRes = $checkRequest->validate($request, ['apiKey', 'domain']);
+    $validateRes = $checkRequest->validate($request, ['apiKey', 'domain', 'ticketId', 'body']);
     if (!empty($validateRes) && isset($validateRes['callback']) && $validateRes['callback'] == 'error') {
         return $response->withHeader('Content-type', 'application/json')->withStatus(200)->withJson($validateRes);
     } else {
         $postData = $validateRes;
     }
 
-    $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/";
+    $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/tickets/" . $postData['args']['ticketId'] . "/notes";
 
     $headers['Authorization'] = "Basic " . base64_encode($postData['args']['apiKey']);
-    $headers['Content-Type'] = 'application/json';
+//    $headers['Content-Type'] = 'application/json';
+
+    $json['body'] = $postData['args']['body'];
+    $formData[] = [
+        "name" => "body",
+        "contents" => $postData['args']['body']
+    ];
+
+    if (isset($postData['args']['incoming']) && strlen($postData['args']['incoming']) > 0) {
+        $json['incoming'] = filter_var($postData['args']['incoming'], FILTER_VALIDATE_BOOLEAN);
+        $formData[] = [
+            "name" => "incoming",
+            "contents" => filter_var($postData['args']['incoming'], FILTER_VALIDATE_BOOLEAN)
+        ];
+    }
+    if (isset($postData['args']['notifyEmails']) && !empty($postData['args']['notifyEmails'])) {
+        if (is_array($postData['args']['notifyEmails'])) {
+            $json['notify_emails'] = $postData['args']['notifyEmails'];
+        } else {
+            $json['notify_emails'] = explode(',', $postData['args']['notifyEmails']);
+        }
+    }
+    if (isset($postData['args']['private']) && strlen($postData['args']['private']) > 0) {
+        $json['private'] = filter_var($postData['args']['private'] . FILTER_VALIDATE_BOOLEAN);
+    }
+    if (isset($postData['args']['userId']) && strlen($postData['args']['userId']) > 0) {
+        $json['user_id'] = (int) $postData['args']['userId'];
+    }
+    if (isset($postData['args']['attachments']) && !empty($postData['args']['attachments'])) {
+        if (is_array($postData['args']['attachments'])) {
+            $attachments = $postData['args']['attachments'];
+        }
+        else {
+            $attachments = explode(',', $postData['args']['attachments']);
+        }
+        if (!empty($attachments)) {
+            foreach ($attachments as $link) {
+                $content = fopen($link, "r");
+                if ($content) {
+                    $formData[] = [
+                        "name" => "attachments[]",
+                        "contents" => $content
+                    ];
+                }
+            }
+        }
+    }
 
     try {
         /** @var GuzzleHttp\Client $client */
         $client = $this->httpClient;
-        $vendorResponse = $client->get($url, [
-            'headers' => $headers
+        $vendorResponse = $client->post($url, [
+            'headers' => $headers,
+            'multipart' => $formData
         ]);
         $vendorResponseBody = $vendorResponse->getBody()->getContents();
         if ($vendorResponse->getStatusCode() == 200) {
@@ -37,8 +84,7 @@ $app->post('/api/Freshdesk/blank', function ($request, $response) {
                     "X-RateLimit-Used-CurrentRequest" => $vendorResponse->getHeader("X-RateLimit-Used-CurrentRequest")[0]
                 ]
             ];
-        }
-        else {
+        } else {
             $result['callback'] = 'error';
             $result['contextWrites']['to']['status_code'] = 'API_ERROR';
             $result['contextWrites']['to']['status_msg'] = is_array($vendorResponseBody) ? $vendorResponseBody : json_decode($vendorResponseBody);

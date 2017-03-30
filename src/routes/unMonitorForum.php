@@ -1,20 +1,20 @@
 <?php
 
-$app->post('/api/Freshdesk/unMonitorTopic', function ($request, $response) {
+$app->post('/api/Freshdesk/unMonitorForum', function ($request, $response) {
     /** @var \Slim\Http\Response $response */
     /** @var \Slim\Http\Request $request */
     /** @var \Models\checkRequest $checkRequest */
 
     $settings = $this->settings;
     $checkRequest = $this->validation;
-    $validateRes = $checkRequest->validate($request, ['apiKey', 'domain', 'topicId']);
+    $validateRes = $checkRequest->validate($request, ['apiKey', 'domain', 'forumId']);
     if (!empty($validateRes) && isset($validateRes['callback']) && $validateRes['callback'] == 'error') {
         return $response->withHeader('Content-type', 'application/json')->withStatus(200)->withJson($validateRes);
     } else {
         $postData = $validateRes;
     }
 
-    $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/discussions/topics/" . $postData['args']['topicId'] . "/follow";
+    $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/discussions/forums/" . $postData['args']['forumId'] . "/follow";
 
     $headers['Authorization'] = "Basic " . base64_encode($postData['args']['apiKey']);
     $headers['Content-Type'] = 'application/json';

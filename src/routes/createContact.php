@@ -1,29 +1,134 @@
 <?php
 
-$app->post('/api/Freshdesk/createUser', function ($request, $response) {
+$app->post('/api/Freshdesk/createContact', function ($request, $response) {
     /** @var \Slim\Http\Response $response */
     /** @var \Slim\Http\Request $request */
     /** @var \Models\checkRequest $checkRequest */
 
     $settings = $this->settings;
     $checkRequest = $this->validation;
-    $validateRes = $checkRequest->validate($request, ['apiKey', 'domain']);
+    $validateRes = $checkRequest->validate($request, ['apiKey', 'domain', 'name']);
     if (!empty($validateRes) && isset($validateRes['callback']) && $validateRes['callback'] == 'error') {
         return $response->withHeader('Content-type', 'application/json')->withStatus(200)->withJson($validateRes);
     } else {
         $postData = $validateRes;
     }
 
-    $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/";
+    $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/contacts";
 
     $headers['Authorization'] = "Basic " . base64_encode($postData['args']['apiKey']);
-    $headers['Content-Type'] = 'application/json';
+
+    $formData[] = [
+        "name" => "name",
+        "contents" => $postData['args']['name']
+    ];
+    if (isset($postData['args']['email']) && strlen($postData['args']['email']) > 0) {
+        $formData[] = [
+            "name" => "email",
+            "contents" => $postData['args']['email']
+        ];
+    }
+    if (isset($postData['args']['phone']) && strlen($postData['args']['phone']) > 0) {
+        $formData[] = [
+            "name" => "phone",
+            "contents" => $postData['args']['phone']
+        ];
+    }
+    if (isset($postData['args']['mobile']) && strlen($postData['args']['mobile']) > 0) {
+        $formData[] = [
+            "name" => "mobile",
+            "contents" => $postData['args']['mobile']
+        ];
+    }
+    if (isset($postData['args']['twitterId']) && strlen($postData['args']['twitterId']) > 0) {
+        $formData[] = [
+            "name" => "twitter_id",
+            "contents" => $postData['args']['twitterId']
+        ];
+    }
+    if (isset($postData['args']['otherEmails']) && strlen($postData['args']['otherEmails']) > 0) {
+        $formData[] = [
+            "name" => "other_emails",
+            "contents" => $postData['args']['otherEmails']
+        ];
+    }
+    if (isset($postData['args']['companyId']) && strlen($postData['args']['companyId']) > 0) {
+        $formData[] = [
+            "name" => "company_id",
+            "contents" => $postData['args']['companyId']
+        ];
+    }
+    if (isset($postData['args']['viewAllTickets']) && strlen($postData['args']['viewAllTickets']) > 0) {
+        $formData[] = [
+            "name" => "view_all_tickets",
+            "contents" => $postData['args']['viewAllTickets']
+        ];
+    }
+    if (isset($postData['args']['otherCompanies']) && strlen($postData['args']['otherCompanies']) > 0) {
+        $formData[] = [
+            "name" => "other_companies",
+            "contents" => $postData['args']['otherCompanies']
+        ];
+    }
+    if (isset($postData['args']['address']) && strlen($postData['args']['address']) > 0) {
+        $formData[] = [
+            "name" => "address",
+            "contents" => $postData['args']['address']
+        ];
+    }
+    if (isset($postData['args']['avatar']) && strlen($postData['args']['avatar']) > 0) {
+        $avatar = fopen($postData['args']['avatar'], 'r');
+        if ($avatar) {
+            $formData[] = [
+                "name" => "avatar",
+                "contents" => $avatar
+            ];
+        }
+    }
+    if (isset($postData['args']['customFields']) && strlen($postData['args']['customFields']) > 0) {
+        $formData[] = [
+            "name" => "custom_fields",
+            "contents" => $postData['args']['customFields']
+        ];
+    }
+    if (isset($postData['args']['description']) && strlen($postData['args']['description']) > 0) {
+        $formData[] = [
+            "name" => "description",
+            "contents" => $postData['args']['description']
+        ];
+    }
+    if (isset($postData['args']['jobTitle']) && strlen($postData['args']['jobTitle']) > 0) {
+        $formData[] = [
+            "name" => "job_title",
+            "contents" => $postData['args']['jobTitle']
+        ];
+    }
+    if (isset($postData['args']['language']) && strlen($postData['args']['language']) > 0) {
+        $formData[] = [
+            "name" => "language",
+            "contents" => $postData['args']['language']
+        ];
+    }
+    if (isset($postData['args']['tags']) && !empty($postData['args']['tags'])) {
+        $formData[] = [
+            "name" => "tags",
+            "contents" => $postData['args']['tags']
+        ];
+    }
+    if (isset($postData['args']['timeZone']) && !empty($postData['args']['timeZone'])) {
+        $formData[] = [
+            "name" => "time_zone",
+            "contents" => $postData['args']['timeZone']
+        ];
+    }
+
 
     try {
         /** @var GuzzleHttp\Client $client */
         $client = $this->httpClient;
-        $vendorResponse = $client->get($url, [
-            'headers' => $headers
+        $vendorResponse = $client->post($url, [
+            'headers' => $headers,
+            'multipart' => $formData
         ]);
         $vendorResponseBody = $vendorResponse->getBody()->getContents();
         if ($vendorResponse->getStatusCode() == 200) {
@@ -37,8 +142,7 @@ $app->post('/api/Freshdesk/createUser', function ($request, $response) {
                     "X-RateLimit-Used-CurrentRequest" => $vendorResponse->getHeader("X-RateLimit-Used-CurrentRequest")[0]
                 ]
             ];
-        }
-        else {
+        } else {
             $result['callback'] = 'error';
             $result['contextWrites']['to']['status_code'] = 'API_ERROR';
             $result['contextWrites']['to']['status_msg'] = is_array($vendorResponseBody) ? $vendorResponseBody : json_decode($vendorResponseBody);

@@ -1,29 +1,41 @@
 <?php
 
-$app->post('/api/Freshdesk/blank', function ($request, $response) {
+$app->post('/api/Freshdesk/createTopic', function ($request, $response) {
     /** @var \Slim\Http\Response $response */
     /** @var \Slim\Http\Request $request */
     /** @var \Models\checkRequest $checkRequest */
 
     $settings = $this->settings;
     $checkRequest = $this->validation;
-    $validateRes = $checkRequest->validate($request, ['apiKey', 'domain']);
+    $validateRes = $checkRequest->validate($request, ['apiKey', 'domain', 'forumId', 'title', 'message']);
     if (!empty($validateRes) && isset($validateRes['callback']) && $validateRes['callback'] == 'error') {
         return $response->withHeader('Content-type', 'application/json')->withStatus(200)->withJson($validateRes);
     } else {
         $postData = $validateRes;
     }
 
-    $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/";
+    $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/discussions/forums/" . $postData['args']['forumId'] . "/topics";
 
     $headers['Authorization'] = "Basic " . base64_encode($postData['args']['apiKey']);
     $headers['Content-Type'] = 'application/json';
 
+    $json['title'] = $postData['args']['title'];
+    $json['message'] = $postData['args']['message'];
+    $json['stamp_type'] = 7;
+
+    if (isset($postData['args']['locked']) && strlen($postData['args']['locked']) > 0) {
+        $json['locked'] = filter_var($postData['args']['locked']);
+    }
+    if (isset($postData['args']['sticky']) && strlen($postData['args']['sticky']) > 0) {
+        $json['sticky'] = filter_var($postData['args']['sticky'], FILTER_VALIDATE_BOOLEAN);
+    }
+
     try {
         /** @var GuzzleHttp\Client $client */
         $client = $this->httpClient;
-        $vendorResponse = $client->get($url, [
-            'headers' => $headers
+        $vendorResponse = $client->post($url, [
+            'headers' => $headers,
+            'json' => $json
         ]);
         $vendorResponseBody = $vendorResponse->getBody()->getContents();
         if ($vendorResponse->getStatusCode() == 200) {
@@ -37,8 +49,7 @@ $app->post('/api/Freshdesk/blank', function ($request, $response) {
                     "X-RateLimit-Used-CurrentRequest" => $vendorResponse->getHeader("X-RateLimit-Used-CurrentRequest")[0]
                 ]
             ];
-        }
-        else {
+        } else {
             $result['callback'] = 'error';
             $result['contextWrites']['to']['status_code'] = 'API_ERROR';
             $result['contextWrites']['to']['status_msg'] = is_array($vendorResponseBody) ? $vendorResponseBody : json_decode($vendorResponseBody);
@@ -51,7 +62,7 @@ $app->post('/api/Freshdesk/blank', function ($request, $response) {
     } catch (\GuzzleHttp\Exception\ClientException $exception) {
         $result['callback'] = 'error';
         $result['contextWrites']['to']['status_code'] = 'API_ERROR';
-        $result['contextWrites']['to']['status_msg']['result'] = json_decode($exception->getResponse()->getBody()->getContents(), true);
+        $result['contextWrites']['to']['status_msg']['result'] = json_decode($exception->getResponse()->getBody());
         $result['contextWrites']['to']['status_msg']['info'] = [
             "X-Freshdesk-API-Version" => $exception->getResponse()->getHeader("X-Freshdesk-API-Version")[0],
             "X-RateLimit-Remaining" => $exception->getResponse()->getHeader("X-RateLimit-Remaining")[0],

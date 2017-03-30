@@ -3392,6 +3392,196 @@
           "info": "Success"
         }
       ]
+    },
+    {
+      "name": "getSolutionArticle",
+      "description": "Get Solution Article",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "articleId",
+          "type": "Number",
+          "info": "Solution Article Id",
+          "required": true
+        },
+        {
+          "name": "language",
+          "type": "String",
+          "info": "Update a translated solution folder",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "getAllSolutionArticles",
+      "description": "Get list of all Solution Articles",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "folderId",
+          "type": "Number",
+          "info": "Folder ID",
+          "required": true
+        },
+        {
+          "name": "language",
+          "type": "String",
+          "info": "Update a translated solution folder",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "deleteSolutionArticle",
+      "description": "Delete the Solution Article",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "articleId",
+          "type": "Number",
+          "info": "article ID",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "createTimeEntry",
+      "description": "Create Time entry",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "ticketId",
+          "type": "Number",
+          "info": "Ticket ID",
+          "required": true
+        },
+        {
+          "name": "agent_id",
+          "type": "Number",
+          "info": "The agent to whom this time-entry is associated. One agent can have only one timer running. Everything else will be stopped if new timer is on for an agent",
+          "required": false
+        },
+        {
+          "name": "billable",
+          "type": "Boolean",
+          "info": "Set as true if the entry is billable. Default value is true",
+          "required": false
+        },
+        {
+          "name": "executed_at",
+          "type": "Datetime",
+          "info": "Time at which this time-entry id added/created",
+          "required": false
+        },
+        {
+          "name": "note",
+          "type": "String",
+          "info": "Description on this time-entry",
+          "required": false
+        },
+        {
+          "name": "start_time",
+          "type": "Datetime",
+          "info": "The time at which the time-entry is added or the time of the last invoked 'start-timer' action using a toggle",
+          "required": false
+        },
+        {
+          "name": "time_spent",
+          "type": "String",
+          "info": "The number of hours (in hh:mm format). Used to set the total time_spent",
+          "required": false
+        },
+        {
+          "name": "timer_running",
+          "type": "Boolean",
+          "info": "Indicates if the timer is running",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
     }
   ]
 }

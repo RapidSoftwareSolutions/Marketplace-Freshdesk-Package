@@ -66,6 +66,11 @@ $routes = [
     'deleteContact',
     'deleteAgent',
     'createForum',
+    'getSolutionArticle',
+    'getAllSolutionArticles',
+    'deleteSolutionArticle',
+    'createTimeEntry',
+    'getAllTimeEntries',
     'metadata'
 ];
 foreach($routes as $file) {

@@ -289,67 +289,67 @@
         },
         {
           "name": "requesterId",
-          "type": "number",
+          "type": "Number",
           "info": "User ID of the requester. For existing contacts, the requester_id can be passed instead of the requester's email.",
           "required": false
         },
         {
           "name": "email",
-          "type": "string",
+          "type": "String",
           "info": "Email address of the requester. If no contact exists with this email address in Freshdesk, it will be added as a new contact.",
           "required": false
         },
         {
           "name": "facebookId",
-          "type": "string",
+          "type": "String",
           "info": "Facebook ID of the requester. If no contact exists with this facebook_id, then a new contact will be created.",
           "required": false
         },
         {
           "name": "phone",
-          "type": "string",
+          "type": "String",
           "info": "Phone number of the requester. If no contact exists with this phone number in Freshdesk, it will be added as a new contact. If the phone number is set and the email address is not, then the name attribute is mandatory.",
           "required": false
         },
         {
           "name": "twitterId",
-          "type": "string",
+          "type": "String",
           "info": "Twitter handle of the requester. If no contact exists with this handle in Freshdesk, it will be added as a new contact.",
           "required": false
         },
         {
           "name": "subject",
-          "type": "string",
+          "type": "String",
           "info": "Subject of the ticket. The default Value is null.",
           "required": true
         },
         {
           "name": "type",
-          "type": "string",
+          "type": "String",
           "info": "Helps categorize the ticket according to the different kinds of issues your support team deals with. The default Value is null.",
           "required": false
         },
         {
-          "name": "status",
-          "type": "number",
+          "name": "Status",
+          "type": "Number",
           "info": "Status of the ticket. The default Value is 2.",
           "required": true
         },
         {
           "name": "priority",
-          "type": "number",
+          "type": "Number",
           "info": "Priority of the ticket. The default value is 1.",
           "required": true
         },
         {
           "name": "description",
-          "type": "string",
+          "type": "String",
           "info": "HTML content of the ticket.",
           "required": true
         },
         {
           "name": "responderId",
-          "type": "number",
+          "type": "Number",
           "info": "ID of the agent to whom the ticket has been assigned",
           "required": false
         },
@@ -455,67 +455,67 @@
         },
         {
           "name": "requesterId",
-          "type": "number",
+          "type": "Number",
           "info": "User ID of the requester. For existing contacts, the requester_id can be passed instead of the requester's email.",
           "required": false
         },
         {
           "name": "email",
-          "type": "string",
+          "type": "String",
           "info": "Email address of the requester. If no contact exists with this email address in Freshdesk, it will be added as a new contact.",
           "required": false
         },
         {
           "name": "facebookId",
-          "type": "string",
+          "type": "String",
           "info": "Facebook ID of the requester. If no contact exists with this facebook_id, then a new contact will be created.",
           "required": false
         },
         {
           "name": "phone",
-          "type": "string",
+          "type": "String",
           "info": "Phone number of the requester. If no contact exists with this phone number in Freshdesk, it will be added as a new contact. If the phone number is set and the email address is not, then the name attribute is mandatory.",
           "required": false
         },
         {
           "name": "twitterId",
-          "type": "string",
+          "type": "String",
           "info": "Twitter handle of the requester. If no contact exists with this handle in Freshdesk, it will be added as a new contact.",
           "required": false
         },
         {
           "name": "subject",
-          "type": "string",
+          "type": "String",
           "info": "Subject of the ticket. The default Value is null.",
           "required": true
         },
         {
           "name": "type",
-          "type": "string",
+          "type": "String",
           "info": "Helps categorize the ticket according to the different kinds of issues your support team deals with. The default Value is null.",
           "required": false
         },
         {
           "name": "status",
-          "type": "number",
+          "type": "Number",
           "info": "Status of the ticket. The default Value is 2.",
           "required": true
         },
         {
           "name": "priority",
-          "type": "number",
+          "type": "Number",
           "info": "Priority of the ticket. The default value is 1.",
           "required": true
         },
         {
           "name": "description",
-          "type": "string",
+          "type": "String",
           "info": "HTML content of the ticket.",
           "required": true
         },
         {
           "name": "responderId",
-          "type": "number",
+          "type": "Number",
           "info": "ID of the agent to whom the ticket has been assigned",
           "required": false
         },
@@ -2041,7 +2041,7 @@
         },
         {
           "name": "timeZone",
-          "type": "string",
+          "type": "String",
           "info": "Time zone of the contact. Default value is the time zone of the domain. This attribute can only be set if the Multiple Time Zone feature is enabled (Garden plan and above)",
           "required": false
         }
@@ -2171,7 +2171,7 @@
         },
         {
           "name": "timeZone",
-          "type": "string",
+          "type": "String",
           "info": "Time zone of the contact. Default value is the time zone of the domain. This attribute can only be set if the Multiple Time Zone feature is enabled (Garden plan and above)",
           "required": false
         }
@@ -2211,31 +2211,31 @@
         },
         {
           "name": "occasional",
-          "type": "boolean",
+          "type": "Boolean",
           "info": "Set to true if this is an occasional agent (true => occasional, false => full-time)",
           "required": false
         },
         {
           "name": "signature",
-          "type": "string",
+          "type": "String",
           "info": "Signature of the agent in HTML format",
           "required": false
         },
         {
           "name": "ticketScope",
-          "type": "number",
+          "type": "Number",
           "info": "Ticket permission of the agent (1 -> Global Access, 2 -> Group Access, 3 -> Restricted Access). Current logged in agent can't update his/her ticket_scope",
           "required": false
         },
         {
           "name": "groupIds",
-          "type": "array of numbers",
+          "type": "Array",
           "info": "Group IDs associated with the agent",
           "required": false
         },
         {
           "name": "roleIds",
-          "type": "array of numbers",
+          "type": "Array",
           "info": "Role IDs associated with the agent. Atleast one role should be assoicated with the agent. Current logged in agent can't update his/her role_ids",
           "required": false
         }
@@ -3359,7 +3359,7 @@
         },
         {
           "name": "tags",
-          "type": "Array Of Strings",
+          "type": "Array",
           "info": "Tags that have been associated with the solution article",
           "required": false
         },
@@ -3543,7 +3543,7 @@
         },
         {
           "name": "executed_at",
-          "type": "Datetime",
+          "type": "String",
           "info": "Time at which this time-entry id added/created",
           "required": false
         },
@@ -3555,7 +3555,7 @@
         },
         {
           "name": "start_time",
-          "type": "Datetime",
+          "type": "String",
           "info": "The time at which the time-entry is added or the time of the last invoked 'start-timer' action using a toggle",
           "required": false
         },
@@ -3722,8 +3722,8 @@
           "required": false
         },
         {
-          "name": "start_time",
-          "type": "Datetime",
+          "name": "startTime",
+          "type": "String",
           "info": "The time at which the time-entry is added or the time of the last invoked 'start-timer' action using a toggle",
           "required": false
         },

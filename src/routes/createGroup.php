@@ -1,59 +1,55 @@
 <?php
 
-$app->post('/api/Freshdesk/createTimeEntry', function ($request, $response) {
+$app->post('/api/Freshdesk/createGroup', function ($request, $response) {
     /** @var \Slim\Http\Response $response */
     /** @var \Slim\Http\Request $request */
     /** @var \Models\checkRequest $checkRequest */
 
     $settings = $this->settings;
     $checkRequest = $this->validation;
-    $validateRes = $checkRequest->validate($request, ['apiKey', 'domain', 'ticketId']);
+    $validateRes = $checkRequest->validate($request, ['apiKey', 'domain', 'name']);
     if (!empty($validateRes) && isset($validateRes['callback']) && $validateRes['callback'] == 'error') {
         return $response->withHeader('Content-type', 'application/json')->withStatus(200)->withJson($validateRes);
     } else {
         $postData = $validateRes;
     }
 
-    $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/tickets/" . $postData['args']['ticketId'] . "/time_entries";
+    $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/groups";
 
     $headers['Authorization'] = "Basic " . base64_encode($postData['args']['apiKey']);
     $headers['Content-Type'] = 'application/json';
 
-    if (!empty($postData['args']['agentId'])) {
-        $json['agent_id'] = $postData['args']['agentId'];
+    $json['name'] = $postData['args']['name'];
+
+    if (!empty($postData['args']['agentIdList'])) {
+        if (is_array($postData['args']['agentIdList'])) {
+            $json['agent_ids'] = $postData['args']['agentIdList'];
+        }
+        else {
+            $json['agent_ids'] = explode(',', $postData['args']['agentIdList']);
+        }
     }
-    if (isset($postData['args']['billable']) && strlen($postData['args']['billable']) > 0) {
-        $json['billable'] = filter_var($postData['args']['billable'], FILTER_VALIDATE_BOOLEAN);
+    if (isset($postData['args']['autoTicketAssign']) && strlen($postData['args']['autoTicketAssign']) > 0) {
+        $json['auto_ticket_assign'] = filter_var($postData['args']['autoTicketAssign'], FILTER_VALIDATE_BOOLEAN);
     }
-    if (!empty($postData['args']['executedAt'])) {
-        $json['executed_at'] = $postData['args']['executedAt'];
+    if (!empty($postData['args']['description'])) {
+        $json['description'] = $postData['args']['description'];
     }
-    if (!empty($postData['args']['note'])) {
-        $json['note'] = $postData['args']['note'];
+    if (isset($postData['args']['escalateTo']) && strlen($postData['args']['escalateTo']) > 0) {
+        $json['escalate_to'] = $postData['args']['escalateTo'];
     }
-    if (!empty($postData['args']['startTime'])) {
-        $json['start_time'] = $postData['args']['startTime'];
+    if (!empty($postData['args']['unassignedFor'])) {
+        $json['unassigned_for'] = $postData['args']['unassignedFor'];
     }
-    if (!empty($postData['args']['timeSpent'])) {
-        $json['time_spent'] = $postData['args']['timeSpent'];
-    }
-    if (!empty($postData['args']['timerRunning'])) {
-        $json['timer_running'] = $postData['args']['timerRunning'];
-    }
+
 
     try {
         /** @var GuzzleHttp\Client $client */
         $client = $this->httpClient;
-        if (!empty($json)) {
-            $vendorResponse = $client->post($url, [
-                'headers' => $headers,
-                'json' => $json
-            ]);
-        } else {
-            $vendorResponse = $client->post($url, [
-                'headers' => $headers,
-            ]);
-        }
+        $vendorResponse = $client->post($url, [
+            'headers' => $headers,
+            'json' => $json
+        ]);
         $vendorResponseBody = $vendorResponse->getBody()->getContents();
         if ($vendorResponse->getStatusCode() == 200) {
             $result['callback'] = 'success';

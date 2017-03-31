@@ -1,6 +1,6 @@
 <?php
 
-$app->post('/api/Freshdesk/getTickets', function ($request, $response) {
+$app->post('/api/Freshdesk/getAllSurveys', function ($request, $response) {
     /** @var \Slim\Http\Response $response */
     /** @var \Slim\Http\Request $request */
     /** @var \Models\checkRequest $checkRequest */
@@ -14,40 +14,22 @@ $app->post('/api/Freshdesk/getTickets', function ($request, $response) {
         $postData = $validateRes;
     }
 
-    $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/tickets";
+    $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/surveys";
 
     $headers['Authorization'] = "Basic " . base64_encode($postData['args']['apiKey']);
+    $headers['Content-Type'] = 'application/json';
 
     $params = [];
-
-    if (isset($postData['args']['filter']) && strlen($postData['args']['filter']) > 0) {
-        $params['filter'] = $postData['args']['filter'];
+    if (!empty($postData['args']['state'])) {
+        $params['state'] = $postData['args']['state'];
     }
-    if (isset($postData['args']['userId']) && strlen($postData['args']['userId']) > 0) {
-        $params['requester_id'] = $postData['args']['userId'];
-    }
-    if (isset($postData['args']['email']) && strlen($postData['args']['email']) > 0) {
-        $params['email'] = $postData['args']['email'];
-    }
-    if (isset($postData['args']['companyId']) && strlen($postData['args']['companyId']) > 0) {
-        $params['company_id'] = $postData['args']['companyId'];
-    }
-    if (isset($postData['args']['updatedSince']) && strlen($postData['args']['updatedSince']) > 0) {
-        $params['updated_since'] = $postData['args']['updatedSince'];
-    }
-    if (isset($postData['args']['orderBy']) && strlen($postData['args']['orderBy']) > 0) {
-        $params['order_by'] = $postData['args']['orderBy'];
-    }
-    if (isset($postData['args']['orderType']) && strlen($postData['args']['orderType']) > 0) {
-        $params['orderType'] = $postData['args']['orderType'];
-    }
-
 
     try {
         /** @var GuzzleHttp\Client $client */
         $client = $this->httpClient;
         $vendorResponse = $client->get($url, [
-            'headers' => $headers
+            'headers' => $headers,
+            'query' => $params
         ]);
         $vendorResponseBody = $vendorResponse->getBody()->getContents();
         if ($vendorResponse->getStatusCode() == 200) {
@@ -61,7 +43,8 @@ $app->post('/api/Freshdesk/getTickets', function ($request, $response) {
                     "X-RateLimit-Used-CurrentRequest" => $vendorResponse->getHeader("X-RateLimit-Used-CurrentRequest")[0]
                 ]
             ];
-        } else {
+        }
+        else {
             $result['callback'] = 'error';
             $result['contextWrites']['to']['status_code'] = 'API_ERROR';
             $result['contextWrites']['to']['status_msg'] = is_array($vendorResponseBody) ? $vendorResponseBody : json_decode($vendorResponseBody);
@@ -74,7 +57,7 @@ $app->post('/api/Freshdesk/getTickets', function ($request, $response) {
     } catch (\GuzzleHttp\Exception\ClientException $exception) {
         $result['callback'] = 'error';
         $result['contextWrites']['to']['status_code'] = 'API_ERROR';
-        $result['contextWrites']['to']['status_msg']['result'] = json_decode($exception->getResponse()->getBody());
+        $result['contextWrites']['to']['status_msg']['result'] = json_decode($exception->getResponse()->getBody()->getContents(), true);
         $result['contextWrites']['to']['status_msg']['info'] = [
             "X-Freshdesk-API-Version" => $exception->getResponse()->getHeader("X-Freshdesk-API-Version")[0],
             "X-RateLimit-Remaining" => $exception->getResponse()->getHeader("X-RateLimit-Remaining")[0],

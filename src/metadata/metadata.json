@@ -21,7 +21,7 @@
   },
   "blocks": [
     {
-      "name": "getTickets",
+      "name": "getAllTickets",
       "description": "Use filters to view only specific tickets (those which match the criteria that you choose). By default only tickets that have not been deleted or marked as spam will be returned, unless you use the 'deleted' filter.",
       "args": [
         {
@@ -114,7 +114,7 @@
         {
           "name": "includeConversations",
           "type": "Boolean",
-          "info": "Will return ten conversations sorted by 'created_at' in ascending order. Including conversations will consume two API calls. In order to access more than ten conversations belonging to a ticket, use the ???. Default: false",
+          "info": "Will return ten conversations sorted by 'created_at' in ascending order. Including conversations will consume two API calls. In order to access more than ten conversations belonging to a ticket, use the getTicketConversations. Default: false",
           "required": false
         },
         {
@@ -367,8 +367,8 @@
         },
         {
           "name": "customFields",
-          "type": "dictionary ?",
-          "info": "Key value pairs containing the names and values of custom fields. Read more here",
+          "type": "Array",
+          "info": "Key value pairs containing the names and values of custom fields. Example: 'custom_fields':{'gadget':'Cold Welder'}",
           "required": false
         },
         {
@@ -533,8 +533,8 @@
         },
         {
           "name": "customFields",
-          "type": "dictionary ?",
-          "info": "Key value pairs containing the names and values of custom fields. Read more here",
+          "type": "Array",
+          "info": "Key value pairs containing the names and values of custom fields. Example: 'custom_fields':{'gadget':'Cold Welder'}",
           "required": false
         },
         {
@@ -2011,8 +2011,8 @@
         },
         {
           "name": "customFields",
-          "type": "Dictionary",
-          "info": "Key value pairs containing the name and value of the custom field. Only dates in the format YYYY-MM-DD are accepted as input for custom date fields. Read more here",
+          "type": "Array",
+          "info": "Key value pairs containing the name and value of the custom field. Only dates in the format YYYY-MM-DD are accepted as input for custom date fields. Example: 'custom_fields':{'gadget':'Cold Welder'}",
           "required": false
         },
         {
@@ -2141,8 +2141,8 @@
         },
         {
           "name": "customFields",
-          "type": "Dictionary",
-          "info": "Key value pairs containing the name and value of the custom field. Only dates in the format YYYY-MM-DD are accepted as input for custom date fields. Read more here",
+          "type": "Array",
+          "info": "Key value pairs containing the name and value of the custom field. Only dates in the format YYYY-MM-DD are accepted as input for custom date fields. Example: 'custom_fields':{'gadget':'Cold Welder'}",
           "required": false
         },
         {
@@ -2343,8 +2343,8 @@
         },
         {
           "name": "customFields",
-          "type": "Dictionary",
-          "info": "Key value pairs containing the names and values of custom fields. Only dates in the format YYYY-MM-DD are accepted as input for custom date fields. Read more here",
+          "type": "Array",
+          "info": "Key value pairs containing the names and values of custom fields. Only dates in the format YYYY-MM-DD are accepted as input for custom date fields. Example: 'custom_fields':{'gadget':'Cold Welder'}",
           "required": false
         },
         {
@@ -2407,8 +2407,8 @@
         },
         {
           "name": "customFields",
-          "type": "Dictionary",
-          "info": "Key value pairs containing the names and values of custom fields. Only dates in the format YYYY-MM-DD are accepted as input for custom date fields. Read more here",
+          "type": "Array",
+          "info": "Key value pairs containing the names and values of custom fields. Only dates in the format YYYY-MM-DD are accepted as input for custom date fields. Example: 'custom_fields':{'gadget':'Cold Welder'}",
           "required": false
         },
         {
@@ -3628,6 +3628,578 @@
           "type": "Boolean",
           "info": "Filter by billable",
           "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "getByTicketTimeEntry",
+      "description": "Get all Time Entry of current Ticket",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "ticketId",
+          "type": "Number",
+          "info": "Ticket ID",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "updateTimeEntry",
+      "description": "Update Time Entry by ID",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "timeEntryId",
+          "type": "Number",
+          "info": "Time Entry ID",
+          "required": true
+        },
+        {
+          "name": "agentId",
+          "type": "Number",
+          "info": "The agent to whom this time-entry is associated. One agent can have only one timer running. Everything else will be stopped if new timer is on for an agent",
+          "required": false
+        },
+        {
+          "name": "billable",
+          "type": "Boolean",
+          "info": "Set as true if the entry is billable. Default value is true",
+          "required": false
+        },
+        {
+          "name": "executedAt",
+          "type": "String",
+          "info": "Time at which this time-entry id added/created. Format YYYY-MM-DD",
+          "required": false
+        },
+        {
+          "name": "note",
+          "type": "String",
+          "info": "Description on this time-entry",
+          "required": false
+        },
+        {
+          "name": "start_time",
+          "type": "Datetime",
+          "info": "The time at which the time-entry is added or the time of the last invoked 'start-timer' action using a toggle",
+          "required": false
+        },
+        {
+          "name": "timeSpent",
+          "type": "String",
+          "info": "The number of hours (in hh:mm format). Used to set the total time_spent",
+          "required": false
+        },
+        {
+          "name": "timerRunning",
+          "type": "Boolean",
+          "info": "Indicates if the timer is running",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "deleteTimeEntry",
+      "description": "Delete Time Entry by ID",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "timeEntryId",
+          "type": "Number",
+          "info": "Time Entry ID",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "toggleTimer",
+      "description": "Toggle timer",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "timeEntryId",
+          "type": "Number",
+          "info": "Time Entry ID",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "getAllSurveys",
+      "description": "Get list of Surveys",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "active",
+          "type": "Boolean",
+          "info": "Show all or only active surveys. Default: show all",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "getAllRoles",
+      "description": "Show all roles",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "getSingleRole",
+      "description": "Get role by ID",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "roleId",
+          "type": "Number",
+          "info": "Role ID",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "getAllGroups",
+      "description": "Get all groups",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "getGroup",
+      "description": "Get group by ID",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "groupId",
+          "type": "Number",
+          "info": "Group ID",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "createGroup",
+      "description": "Create Group for your agents",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "name",
+          "type": "String",
+          "info": "Unique name of the group",
+          "required": true
+        },
+        {
+          "name": "agentIdList",
+          "type": "Array",
+          "info": "Array of agent user ids separated by comma (' , ').",
+          "required": false
+        },
+        {
+          "name": "autoTicketAssign",
+          "type": "Boolean",
+          "info": "Describes the automatic ticket assignment type. Will not be supported if the 'Round Robin' feature is disabled for the account. The default value is false",
+          "required": false
+        },
+        {
+          "name": "description",
+          "type": "String",
+          "info": "Description of the group",
+          "required": false
+        },
+        {
+          "name": "escalateTo",
+          "type": "Number",
+          "info": "The user to whom the escalation email is sent of a ticket is unassigned. To create/update escalate_to with 'none' provide the value 'null' in the request",
+          "required": false
+        },
+        {
+          "name": "unassignedFor",
+          "type": "String",
+          "info": "The time after which an escalation email will be sent if a ticket remains unassigned. The accepted values are '30m' for 30 minutes, '1h' for 1 hour, '2h' for 2 hour, '4h' for 4 hour, '8h' for 8 hour, '12h' for 12 hour, '1d' for 1 day, '2d' for 2days, '3d' for 3 days. The default value is '30m'",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "updateGroup",
+      "description": "Update group",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "groupId",
+          "type": "Number",
+          "info": "Group ID",
+          "required": true
+        },
+        {
+          "name": "name",
+          "type": "String",
+          "info": "Unique name of the group",
+          "required": false
+        },
+        {
+          "name": "agentIdList",
+          "type": "Array",
+          "info": "Array of agent user ids separated by comma (' , ').",
+          "required": false
+        },
+        {
+          "name": "autoTicketAssign",
+          "type": "Boolean",
+          "info": "Describes the automatic ticket assignment type. Will not be supported if the 'Round Robin' feature is disabled for the account. The default value is false",
+          "required": false
+        },
+        {
+          "name": "description",
+          "type": "String",
+          "info": "Description of the group",
+          "required": false
+        },
+        {
+          "name": "escalateTo",
+          "type": "Number",
+          "info": "The user to whom the escalation email is sent of a ticket is unassigned. To create/update escalate_to with 'none' provide the value 'null' in the request",
+          "required": false
+        },
+        {
+          "name": "unassignedFor",
+          "type": "String",
+          "info": "The time after which an escalation email will be sent if a ticket remains unassigned. The accepted values are '30m' for 30 minutes, '1h' for 1 hour, '2h' for 2 hour, '4h' for 4 hour, '8h' for 8 hour, '12h' for 12 hour, '1d' for 1 day, '2d' for 2days, '3d' for 3 days. The default value is '30m'",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "deleteGroup",
+      "description": "Delete group",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "groupId",
+          "type": "Number",
+          "info": "Group ID",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "deleteTicket",
+      "description": "Delete ticket",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "ticketId",
+          "type": "Number",
+          "info": "Ticket ID",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "restoreTicket",
+      "description": "Restore deleted ticket",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "ticketId",
+          "type": "Number",
+          "info": "Ticket ID",
+          "required": true
         }
       ],
       "callbacks": [

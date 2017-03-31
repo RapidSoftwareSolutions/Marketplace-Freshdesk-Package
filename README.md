@@ -7,7 +7,7 @@ Manage customer support tickets, agents and monitoring.
 ## How to get credentials: 
 1. Get ApiKey from your profile settings.
  
-## Freshdesk.getTickets
+## Freshdesk.getAllTickets
 Use filters to view only specific tickets (those which match the criteria that you choose). By default only tickets that have not been deleted or marked as spam will be returned, unless you use the 'deleted' filter.
 
 | Field       | Type       | Description
@@ -30,7 +30,7 @@ Find Ticket by ID. By default, certain fields such as conversations, company nam
 | apiKey              | credentials| Api Key
 | domain              | credentials| Domain in freshdesk.com service. Example: your-company.freshdesk.com
 | ticketId            | Number     | Ticket ID
-| includeConversations| Boolean    | Will return ten conversations sorted by 'created_at' in ascending order. Including conversations will consume two API calls. In order to access more than ten conversations belonging to a ticket, use the ???. Default: false
+| includeConversations| Boolean    | Will return ten conversations sorted by 'created_at' in ascending order. Including conversations will consume two API calls. In order to access more than ten conversations belonging to a ticket, use the getTicketConversations. Default: false
 | includeRequester    | Boolean    | Will return the requester's email, id, mobile, name, and phone. Default: false
 | includeCompany      | Boolean    | Will return the company's id and name. Default: false
 | includeStats        | String     | Will return the ticket’s closed_at, resolved_at and first_responded_at time. Default: false
@@ -71,64 +71,64 @@ Get all field for concact
 ## Freshdesk.createTicket
 Create a new Ticket
 
-| Field        | Type        | Description
-|--------------|-------------|----------
-| apiKey       | credentials | Api Key
-| domain       | credentials | Domain in freshdesk.com service. Example: your-company.freshdesk.com
-| name         | String      | Name of the requester
-| requesterId  | number      | User ID of the requester. For existing contacts, the requester_id can be passed instead of the requester's email.
-| email        | string      | Email address of the requester. If no contact exists with this email address in Freshdesk, it will be added as a new contact.
-| facebookId   | string      | Facebook ID of the requester. If no contact exists with this facebook_id, then a new contact will be created.
-| phone        | string      | Phone number of the requester. If no contact exists with this phone number in Freshdesk, it will be added as a new contact. If the phone number is set and the email address is not, then the name attribute is mandatory.
-| twitterId    | string      | Twitter handle of the requester. If no contact exists with this handle in Freshdesk, it will be added as a new contact.
-| subject      | string      | Subject of the ticket. The default Value is null.
-| type         | string      | Helps categorize the ticket according to the different kinds of issues your support team deals with. The default Value is null.
-| status       | number      | Status of the ticket. The default Value is 2.
-| priority     | number      | Priority of the ticket. The default value is 1.
-| description  | string      | HTML content of the ticket.
-| responderId  | number      | ID of the agent to whom the ticket has been assigned
-| attachments  | Array       | Array of file links (url). The total size of these attachments cannot exceed 15MB.
-| ccEmails     | Array       | Array of email address added in the 'cc' field of the incoming ticket email
-| customFields | dictionary ?| Key value pairs containing the names and values of custom fields. Read more here
-| dueBy        | String      | Timestamp that denotes when the ticket is due to be resolved
-| emailConfigId| Number      | ID of email config which is used for this ticket. (i.e.,  support@yourcompany.com/sales@yourcompany.com) If product_id is given and email_config_id is not given, product's primary email_config_id will be set
-| frDueBy      | String      | Timestamp that denotes when the first response is due
-| groupId      | Number      | ID of the group to which the ticket has been assigned. The default value is the ID of the group that is associated with the given email_config_id
-| productId    | Number      | ID of the product to which the ticket is associated. It will be ignored if the email_config_id attribute is set in the request.
-| source       | Number      | The channel through which the ticket was created. The default value is 2.
-| tags         | Array       | Array of tags that have been associated with the ticket
-| companyId    | Number      | Company ID of the requester. This attribute can only be set if the Multiple Companies feature is enabled (Estate plan and above)
+| Field        | Type       | Description
+|--------------|------------|----------
+| apiKey       | credentials| Api Key
+| domain       | credentials| Domain in freshdesk.com service. Example: your-company.freshdesk.com
+| name         | String     | Name of the requester
+| requesterId  | number     | User ID of the requester. For existing contacts, the requester_id can be passed instead of the requester's email.
+| email        | string     | Email address of the requester. If no contact exists with this email address in Freshdesk, it will be added as a new contact.
+| facebookId   | string     | Facebook ID of the requester. If no contact exists with this facebook_id, then a new contact will be created.
+| phone        | string     | Phone number of the requester. If no contact exists with this phone number in Freshdesk, it will be added as a new contact. If the phone number is set and the email address is not, then the name attribute is mandatory.
+| twitterId    | string     | Twitter handle of the requester. If no contact exists with this handle in Freshdesk, it will be added as a new contact.
+| subject      | string     | Subject of the ticket. The default Value is null.
+| type         | string     | Helps categorize the ticket according to the different kinds of issues your support team deals with. The default Value is null.
+| status       | number     | Status of the ticket. The default Value is 2.
+| priority     | number     | Priority of the ticket. The default value is 1.
+| description  | string     | HTML content of the ticket.
+| responderId  | number     | ID of the agent to whom the ticket has been assigned
+| attachments  | Array      | Array of file links (url). The total size of these attachments cannot exceed 15MB.
+| ccEmails     | Array      | Array of email address added in the 'cc' field of the incoming ticket email
+| customFields | Array      | Key value pairs containing the names and values of custom fields. Example: 'custom_fields':{'gadget':'Cold Welder'}
+| dueBy        | String     | Timestamp that denotes when the ticket is due to be resolved
+| emailConfigId| Number     | ID of email config which is used for this ticket. (i.e.,  support@yourcompany.com/sales@yourcompany.com) If product_id is given and email_config_id is not given, product's primary email_config_id will be set
+| frDueBy      | String     | Timestamp that denotes when the first response is due
+| groupId      | Number     | ID of the group to which the ticket has been assigned. The default value is the ID of the group that is associated with the given email_config_id
+| productId    | Number     | ID of the product to which the ticket is associated. It will be ignored if the email_config_id attribute is set in the request.
+| source       | Number     | The channel through which the ticket was created. The default value is 2.
+| tags         | Array      | Array of tags that have been associated with the ticket
+| companyId    | Number     | Company ID of the requester. This attribute can only be set if the Multiple Companies feature is enabled (Estate plan and above)
 
 ## Freshdesk.updateTicket
 Update Ticket
 
-| Field        | Type        | Description
-|--------------|-------------|----------
-| apiKey       | credentials | Api Key
-| domain       | credentials | Domain in freshdesk.com service. Example: your-company.freshdesk.com
-| name         | String      | Name of the requester
-| requesterId  | number      | User ID of the requester. For existing contacts, the requester_id can be passed instead of the requester's email.
-| email        | string      | Email address of the requester. If no contact exists with this email address in Freshdesk, it will be added as a new contact.
-| facebookId   | string      | Facebook ID of the requester. If no contact exists with this facebook_id, then a new contact will be created.
-| phone        | string      | Phone number of the requester. If no contact exists with this phone number in Freshdesk, it will be added as a new contact. If the phone number is set and the email address is not, then the name attribute is mandatory.
-| twitterId    | string      | Twitter handle of the requester. If no contact exists with this handle in Freshdesk, it will be added as a new contact.
-| subject      | string      | Subject of the ticket. The default Value is null.
-| type         | string      | Helps categorize the ticket according to the different kinds of issues your support team deals with. The default Value is null.
-| status       | number      | Status of the ticket. The default Value is 2.
-| priority     | number      | Priority of the ticket. The default value is 1.
-| description  | string      | HTML content of the ticket.
-| responderId  | number      | ID of the agent to whom the ticket has been assigned
-| attachments  | Array       | Array of file links (url). The total size of these attachments cannot exceed 15MB. You can only add new attachments to existed.
-| ccEmails     | Array       | Array of email address added in the 'cc' field of the incoming ticket email
-| customFields | dictionary ?| Key value pairs containing the names and values of custom fields. Read more here
-| dueBy        | String      | Timestamp that denotes when the ticket is due to be resolved
-| emailConfigId| Number      | ID of email config which is used for this ticket. (i.e.,  support@yourcompany.com/sales@yourcompany.com) If product_id is given and email_config_id is not given, product's primary email_config_id will be set
-| frDueBy      | String      | Timestamp that denotes when the first response is due
-| groupId      | Number      | ID of the group to which the ticket has been assigned. The default value is the ID of the group that is associated with the given email_config_id
-| productId    | Number      | ID of the product to which the ticket is associated. It will be ignored if the email_config_id attribute is set in the request.
-| source       | Number      | The channel through which the ticket was created. The default value is 2.
-| tags         | Array       | Array of tags that have been associated with the ticket
-| companyId    | Number      | Company ID of the requester. This attribute can only be set if the Multiple Companies feature is enabled (Estate plan and above)
+| Field        | Type       | Description
+|--------------|------------|----------
+| apiKey       | credentials| Api Key
+| domain       | credentials| Domain in freshdesk.com service. Example: your-company.freshdesk.com
+| name         | String     | Name of the requester
+| requesterId  | number     | User ID of the requester. For existing contacts, the requester_id can be passed instead of the requester's email.
+| email        | string     | Email address of the requester. If no contact exists with this email address in Freshdesk, it will be added as a new contact.
+| facebookId   | string     | Facebook ID of the requester. If no contact exists with this facebook_id, then a new contact will be created.
+| phone        | string     | Phone number of the requester. If no contact exists with this phone number in Freshdesk, it will be added as a new contact. If the phone number is set and the email address is not, then the name attribute is mandatory.
+| twitterId    | string     | Twitter handle of the requester. If no contact exists with this handle in Freshdesk, it will be added as a new contact.
+| subject      | string     | Subject of the ticket. The default Value is null.
+| type         | string     | Helps categorize the ticket according to the different kinds of issues your support team deals with. The default Value is null.
+| status       | number     | Status of the ticket. The default Value is 2.
+| priority     | number     | Priority of the ticket. The default value is 1.
+| description  | string     | HTML content of the ticket.
+| responderId  | number     | ID of the agent to whom the ticket has been assigned
+| attachments  | Array      | Array of file links (url). The total size of these attachments cannot exceed 15MB. You can only add new attachments to existed.
+| ccEmails     | Array      | Array of email address added in the 'cc' field of the incoming ticket email
+| customFields | Array      | Key value pairs containing the names and values of custom fields. Example: 'custom_fields':{'gadget':'Cold Welder'}
+| dueBy        | String     | Timestamp that denotes when the ticket is due to be resolved
+| emailConfigId| Number     | ID of email config which is used for this ticket. (i.e.,  support@yourcompany.com/sales@yourcompany.com) If product_id is given and email_config_id is not given, product's primary email_config_id will be set
+| frDueBy      | String     | Timestamp that denotes when the first response is due
+| groupId      | Number     | ID of the group to which the ticket has been assigned. The default value is the ID of the group that is associated with the given email_config_id
+| productId    | Number     | ID of the product to which the ticket is associated. It will be ignored if the email_config_id attribute is set in the request.
+| source       | Number     | The channel through which the ticket was created. The default value is 2.
+| tags         | Array      | Array of tags that have been associated with the ticket
+| companyId    | Number     | Company ID of the requester. This attribute can only be set if the Multiple Companies feature is enabled (Estate plan and above)
 
 ## Freshdesk.getAllCompanyFields
 Get all Company fields
@@ -473,7 +473,7 @@ Create Contact
 | otherCompanies| Array      | Additional companies associated with the contact. This attribute can only be set if the Multiple Companies feature is enabled (Estate plan and above)
 | address       | String     | Address of the contact.
 | avatar        | File       | Avatar image of the contact The maximum file size is 5MB and the supported file types are .jpg, .jpeg, .jpe, and .png
-| customFields  | Dictionary | Key value pairs containing the name and value of the custom field. Only dates in the format YYYY-MM-DD are accepted as input for custom date fields. Read more here
+| customFields  | Array      | Key value pairs containing the name and value of the custom field. Only dates in the format YYYY-MM-DD are accepted as input for custom date fields. Example: 'custom_fields':{'gadget':'Cold Welder'}
 | description   | String     | A small description of the contact
 | jobTitle      | String     | Job title of the contact
 | language      | String     | Language of the contact. Default language is en. This attribute can only be set if the Multiple Language feature is enabled (Garden plan and above)
@@ -498,7 +498,7 @@ Update Contact
 | otherCompanies| Array      | Additional companies associated with the contact. This attribute can only be set if the Multiple Companies feature is enabled (Estate plan and above)
 | address       | String     | Address of the contact.
 | avatar        | File       | Avatar image of the contact The maximum file size is 5MB and the supported file types are .jpg, .jpeg, .jpe, and .png
-| customFields  | Dictionary | Key value pairs containing the name and value of the custom field. Only dates in the format YYYY-MM-DD are accepted as input for custom date fields. Read more here
+| customFields  | Array      | Key value pairs containing the name and value of the custom field. Only dates in the format YYYY-MM-DD are accepted as input for custom date fields. Example: 'custom_fields':{'gadget':'Cold Welder'}
 | description   | String     | A small description of the contact
 | jobTitle      | String     | Job title of the contact
 | language      | String     | Language of the contact. Default language is en. This attribute can only be set if the Multiple Language feature is enabled (Garden plan and above)
@@ -545,7 +545,7 @@ Create Company
 | apiKey      | credentials| Api Key
 | domain      | credentials| Domain in freshdesk.com service. Example: your-company.freshdesk.com
 | name        | String     | Name of the company
-| customFields| Dictionary | Key value pairs containing the names and values of custom fields. Only dates in the format YYYY-MM-DD are accepted as input for custom date fields. Read more here
+| customFields| Array      | Key value pairs containing the names and values of custom fields. Only dates in the format YYYY-MM-DD are accepted as input for custom date fields. Example: 'custom_fields':{'gadget':'Cold Welder'}
 | description | String     | Description of the company
 | domains     | Array      | Domains of the company. Email addresses of contacts that contain this domain will be associated with that company automatically.
 | note        | String     | Any specific note about the company
@@ -559,7 +559,7 @@ Update Company
 | domain      | credentials| Domain in freshdesk.com service. Example: your-company.freshdesk.com
 | companyId   | Number     | Company ID
 | name        | String     | Name of the company
-| customFields| Dictionary | Key value pairs containing the names and values of custom fields. Only dates in the format YYYY-MM-DD are accepted as input for custom date fields. Read more here
+| customFields| Array      | Key value pairs containing the names and values of custom fields. Only dates in the format YYYY-MM-DD are accepted as input for custom date fields. Example: 'custom_fields':{'gadget':'Cold Welder'}
 | description | String     | Description of the company
 | domains     | Array      | Domains of the company. Email addresses of contacts that contain this domain will be associated with that company automatically.
 | note        | String     | Any specific note about the company
@@ -785,4 +785,204 @@ Update Solution Article
 | title          | String          | Title of the solution article
 | type           | Number          | The type of the solution article. (1 - permenant, 2 - workaround)
 | language       | String          | Update a translated solution folder
+
+## Freshdesk.getSolutionArticle
+Get Solution Article
+
+| Field    | Type       | Description
+|----------|------------|----------
+| apiKey   | credentials| Api Key
+| domain   | credentials| Domain in freshdesk.com service. Example: your-company.freshdesk.com
+| articleId| Number     | Solution Article Id
+| language | String     | Update a translated solution folder
+
+## Freshdesk.getAllSolutionArticles
+Get list of all Solution Articles
+
+| Field   | Type       | Description
+|---------|------------|----------
+| apiKey  | credentials| Api Key
+| domain  | credentials| Domain in freshdesk.com service. Example: your-company.freshdesk.com
+| folderId| Number     | Folder ID
+| language| String     | Update a translated solution folder
+
+## Freshdesk.deleteSolutionArticle
+Delete the Solution Article
+
+| Field    | Type       | Description
+|----------|------------|----------
+| apiKey   | credentials| Api Key
+| domain   | credentials| Domain in freshdesk.com service. Example: your-company.freshdesk.com
+| articleId| Number     | article ID
+
+## Freshdesk.createTimeEntry
+Create Time entry
+
+| Field        | Type       | Description
+|--------------|------------|----------
+| apiKey       | credentials| Api Key
+| domain       | credentials| Domain in freshdesk.com service. Example: your-company.freshdesk.com
+| ticketId     | Number     | Ticket ID
+| agent_id     | Number     | The agent to whom this time-entry is associated. One agent can have only one timer running. Everything else will be stopped if new timer is on for an agent
+| billable     | Boolean    | Set as true if the entry is billable. Default value is true
+| executed_at  | Datetime   | Time at which this time-entry id added/created
+| note         | String     | Description on this time-entry
+| start_time   | Datetime   | The time at which the time-entry is added or the time of the last invoked 'start-timer' action using a toggle
+| time_spent   | String     | The number of hours (in hh:mm format). Used to set the total time_spent
+| timer_running| Boolean    | Indicates if the timer is running
+
+## Freshdesk.getAllTimeEntries
+Use filters to view only specific time entries (those which match the criteria that you choose). The filters listed in the table below can also be combined.
+
+| Field         | Type       | Description
+|---------------|------------|----------
+| apiKey        | credentials| Api Key
+| domain        | credentials| Domain in freshdesk.com service. Example: your-company.freshdesk.com
+| companyId     | Number     | Filter by Company ID
+| agentId       | Number     | Filter by Agent ID
+| executedAfter | String     | Filter by Executed After time
+| executedBefore| String     | Filter by Executed Before time
+| billable      | Boolean    | Filter by billable
+
+## Freshdesk.getByTicketTimeEntry
+Get all Time Entry of current Ticket
+
+| Field   | Type       | Description
+|---------|------------|----------
+| apiKey  | credentials| Api Key
+| domain  | credentials| Domain in freshdesk.com service. Example: your-company.freshdesk.com
+| ticketId| Number     | Ticket ID
+
+## Freshdesk.updateTimeEntry
+Update Time Entry by ID
+
+| Field       | Type       | Description
+|-------------|------------|----------
+| apiKey      | credentials| Api Key
+| domain      | credentials| Domain in freshdesk.com service. Example: your-company.freshdesk.com
+| timeEntryId | Number     | Time Entry ID
+| agentId     | Number     | The agent to whom this time-entry is associated. One agent can have only one timer running. Everything else will be stopped if new timer is on for an agent
+| billable    | Boolean    | Set as true if the entry is billable. Default value is true
+| executedAt  | String     | Time at which this time-entry id added/created. Format YYYY-MM-DD
+| note        | String     | Description on this time-entry
+| start_time  | Datetime   | The time at which the time-entry is added or the time of the last invoked 'start-timer' action using a toggle
+| timeSpent   | String     | The number of hours (in hh:mm format). Used to set the total time_spent
+| timerRunning| Boolean    | Indicates if the timer is running
+
+## Freshdesk.deleteTimeEntry
+Delete Time Entry by ID
+
+| Field      | Type       | Description
+|------------|------------|----------
+| apiKey     | credentials| Api Key
+| domain     | credentials| Domain in freshdesk.com service. Example: your-company.freshdesk.com
+| timeEntryId| Number     | Time Entry ID
+
+## Freshdesk.toggleTimer
+Toggle timer
+
+| Field      | Type       | Description
+|------------|------------|----------
+| apiKey     | credentials| Api Key
+| domain     | credentials| Domain in freshdesk.com service. Example: your-company.freshdesk.com
+| timeEntryId| Number     | Time Entry ID
+
+## Freshdesk.getAllSurveys
+Get list of Surveys
+
+| Field | Type       | Description
+|-------|------------|----------
+| apiKey| credentials| Api Key
+| domain| credentials| Domain in freshdesk.com service. Example: your-company.freshdesk.com
+| active| Boolean    | Show all or only active surveys. Default: show all
+
+## Freshdesk.getAllRoles
+Show all roles
+
+| Field | Type       | Description
+|-------|------------|----------
+| apiKey| credentials| Api Key
+| domain| credentials| Domain in freshdesk.com service. Example: your-company.freshdesk.com
+
+## Freshdesk.getSingleRole
+Get role by ID
+
+| Field | Type       | Description
+|-------|------------|----------
+| apiKey| credentials| Api Key
+| domain| credentials| Domain in freshdesk.com service. Example: your-company.freshdesk.com
+| roleId| Number     | Role ID
+
+## Freshdesk.getAllGroups
+Get all groups
+
+| Field | Type       | Description
+|-------|------------|----------
+| apiKey| credentials| Api Key
+| domain| credentials| Domain in freshdesk.com service. Example: your-company.freshdesk.com
+
+## Freshdesk.getGroup
+Get group by ID
+
+| Field  | Type       | Description
+|--------|------------|----------
+| apiKey | credentials| Api Key
+| domain | credentials| Domain in freshdesk.com service. Example: your-company.freshdesk.com
+| groupId| Number     | Group ID
+
+## Freshdesk.createGroup
+Create Group for your agents
+
+| Field           | Type       | Description
+|-----------------|------------|----------
+| apiKey          | credentials| Api Key
+| domain          | credentials| Domain in freshdesk.com service. Example: your-company.freshdesk.com
+| name            | String     | Unique name of the group
+| agentIdList     | Array      | Array of agent user ids separated by comma (' , ').
+| autoTicketAssign| Boolean    | Describes the automatic ticket assignment type. Will not be supported if the 'Round Robin' feature is disabled for the account. The default value is false
+| description     | String     | Description of the group
+| escalateTo      | Number     | The user to whom the escalation email is sent of a ticket is unassigned. To create/update escalate_to with 'none' provide the value 'null' in the request
+| unassignedFor   | String     | The time after which an escalation email will be sent if a ticket remains unassigned. The accepted values are '30m' for 30 minutes, '1h' for 1 hour, '2h' for 2 hour, '4h' for 4 hour, '8h' for 8 hour, '12h' for 12 hour, '1d' for 1 day, '2d' for 2days, '3d' for 3 days. The default value is '30m'
+
+## Freshdesk.updateGroup
+Update group
+
+| Field           | Type       | Description
+|-----------------|------------|----------
+| apiKey          | credentials| Api Key
+| domain          | credentials| Domain in freshdesk.com service. Example: your-company.freshdesk.com
+| groupId         | Number     | Group ID
+| name            | String     | Unique name of the group
+| agentIdList     | Array      | Array of agent user ids separated by comma (' , ').
+| autoTicketAssign| Boolean    | Describes the automatic ticket assignment type. Will not be supported if the 'Round Robin' feature is disabled for the account. The default value is false
+| description     | String     | Description of the group
+| escalateTo      | Number     | The user to whom the escalation email is sent of a ticket is unassigned. To create/update escalate_to with 'none' provide the value 'null' in the request
+| unassignedFor   | String     | The time after which an escalation email will be sent if a ticket remains unassigned. The accepted values are '30m' for 30 minutes, '1h' for 1 hour, '2h' for 2 hour, '4h' for 4 hour, '8h' for 8 hour, '12h' for 12 hour, '1d' for 1 day, '2d' for 2days, '3d' for 3 days. The default value is '30m'
+
+## Freshdesk.deleteGroup
+Delete group
+
+| Field  | Type       | Description
+|--------|------------|----------
+| apiKey | credentials| Api Key
+| domain | credentials| Domain in freshdesk.com service. Example: your-company.freshdesk.com
+| groupId| Number     | Group ID
+
+## Freshdesk.deleteTicket
+Delete ticket
+
+| Field   | Type       | Description
+|---------|------------|----------
+| apiKey  | credentials| Api Key
+| domain  | credentials| Domain in freshdesk.com service. Example: your-company.freshdesk.com
+| ticketId| Number     | Ticket ID
+
+## Freshdesk.restoreTicket
+Restore deleted ticket
+
+| Field   | Type       | Description
+|---------|------------|----------
+| apiKey  | credentials| Api Key
+| domain  | credentials| Domain in freshdesk.com service. Example: your-company.freshdesk.com
+| ticketId| Number     | Ticket ID
 

@@ -1,6 +1,6 @@
 <?php
 
-$app->post('/api/Freshdesk/createTimeEntry', function ($request, $response) {
+$app->post('/api/Freshdesk/restoreTicket', function ($request, $response) {
     /** @var \Slim\Http\Response $response */
     /** @var \Slim\Http\Request $request */
     /** @var \Models\checkRequest $checkRequest */
@@ -14,48 +14,19 @@ $app->post('/api/Freshdesk/createTimeEntry', function ($request, $response) {
         $postData = $validateRes;
     }
 
-    $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/tickets/" . $postData['args']['ticketId'] . "/time_entries";
+    $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/tickets/" . $postData['args']['ticketId'] . "/restore";
 
     $headers['Authorization'] = "Basic " . base64_encode($postData['args']['apiKey']);
     $headers['Content-Type'] = 'application/json';
 
-    if (!empty($postData['args']['agentId'])) {
-        $json['agent_id'] = $postData['args']['agentId'];
-    }
-    if (isset($postData['args']['billable']) && strlen($postData['args']['billable']) > 0) {
-        $json['billable'] = filter_var($postData['args']['billable'], FILTER_VALIDATE_BOOLEAN);
-    }
-    if (!empty($postData['args']['executedAt'])) {
-        $json['executed_at'] = $postData['args']['executedAt'];
-    }
-    if (!empty($postData['args']['note'])) {
-        $json['note'] = $postData['args']['note'];
-    }
-    if (!empty($postData['args']['startTime'])) {
-        $json['start_time'] = $postData['args']['startTime'];
-    }
-    if (!empty($postData['args']['timeSpent'])) {
-        $json['time_spent'] = $postData['args']['timeSpent'];
-    }
-    if (!empty($postData['args']['timerRunning'])) {
-        $json['timer_running'] = $postData['args']['timerRunning'];
-    }
-
     try {
         /** @var GuzzleHttp\Client $client */
         $client = $this->httpClient;
-        if (!empty($json)) {
-            $vendorResponse = $client->post($url, [
-                'headers' => $headers,
-                'json' => $json
-            ]);
-        } else {
-            $vendorResponse = $client->post($url, [
-                'headers' => $headers,
-            ]);
-        }
+        $vendorResponse = $client->put($url, [
+            'headers' => $headers
+        ]);
         $vendorResponseBody = $vendorResponse->getBody()->getContents();
-        if ($vendorResponse->getStatusCode() == 200) {
+        if ($vendorResponse->getStatusCode() == 204) {
             $result['callback'] = 'success';
             $result['contextWrites']['to'] = [
                 "result" => json_decode($vendorResponse->getBody()),
@@ -66,7 +37,8 @@ $app->post('/api/Freshdesk/createTimeEntry', function ($request, $response) {
                     "X-RateLimit-Used-CurrentRequest" => $vendorResponse->getHeader("X-RateLimit-Used-CurrentRequest")[0]
                 ]
             ];
-        } else {
+        }
+        else {
             $result['callback'] = 'error';
             $result['contextWrites']['to']['status_code'] = 'API_ERROR';
             $result['contextWrites']['to']['status_msg'] = is_array($vendorResponseBody) ? $vendorResponseBody : json_decode($vendorResponseBody);

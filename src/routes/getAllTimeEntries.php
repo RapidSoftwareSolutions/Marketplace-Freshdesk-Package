@@ -21,7 +21,7 @@ $app->post('/api/Freshdesk/getAllTimeEntries', function ($request, $response) {
 
     $param = [];
     if (!empty($postData['args']['companyId'])) {
-        $param['company_id'] = (int)$postData['args']['companyId'];
+        $param['company_id'] = (int) $postData['args']['companyId'];
     }
     if (!empty($postData['args']['agentId'])) {
         $param['agent_id'] = (int) $postData['args']['agentId'];
@@ -55,8 +55,7 @@ $app->post('/api/Freshdesk/getAllTimeEntries', function ($request, $response) {
                     "X-RateLimit-Used-CurrentRequest" => $vendorResponse->getHeader("X-RateLimit-Used-CurrentRequest")[0]
                 ]
             ];
-        }
-        else {
+        } else {
             $result['callback'] = 'error';
             $result['contextWrites']['to']['status_code'] = 'API_ERROR';
             $result['contextWrites']['to']['status_msg'] = is_array($vendorResponseBody) ? $vendorResponseBody : json_decode($vendorResponseBody);

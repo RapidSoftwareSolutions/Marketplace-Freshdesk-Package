@@ -3854,9 +3854,9 @@
           "required": true
         },
         {
-          "name": "active",
-          "type": "Boolean",
-          "info": "Show all or only active surveys. Default: show all",
+          "name": "state",
+          "type": "String",
+          "info": "Show all or only active surveys. Example: active (show all active surveys)",
           "required": false
         }
       ],

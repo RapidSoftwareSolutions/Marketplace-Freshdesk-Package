@@ -893,7 +893,7 @@ Get list of Surveys
 |-------|------------|----------
 | apiKey| credentials| Api Key
 | domain| credentials| Domain in freshdesk.com service. Example: your-company.freshdesk.com
-| active| Boolean    | Show all or only active surveys. Default: show all
+| active| String     | Show all or only active surveys. Example: active (show all active surveys)
 
 ## Freshdesk.getAllRoles
 Show all roles

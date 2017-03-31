@@ -42,7 +42,7 @@ $app->post('/api/Freshdesk/createCompany', function ($request, $response) {
             'json' => $json
         ]);
         $vendorResponseBody = $vendorResponse->getBody()->getContents();
-        if ($vendorResponse->getStatusCode() == 200) {
+        if ($vendorResponse->getStatusCode() == 201) {
             $result['callback'] = 'success';
             $result['contextWrites']['to'] = [
                 "result" => json_decode($vendorResponse->getBody()),

@@ -35,8 +35,8 @@ $app->post('/api/Freshdesk/createGroup', function ($request, $response) {
     if (!empty($postData['args']['description'])) {
         $json['description'] = $postData['args']['description'];
     }
-    if (isset($postData['args']['escalateTo']) && strlen($postData['args']['escalateTo']) > 0) {
-        $json['escalate_to'] = $postData['args']['escalateTo'];
+    if (!empty($postData['args']['escalateTo'])) {
+        $json['escalate_to'] = (int) $postData['args']['escalateTo'];
     }
     if (!empty($postData['args']['unassignedFor'])) {
         $json['unassigned_for'] = $postData['args']['unassignedFor'];

@@ -753,6 +753,12 @@
           "required": true
         },
         {
+          "name": "categoryId",
+          "type": "Number",
+          "info": "Category ID",
+          "required": true
+        },
+        {
           "name": "name",
           "type": "String",
           "info": "Unique name of the forum category",

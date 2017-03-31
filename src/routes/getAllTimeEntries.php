@@ -32,7 +32,7 @@ $app->post('/api/Freshdesk/getAllTimeEntries', function ($request, $response) {
     if (isset($postData['args']['executedBefore']) && strlen($postData['args']['executedBefore']) > 0) {
         $param['executed_before'] = $postData['args']['executedBefore'];
     }
-    if (!empty($postData['args']['billable']) && filter_var($postData['args']['billable'])) {
+    if (!empty($postData['args']['billable']) && filter_var($postData['args']['billable'], FILTER_VALIDATE_BOOLEAN)) {
         $param['billable'] = true;
     }
 

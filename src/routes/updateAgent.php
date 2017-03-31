@@ -26,7 +26,7 @@ $app->post('/api/Freshdesk/updateAgent', function ($request, $response) {
     if (isset($postData['args']['signature']) && strlen($postData['args']['signature']) > 0) {
         $json['signature'] = $postData['args']['signature'];
     }
-    if (isset($postData['args']['ticketScope']) && strlen($postData['args']['ticketScope']) > 0) {
+    if (!empty($postData['args']['ticketScope'])) {
         $json['ticket_scope'] = (int) $postData['args']['ticketScope'];
     }
     if (isset($postData['args']['groupIds']) && !empty($postData['args']['groupIds'])) {

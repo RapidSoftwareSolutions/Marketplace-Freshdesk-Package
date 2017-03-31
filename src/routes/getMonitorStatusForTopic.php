@@ -57,6 +57,7 @@ $app->post('/api/Freshdesk/getMonitorStatusForTopic', function ($request, $respo
 
     } catch (\GuzzleHttp\Exception\ClientException $exception) {
         if ($exception->getCode() == 404) {
+            $result['callback'] = 'error';
             $result['contextWrites']['to'] = [
                 "result" => false,
                 "info" => [

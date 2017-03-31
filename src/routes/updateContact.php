@@ -60,10 +60,10 @@ $app->post('/api/Freshdesk/updateContact', function ($request, $response) {
             "contents" => $postData['args']['companyId']
         ];
     }
-    if (isset($postData['args']['viewAllTickets']) && strlen($postData['args']['viewAllTickets']) > 0) {
+    if (!empty($postData['args']['viewAllTickets']) && filter_var($postData['args']['viewAllTickets'], FILTER_VALIDATE_BOOLEAN)) {
         $formData[] = [
             "name" => "view_all_tickets",
-            "contents" => filter_var($postData['args']['viewAllTickets'], FILTER_VALIDATE_BOOLEAN)
+            "contents" => true
         ];
     }
     if (isset($postData['args']['otherCompanies']) && strlen($postData['args']['otherCompanies']) > 0) {

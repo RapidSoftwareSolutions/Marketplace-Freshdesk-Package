@@ -25,22 +25,20 @@ $app->post('/api/Freshdesk/makeAgent', function ($request, $response) {
     if (isset($postData['args']['signature']) && strlen($postData['args']['signature']) > 0) {
         $args['json']['signature'] = $postData['args']['signature'];
     }
-    if (isset($postData['args']['ticketScope']) && strlen($postData['args']['ticketScope']) > 0) {
+    if (!empty($postData['args']['ticketScope'])) {
         $args['json']['ticket_scope'] = (int) $postData['args']['ticketScope'];
     }
     if (isset($postData['args']['groupIds']) && !empty($postData['args']['groupIds'])) {
         if (is_array($postData['args']['groupIds'])) {
             $args['json']['group_ids'] = $postData['args']['groupIds'];
-        }
-        else {
+        } else {
             $args['json']['group_ids'] = explode(',', $postData['args']['groupIds']);
         }
     }
     if (isset($postData['args']['roleIds']) && !empty($postData['args']['roleIds'])) {
         if (is_array($postData['args']['roleIds'])) {
             $args['json']['role_ids'] = $postData['args']['roleIds'];
-        }
-        else {
+        } else {
             $args['json']['role_ids'] = explode(',', $postData['args']['roleIds']);
         }
     }
@@ -61,8 +59,7 @@ $app->post('/api/Freshdesk/makeAgent', function ($request, $response) {
                     "X-RateLimit-Used-CurrentRequest" => $vendorResponse->getHeader("X-RateLimit-Used-CurrentRequest")[0]
                 ]
             ];
-        }
-        else {
+        } else {
             $result['callback'] = 'error';
             $result['contextWrites']['to']['status_code'] = 'API_ERROR';
             $result['contextWrites']['to']['status_msg'] = is_array($vendorResponseBody) ? $vendorResponseBody : json_decode($vendorResponseBody);
@@ -77,8 +74,7 @@ $app->post('/api/Freshdesk/makeAgent', function ($request, $response) {
         $result['contextWrites']['to']['status_code'] = 'API_ERROR';
         if ($exception->getCode() == 404) {
             $result['contextWrites']['to']['status_msg']['result'] = "Contact not found, or already Agent";
-        }
-        else {
+        } else {
             $result['contextWrites']['to']['status_msg']['result'] = json_decode($exception->getResponse()->getBody()->getContents(), true);
         }
         $result['contextWrites']['to']['status_msg']['info'] = [

@@ -52,7 +52,7 @@ $app->post('/api/Freshdesk/createContact', function ($request, $response) {
             "contents" => $postData['args']['otherEmails']
         ];
     }
-    if (isset($postData['args']['companyId']) && strlen($postData['args']['companyId']) > 0) {
+    if (!empty($postData['args']['companyId'])) {
         $formData[] = [
             "name" => "company_id",
             "contents" => $postData['args']['companyId']
@@ -61,7 +61,7 @@ $app->post('/api/Freshdesk/createContact', function ($request, $response) {
     if (isset($postData['args']['viewAllTickets']) && strlen($postData['args']['viewAllTickets']) > 0) {
         $formData[] = [
             "name" => "view_all_tickets",
-            "contents" => $postData['args']['viewAllTickets']
+            "contents" => filter_var($postData['args']['viewAllTickets'], FILTER_VALIDATE_BOOLEAN)
         ];
     }
     if (isset($postData['args']['otherCompanies']) && strlen($postData['args']['otherCompanies']) > 0) {

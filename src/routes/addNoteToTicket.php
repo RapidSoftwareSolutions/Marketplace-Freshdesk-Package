@@ -47,7 +47,7 @@ $app->post('/api/Freshdesk/addNoteToTicket', function ($request, $response) {
     if (isset($postData['args']['private']) && strlen($postData['args']['private']) > 0) {
         $formData[] = [
             "name" => "private",
-            "contents" => filter_var($postData['args']['private'] . FILTER_VALIDATE_BOOLEAN)
+            "contents" => filter_var($postData['args']['private'] , FILTER_VALIDATE_BOOLEAN)
         ];
     }
     if (!empty($postData['args']['userId'])) {

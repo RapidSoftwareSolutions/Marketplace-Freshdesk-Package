@@ -26,7 +26,6 @@ $app->post('/api/Freshdesk/addNoteToTicket', function ($request, $response) {
     ];
 
     if (isset($postData['args']['incoming']) && strlen($postData['args']['incoming']) > 0) {
-        $json['incoming'] = filter_var($postData['args']['incoming'], FILTER_VALIDATE_BOOLEAN);
         $formData[] = [
             "name" => "incoming",
             "contents" => filter_var($postData['args']['incoming'], FILTER_VALIDATE_BOOLEAN)
@@ -34,16 +33,28 @@ $app->post('/api/Freshdesk/addNoteToTicket', function ($request, $response) {
     }
     if (isset($postData['args']['notifyEmails']) && !empty($postData['args']['notifyEmails'])) {
         if (is_array($postData['args']['notifyEmails'])) {
-            $json['notify_emails'] = $postData['args']['notifyEmails'];
+            $formData[] = [
+                "name" => "notify_emails",
+                "contents" => $postData['args']['notifyEmails']
+            ];
         } else {
-            $json['notify_emails'] = explode(',', $postData['args']['notifyEmails']);
+            $formData[] = [
+                "name" => "notify_emails",
+                "contents" => explode(',', $postData['args']['notifyEmails'])
+            ];
         }
     }
     if (isset($postData['args']['private']) && strlen($postData['args']['private']) > 0) {
-        $json['private'] = filter_var($postData['args']['private'] . FILTER_VALIDATE_BOOLEAN);
+        $formData[] = [
+            "name" => "private",
+            "contents" => filter_var($postData['args']['private'] . FILTER_VALIDATE_BOOLEAN)
+        ];
     }
-    if (isset($postData['args']['userId']) && strlen($postData['args']['userId']) > 0) {
-        $json['user_id'] = (int) $postData['args']['userId'];
+    if (!empty($postData['args']['userId'])) {
+        $formData[] = [
+            "name" => "user_id",
+            "contents" => (int) $postData['args']['userId']
+        ];
     }
     if (isset($postData['args']['attachments']) && !empty($postData['args']['attachments'])) {
         if (is_array($postData['args']['attachments'])) {

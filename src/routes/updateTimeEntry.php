@@ -23,7 +23,7 @@ $app->post('/api/Freshdesk/updateTimeEntry', function ($request, $response) {
         $json['agent_id'] = $postData['args']['agentId'];
     }
     if (isset($postData['args']['billable']) && strlen($postData['args']['billable']) > 0) {
-        $json['billable'] = filter_var($postData['args']['billable']);
+        $json['billable'] = filter_var($postData['args']['billable'], FILTER_VALIDATE_BOOLEAN);
     }
     if (!empty($postData['args']['executedAt'])) {
         $json['executed_at'] = $postData['args']['executedAt'];
@@ -38,7 +38,7 @@ $app->post('/api/Freshdesk/updateTimeEntry', function ($request, $response) {
         $json['time_spent'] = $postData['args']['timeSpent'];
     }
     if (isset($postData['args']['timerRunning']) && strlen($postData['args']['timerRunning']) > 0) {
-        $json['timer_running'] = $postData['args']['timerRunning'];
+        $json['timer_running'] = filter_var($postData['args']['timerRunning'], FILTER_VALIDATE_BOOLEAN);
     }
 
     if (!empty($json)) {

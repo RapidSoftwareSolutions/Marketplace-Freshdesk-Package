@@ -2074,10 +2074,16 @@
           "required": true
         },
         {
+          "name": "contactId",
+          "type": "Number",
+          "info": "Contact ID",
+          "required": true
+        },
+        {
           "name": "name",
           "type": "String",
           "info": "Name of the contact",
-          "required": true
+          "required": false
         },
         {
           "name": "email",
@@ -2689,6 +2695,12 @@
           "name": "domain",
           "type": "credentials",
           "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "categoryId",
+          "type": "Number",
+          "info": "Solution category ID",
           "required": true
         },
         {

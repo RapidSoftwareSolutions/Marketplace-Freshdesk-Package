@@ -448,6 +448,12 @@
           "required": true
         },
         {
+          "name": "ticketId",
+          "type": "Number",
+          "info": "Ticket ID",
+          "required": true
+        },
+        {
           "name": "name",
           "type": "String",
           "info": "Name of the requester",
@@ -487,7 +493,7 @@
           "name": "subject",
           "type": "String",
           "info": "Subject of the ticket. The default Value is null.",
-          "required": true
+          "required": false
         },
         {
           "name": "type",
@@ -499,19 +505,19 @@
           "name": "status",
           "type": "Number",
           "info": "Status of the ticket. The default Value is 2.",
-          "required": true
+          "required": false
         },
         {
           "name": "priority",
           "type": "Number",
           "info": "Priority of the ticket. The default value is 1.",
-          "required": true
+          "required": false
         },
         {
           "name": "description",
           "type": "String",
           "info": "HTML content of the ticket.",
-          "required": true
+          "required": false
         },
         {
           "name": "responderId",

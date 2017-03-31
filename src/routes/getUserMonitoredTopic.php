@@ -17,7 +17,7 @@ $app->post('/api/Freshdesk/getUserMonitoredTopic', function ($request, $response
     $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/discussions/topics/followed_by";
 
     $params = [];
-    if (isset($postData['args']['userId']) && strlen($postData['args']['userId']) > 0) {
+    if (!empty($postData['args']['userId'])) {
         $params['user_id'] = $postData['args']['userId'];
     }
 

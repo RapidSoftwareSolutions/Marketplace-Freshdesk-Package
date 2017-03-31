@@ -16,7 +16,7 @@ class FreshdeskTest extends BaseTestCase
 
     public function dataProvider() {
         return [
-            ['getTickets'],
+            ['getAllTickets'],
             ['createTicket'],
             ['getSingleTicket'],
             ['getAllTicketFields'],
@@ -82,6 +82,26 @@ class FreshdeskTest extends BaseTestCase
             ['deleteContact'],
             ['deleteAgent'],
             ['createForum'],
+            ['getSolutionArticle'],
+            ['getAllSolutionArticles'],
+            ['deleteSolutionArticle'],
+            ['createTimeEntry'],
+            ['getAllTimeEntries'],
+            ['getByTicketTimeEntry'],
+            ['updateTimeEntry'],
+            ['deleteTimeEntry'],
+            ['toggleTimer'],
+            ['getAllSurveys'],
+            ['createGroup'],
+            ['getAllRoles'],
+            ['getSingleRole'],
+            ['getAllGroups'],
+            ['getGroup'],
+            ['updateGroup'],
+            ['deleteGroup'],
+            ['deleteTicket'],
+            ['restoreTicket'],
+            ['getSurvey']
         ];
     }
 }

@@ -17,7 +17,6 @@ $app->post('/api/Freshdesk/addNoteToTicket', function ($request, $response) {
     $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/tickets/" . $postData['args']['ticketId'] . "/notes";
 
     $headers['Authorization'] = "Basic " . base64_encode($postData['args']['apiKey']);
-//    $headers['Content-Type'] = 'application/json';
 
     $json['body'] = $postData['args']['body'];
     $formData[] = [
@@ -25,7 +24,7 @@ $app->post('/api/Freshdesk/addNoteToTicket', function ($request, $response) {
         "contents" => $postData['args']['body']
     ];
 
-    if (isset($postData['args']['incoming']) && strlen($postData['args']['incoming']) > 0) {
+    if (!empty($postData['args']['incoming']) && filter_var($postData['args']['incoming'] , FILTER_VALIDATE_BOOLEAN)) {
         $formData[] = [
             "name" => "incoming",
             "contents" => filter_var($postData['args']['incoming'], FILTER_VALIDATE_BOOLEAN)
@@ -44,10 +43,10 @@ $app->post('/api/Freshdesk/addNoteToTicket', function ($request, $response) {
             ];
         }
     }
-    if (isset($postData['args']['private']) && strlen($postData['args']['private']) > 0) {
+    if (!empty($postData['args']['private']) && filter_var($postData['args']['private'] , FILTER_VALIDATE_BOOLEAN)) {
         $formData[] = [
             "name" => "private",
-            "contents" => filter_var($postData['args']['private'] , FILTER_VALIDATE_BOOLEAN)
+            "contents" => true
         ];
     }
     if (!empty($postData['args']['userId'])) {
@@ -84,7 +83,7 @@ $app->post('/api/Freshdesk/addNoteToTicket', function ($request, $response) {
             'multipart' => $formData
         ]);
         $vendorResponseBody = $vendorResponse->getBody()->getContents();
-        if ($vendorResponse->getStatusCode() == 200) {
+        if ($vendorResponse->getStatusCode() == 201) {
             $result['callback'] = 'success';
             $result['contextWrites']['to'] = [
                 "result" => json_decode($vendorResponse->getBody()),

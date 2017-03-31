@@ -1576,6 +1576,12 @@
           "required": true
         },
         {
+          "name": "topicId",
+          "type": "Number",
+          "info": "Topic ID",
+          "required": true
+        },
+        {
           "name": "userId",
           "type": "Number",
           "info": "If the userId is not mentioned, then the user whose API Key was used to make the API call will be consider the recepient.",

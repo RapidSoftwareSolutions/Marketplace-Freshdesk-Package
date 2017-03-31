@@ -24,10 +24,10 @@ $app->post('/api/Freshdesk/updateTicket', function ($request, $response) {
             "contents" => $postData['args']['description']
         ];
     }
-    if (isset($postData['args']['status']) && strlen($postData['args']['status']) > 0) {
+    if (!empty($postData['args']['status'])) {
         $formData[] = [
             "name" => "status",
-            "contents" => $postData['args']['status']
+            "contents" => (int) $postData['args']['status']
         ];
     }
     if (isset($postData['args']['subject']) && strlen($postData['args']['subject']) > 0) {
@@ -36,10 +36,10 @@ $app->post('/api/Freshdesk/updateTicket', function ($request, $response) {
             "contents" => $postData['args']['subject']
         ];
     }
-    if (isset($postData['args']['priority']) && strlen($postData['args']['priority']) > 0) {
+    if (!empty($postData['args']['priority'])) {
         $formData[] = [
             "name" => "priority",
-            "contents" => $postData['args']['priority']
+            "contents" => (int) $postData['args']['priority']
         ];
     }
 
@@ -69,7 +69,7 @@ $app->post('/api/Freshdesk/updateTicket', function ($request, $response) {
             "contents" => $postData['args']['name']
         ];
     }
-    if (isset($postData['args']['requesterId']) && strlen($postData['args']['requesterId']) > 0) {
+    if (!empty($postData['args']['requesterId'])) {
         $formData[] = [
             "name" => "requester_id",
             "contents" => $postData['args']['requesterId']
@@ -105,7 +105,7 @@ $app->post('/api/Freshdesk/updateTicket', function ($request, $response) {
             "contents" => $postData['args']['type']
         ];
     }
-    if (isset($postData['args']['responderId']) && strlen($postData['args']['responderId']) > 0) {
+    if (!empty($postData['args']['responderId'])) {
         $formData[] = [
             "name" => "responder_id",
             "contents" => $postData['args']['responderId']
@@ -129,7 +129,7 @@ $app->post('/api/Freshdesk/updateTicket', function ($request, $response) {
             "contents" => $postData['args']['dueBy']
         ];
     }
-    if (isset($postData['args']['emailConfigId']) && strlen($postData['args']['emailConfigId']) > 0) {
+    if (!empty($postData['args']['emailConfigId'])) {
         $formData[] = [
             "name" => "email_config_id",
             "contents" => $postData['args']['emailConfigId']
@@ -141,22 +141,22 @@ $app->post('/api/Freshdesk/updateTicket', function ($request, $response) {
             "contents" => $postData['args']['frDueBy']
         ];
     }
-    if (isset($postData['args']['groupId']) && strlen($postData['args']['groupId']) > 0) {
+    if (!empty($postData['args']['groupId'])) {
         $formData[] = [
             "name" => "group_id",
             "contents" => $postData['args']['groupId']
         ];
     }
-    if (isset($postData['args']['productId']) && strlen($postData['args']['productId']) > 0) {
+    if (!empty($postData['args']['productId'])) {
         $formData[] = [
             "name" => "product_id",
             "contents" => $postData['args']['productId']
         ];
     }
-    if (isset($postData['args']['source']) && strlen($postData['args']['source']) > 0) {
+    if (!empty($postData['args']['source'])) {
         $formData[] = [
             "name" => "source",
-            "contents" => $postData['args']['source']
+            "contents" => (int) $postData['args']['source']
         ];
     }
     if (isset($postData['args']['tags']) && strlen($postData['args']['tags']) > 0) {
@@ -165,7 +165,7 @@ $app->post('/api/Freshdesk/updateTicket', function ($request, $response) {
             "contents" => $postData['args']['tags']
         ];
     }
-    if (isset($postData['args']['companyId']) && strlen($postData['args']['companyId']) > 0) {
+    if (!empty($postData['args']['companyId'])) {
         $formData[] = [
             "name" => "company_id",
             "contents" => $postData['args']['companyId']

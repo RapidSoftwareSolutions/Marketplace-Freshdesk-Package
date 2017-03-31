@@ -1920,7 +1920,7 @@
           "name": "userId",
           "type": "Number",
           "info": "ID of the agent/user who is adding the note",
-          "required": "false"
+          "required": false
         }
       ],
       "callbacks": [

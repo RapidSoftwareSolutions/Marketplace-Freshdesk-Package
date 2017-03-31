@@ -2732,7 +2732,7 @@
           "name": "language",
           "type": "String",
           "info": "Update a translated solution category.",
-          "required": true
+          "required": false
         }
       ],
       "callbacks": [

@@ -32,8 +32,8 @@ $app->post('/api/Freshdesk/getAllTimeEntries', function ($request, $response) {
     if (isset($postData['args']['executedBefore']) && strlen($postData['args']['executedBefore']) > 0) {
         $param['executed_before'] = $postData['args']['executedBefore'];
     }
-    if (isset($postData['args']['billable']) && strlen($postData['args']['billable']) > 0) {
-        $param['billable'] = filter_var($postData['args']['billable'], FILTER_VALIDATE_BOOLEAN);
+    if (!empty($postData['args']['billable']) && filter_var($postData['args']['billable'])) {
+        $param['billable'] = true;
     }
 
     try {

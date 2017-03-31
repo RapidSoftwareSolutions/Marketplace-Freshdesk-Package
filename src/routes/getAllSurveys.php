@@ -20,8 +20,8 @@ $app->post('/api/Freshdesk/getAllSurveys', function ($request, $response) {
     $headers['Content-Type'] = 'application/json';
 
     $params = [];
-    if (!empty($postData['args']['state'])) {
-        $params['state'] = $postData['args']['state'];
+    if (!empty($postData['args']['active'])) {
+        $params['state'] = filter_var($postData['args']['active'], FILTER_VALIDATE_BOOLEAN);
     }
 
     try {

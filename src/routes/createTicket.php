@@ -17,8 +17,6 @@ $app->post('/api/Freshdesk/createTicket', function ($request, $response) {
     $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/tickets";
 
     $headers['Authorization'] = "Basic " . base64_encode($postData['args']['apiKey']);
-//    $headers['Content-Type'] = "application/json";
-//    $headers['Content-Type'] = "multipart/form-data";
 
     $formData = [
         [
@@ -66,7 +64,7 @@ $app->post('/api/Freshdesk/createTicket', function ($request, $response) {
             "contents" => $postData['args']['name']
         ];
     }
-    if (isset($postData['args']['requesterId']) && strlen($postData['args']['requesterId']) > 0) {
+    if (!empty($postData['args']['requesterId'])) {
         $formData[] = [
             "name" => "requester_id",
             "contents" => $postData['args']['requesterId']
@@ -102,7 +100,7 @@ $app->post('/api/Freshdesk/createTicket', function ($request, $response) {
             "contents" => $postData['args']['type']
         ];
     }
-    if (isset($postData['args']['responderId']) && strlen($postData['args']['responderId']) > 0) {
+    if (!empty($postData['args']['responderId'])) {
         $formData[] = [
             "name" => "responder_id",
             "contents" => $postData['args']['responderId']
@@ -126,7 +124,7 @@ $app->post('/api/Freshdesk/createTicket', function ($request, $response) {
             "contents" => $postData['args']['dueBy']
         ];
     }
-    if (isset($postData['args']['emailConfigId']) && strlen($postData['args']['emailConfigId']) > 0) {
+    if (!empty($postData['args']['emailConfigId'])) {
         $formData[] = [
             "name" => "email_config_id",
             "contents" => $postData['args']['emailConfigId']
@@ -138,19 +136,19 @@ $app->post('/api/Freshdesk/createTicket', function ($request, $response) {
             "contents" => $postData['args']['frDueBy']
         ];
     }
-    if (isset($postData['args']['groupId']) && strlen($postData['args']['groupId']) > 0) {
+    if (!empty($postData['args']['groupId'])) {
         $formData[] = [
             "name" => "group_id",
             "contents" => $postData['args']['groupId']
         ];
     }
-    if (isset($postData['args']['productId']) && strlen($postData['args']['productId']) > 0) {
+    if (!empty($postData['args']['productId'])) {
         $formData[] = [
             "name" => "product_id",
             "contents" => $postData['args']['productId']
         ];
     }
-    if (isset($postData['args']['source']) && strlen($postData['args']['source']) > 0) {
+    if (!empty($postData['args']['source'])) {
         $formData[] = [
             "name" => "source",
             "contents" => $postData['args']['source']
@@ -162,7 +160,7 @@ $app->post('/api/Freshdesk/createTicket', function ($request, $response) {
             "contents" => $postData['args']['tags']
         ];
     }
-    if (isset($postData['args']['companyId']) && strlen($postData['args']['companyId']) > 0) {
+    if (!empty($postData['args']['companyId'])) {
         $formData[] = [
             "name" => "company_id",
             "contents" => $postData['args']['companyId']

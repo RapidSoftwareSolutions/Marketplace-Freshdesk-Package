@@ -24,7 +24,7 @@ $app->post('/api/Freshdesk/createTopic', function ($request, $response) {
     $json['stamp_type'] = 7;
 
     if (isset($postData['args']['locked']) && strlen($postData['args']['locked']) > 0) {
-        $json['locked'] = filter_var($postData['args']['locked']);
+        $json['locked'] = filter_var($postData['args']['locked'], FILTER_VALIDATE_BOOLEAN);
     }
     if (isset($postData['args']['sticky']) && strlen($postData['args']['sticky']) > 0) {
         $json['sticky'] = filter_var($postData['args']['sticky'], FILTER_VALIDATE_BOOLEAN);

@@ -14,7 +14,7 @@ $app->post('/api/Freshdesk/createTimeEntry', function ($request, $response) {
         $postData = $validateRes;
     }
 
-    $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/tickets/" . $postData['args']['ticketId'] . "/time_entries";
+    $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/tickets/" . (int) $postData['args']['ticketId'] . "/time_entries";
 
     $headers['Authorization'] = "Basic " . base64_encode($postData['args']['apiKey']);
     $headers['Content-Type'] = 'application/json';

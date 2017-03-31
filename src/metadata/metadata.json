@@ -1456,7 +1456,7 @@
           "required": true
         },
         {
-          "name": "forumid",
+          "name": "forumId",
           "type": "Number",
           "info": "Forum ID",
           "required": true
@@ -1533,12 +1533,6 @@
           "name": "domain",
           "type": "credentials",
           "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
-          "required": true
-        },
-        {
-          "name": "topicId",
-          "type": "Number",
-          "info": "Topic ID",
           "required": true
         },
         {

@@ -20,7 +20,7 @@ $app->post('/api/Freshdesk/unMonitorForum', function ($request, $response) {
     $headers['Content-Type'] = 'application/json';
 
     $json = [];
-    if (isset($postData['args']['userId']) && strlen($postData['args']['userId']) > 0) {
+    if (!empty($postData['args']['userId'])) {
         $json['user_id'] = $postData['args']['userId'];
     }
 

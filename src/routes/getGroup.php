@@ -14,7 +14,7 @@ $app->post('/api/Freshdesk/getGroup', function ($request, $response) {
         $postData = $validateRes;
     }
 
-    $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/groups/" . $postData['args']['groupId'];
+    $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/groups/" . (int) $postData['args']['groupId'];
 
     $headers['Authorization'] = "Basic " . base64_encode($postData['args']['apiKey']);
     $headers['Content-Type'] = 'application/json';

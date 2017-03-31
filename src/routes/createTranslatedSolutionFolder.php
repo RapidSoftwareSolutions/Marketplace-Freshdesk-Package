@@ -14,7 +14,7 @@ $app->post('/api/Freshdesk/createTranslatedSolutionFolder', function ($request, 
         $postData = $validateRes;
     }
 
-    $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/solutions/folders/" . $postData['args']['folderId'] . "/" . $postData['args']['language'];
+    $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/solutions/folders/" . (int) $postData['args']['folderId'] . "/" . $postData['args']['language'];
 
     $headers['Authorization'] = "Basic " . base64_encode($postData['args']['apiKey']);
     $headers['Content-Type'] = 'application/json';

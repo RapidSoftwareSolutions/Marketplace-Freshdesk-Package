@@ -14,7 +14,7 @@
         $postData = $validateRes;
     }
 
-    $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/solutions/articles/" . $postData['args']['articleId'] . "/" . $postData['args']['language'];
+    $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/solutions/articles/" . (int) $postData['args']['articleId'] . "/" . $postData['args']['language'];
 
     $headers['Authorization'] = "Basic " . base64_encode($postData['args']['apiKey']);
     $headers['Content-Type'] = 'application/json';

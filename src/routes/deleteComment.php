@@ -14,7 +14,7 @@ $app->post('/api/Freshdesk/deleteComment', function ($request, $response) {
         $postData = $validateRes;
     }
 
-    $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/discussions/comments/" . $postData['args']['commentId'];
+    $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/discussions/comments/" . (int) $postData['args']['commentId'];
 
     $headers['Authorization'] = "Basic " . base64_encode($postData['args']['apiKey']);
     $headers['Content-Type'] = 'application/json';

@@ -18,7 +18,7 @@ $app->post('/api/Freshdesk/getUserMonitoredTopic', function ($request, $response
 
     $params = [];
     if (!empty($postData['args']['userId'])) {
-        $params['user_id'] = $postData['args']['userId'];
+        $params['user_id'] = (int) $postData['args']['userId'];
     }
 
     $headers['Authorization'] = "Basic " . base64_encode($postData['args']['apiKey']);

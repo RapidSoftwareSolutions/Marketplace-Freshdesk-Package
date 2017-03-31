@@ -21,8 +21,8 @@ $app->post('/api/Freshdesk/updateTopic', function ($request, $response) {
 
     $json = [];
 
-    if (isset($postData['args']['forumId']) && (int) $postData['args']['forumId'] != 0) {
-        $json['forum_id'] = $postData['args']['forumId'];
+    if (!empty($postData['args']['forumId'])) {
+        $json['forum_id'] = (int) $postData['args']['forumId'];
     }
     if (isset($postData['args']['title']) && strlen($postData['args']['title']) > 0) {
         $json['title'] = $postData['args']['title'];

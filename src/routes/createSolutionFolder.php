@@ -14,7 +14,7 @@ $app->post('/api/Freshdesk/createSolutionFolder', function ($request, $response)
         $postData = $validateRes;
     }
 
-    $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/solutions/categories/" . $postData['args']['categoryId'] . "/folders";
+    $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/solutions/categories/" . (int) $postData['args']['categoryId'] . "/folders";
 
     $headers['Authorization'] = "Basic " . base64_encode($postData['args']['apiKey']);
     $headers['Content-Type'] = 'application/json';

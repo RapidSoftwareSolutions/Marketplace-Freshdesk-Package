@@ -58,7 +58,7 @@ $app->post('/api/Freshdesk/createContact', function ($request, $response) {
             "contents" => $postData['args']['companyId']
         ];
     }
-    if (isset($postData['args']['viewAllTickets']) && strlen($postData['args']['viewAllTickets']) > 0) {
+    if (!empty($postData['args']['viewAllTickets']) && filter_var($postData['args']['viewAllTickets'], FILTER_VALIDATE_BOOLEAN)) {
         $formData[] = [
             "name" => "view_all_tickets",
             "contents" => filter_var($postData['args']['viewAllTickets'], FILTER_VALIDATE_BOOLEAN)

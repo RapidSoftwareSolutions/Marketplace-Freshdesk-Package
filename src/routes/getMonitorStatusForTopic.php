@@ -21,8 +21,8 @@ $app->post('/api/Freshdesk/getMonitorStatusForTopic', function ($request, $respo
 
     $params = [];
 
-    if (isset($postData['args']['userId']) && strlen($postData['args']['userId']) > 0) {
-        $params['user_id'] = $postData['args']['userId'];
+    if (!empty($postData['args']['userId'])) {
+        $params['user_id'] = (int) $postData['args']['userId'];
     }
 
     try {

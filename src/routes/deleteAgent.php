@@ -14,7 +14,7 @@ $app->post('/api/Freshdesk/deleteAgent', function ($request, $response) {
         $postData = $validateRes;
     }
 
-    $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/agents/" . $postData['args']['agentId'];
+    $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/agents/" . (int) $postData['args']['agentId'];
 
     $headers['Authorization'] = "Basic " . base64_encode($postData['args']['apiKey']);
     $headers['Content-Type'] = 'application/json';

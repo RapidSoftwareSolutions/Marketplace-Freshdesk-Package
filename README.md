@@ -343,7 +343,7 @@ Start monitoring of forum
 |--------|------------|----------
 | apiKey | credentials| Api Key
 | domain | credentials| Domain in freshdesk.com service. Example: your-company.freshdesk.com
-| forumid| Number     | Forum ID
+| forumId| Number     | Forum ID
 | userId | Number     | ID of the user who wishes to follow the forum. If the userId is not mentioned, then the user whose API Key was used to make the API call will be consider the recepient.
 
 ## Freshdesk.unMonitorForum
@@ -363,7 +363,6 @@ Get all Topics the user is following
 |--------|------------|----------
 | apiKey | credentials| Api Key
 | domain | credentials| Domain in freshdesk.com service. Example: your-company.freshdesk.com
-| topicId| Number     | Topic ID
 | userId | Number     | If the userId is not mentioned, then the user whose API Key was used to make the API call will be consider the recepient.
 
 ## Freshdesk.getMonitorStatusForTopic

@@ -14,7 +14,7 @@ $app->post('/api/Freshdesk/createTopic', function ($request, $response) {
         $postData = $validateRes;
     }
 
-    $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/discussions/forums/" . $postData['args']['forumId'] . "/topics";
+    $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/discussions/forums/" . (int) $postData['args']['forumId'] . "/topics";
 
     $headers['Authorization'] = "Basic " . base64_encode($postData['args']['apiKey']);
     $headers['Content-Type'] = 'application/json';

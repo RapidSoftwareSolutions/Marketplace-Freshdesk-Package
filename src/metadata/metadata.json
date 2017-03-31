@@ -238,7 +238,7 @@
       ]
     },
     {
-      "name": "getAllContactField",
+      "name": "getAllContactFields",
       "description": "Get all field for concact",
       "args": [
         {
@@ -330,7 +330,7 @@
           "required": false
         },
         {
-          "name": "Status",
+          "name": "status",
           "type": "Number",
           "info": "Status of the ticket. The default Value is 2.",
           "required": true

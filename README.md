@@ -60,7 +60,7 @@ Get user by id
 | domain   | credentials| Domain in freshdesk.com service. Example: your-company.freshdesk.com
 | contactId| Number     | Contact ID
 
-## Freshdesk.getAllContactField
+## Freshdesk.getAllContactFields
 Get all field for concact
 
 | Field | Type       | Description

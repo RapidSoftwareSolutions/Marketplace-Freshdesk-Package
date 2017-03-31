@@ -14,7 +14,7 @@ $app->post('/api/Freshdesk/getContacts', function ($request, $response) {
         $postData = $validateRes;
     }
 
-    $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/";
+    $url = "https://" . $postData['args']['domain'] . "." . $settings['apiUrl'] . "/contacts";
 
     $headers['Authorization'] = "Basic " . base64_encode($postData['args']['apiKey']);
 

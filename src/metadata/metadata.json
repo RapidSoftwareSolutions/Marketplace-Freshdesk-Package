@@ -75,7 +75,8 @@
         {
           "name": "orderType",
           "type": "String",
-          "info": "asc/desc. Default: desc"
+          "info": "asc/desc. Default: desc",
+          "required": false
         }
       ],
       "callbacks": [

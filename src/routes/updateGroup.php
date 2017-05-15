@@ -30,8 +30,8 @@ $app->post('/api/Freshdesk/updateGroup', function ($request, $response) {
             $json['agent_ids'] = explode(',', $postData['args']['agentIdList']);
         }
     }
-    if (isset($postData['args']['autoTicketAssign']) && strlen($postData['args']['autoTicketAssign']) > 0) {
-        $json['auto_ticket_assign'] = filter_var($postData['args']['autoTicketAssign'], FILTER_VALIDATE_BOOLEAN);
+    if (isset($postData['args']['autoTicketAssign']) && filter_var($postData['args']['autoTicketAssign'], FILTER_VALIDATE_BOOLEAN)) {
+        $json['auto_ticket_assign'] = true;
     }
     if (!empty($postData['args']['description'])) {
         $json['description'] = $postData['args']['description'];

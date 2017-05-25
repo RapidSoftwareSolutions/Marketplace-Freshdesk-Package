@@ -26,7 +26,8 @@ $app->post('/api/Freshdesk/createTimeEntry', function ($request, $response) {
         $json['billable'] = filter_var($postData['args']['billable'], FILTER_VALIDATE_BOOLEAN);
     }
     if (!empty($postData['args']['executedAt'])) {
-        $json['executed_at'] = $postData['args']['executedAt'];
+        $date = new DateTime($postData['args']['executedAt']);
+        $json['executed_at'] = $date->format('Y-m-d');
     }
     if (!empty($postData['args']['note'])) {
         $json['note'] = $postData['args']['note'];

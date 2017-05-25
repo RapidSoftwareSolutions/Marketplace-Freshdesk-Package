@@ -25,12 +25,8 @@ $app->post('/api/Freshdesk/createSolutionFolder', function ($request, $response)
     if (isset($postData['args']['description']) && strlen($postData['args']['description']) > 0) {
         $json['description'] = $postData['args']['description'];
     }
-    if (isset($postData['args']['companyIds']) && !empty($postData['args']['companyIds'])) {
-        if (is_array($postData['args']['companyIds'])) {
-            $json['company_ids'] = $postData['args']['companyIds'];
-        } else {
-            $json['company_ids'] = explode(',', $postData['args']['companyIds']);
-        }
+    if (!empty($postData['args']['companyIds'])) {
+        $json['company_ids'] = $postData['args']['companyIds'];
     }
 
     try {

@@ -22,14 +22,9 @@
     $json['title'] = $postData['args']['title'];
     $json['description'] = $postData['args']['description'];
     $json['status'] = (int) $postData['args']['status'];
-//    $json['type'] = (int) $postData['args']['type'];
+    $json['type'] = (int) $postData['args']['type'];
     if (!empty($postData['args']['tags'])) {
-        if (is_array($postData['args']['tags'])) {
-            $json['tags'] = $postData['args']['tags'];
-        }
-        else {
-            $json['tags'] = explode(',', $postData['args']['tags']);
-        }
+        $json['tags'] = $postData['args']['tags'];
     }
     if (!empty($postData['args']['metaTitle'])) {
         $json['seo_data']['meta_title'] = $postData['args']['metaTitle'];
@@ -38,12 +33,7 @@
         $json['seo_data']['meta_description'] = $postData['args']['metaDescription'];
     }
     if (!empty($postData['args']['metaKeywords'])) {
-        if (is_array($postData['args']['metaKeywords'])) {
-            $json['seo_data']['meta_keywords'] = $postData['args']['metaKeywords'];
-        }
-        else {
-            $json['seo_data']['meta_keywords'] = explode(',', $postData['args']['metaKeywords']);
-        }
+        $json['seo_data']['meta_keywords'] = $postData['args']['metaKeywords'];
     }
 
     try {

@@ -31,13 +31,8 @@ $app->post('/api/Freshdesk/updateSolutionFolder', function ($request, $response)
     if (isset($postData['args']['visibility']) && strlen($postData['args']['visibility']) > 0) {
         $json['visibility'] = (int) $postData['args']['visibility'];
     }
-    if (isset($postData['args']['companyIds']) && !empty($postData['args']['companyIds'])) {
-        if (is_array($postData['args']['companyIds'])) {
-            $json['company_ids'] = $postData['args']['companyIds'];
-        }
-        else {
-            $json['company_ids'] = explode(',', $postData['args']['companyIds']);
-        }
+    if (!empty($postData['args']['companyIds'])) {
+        $json['company_ids'] = $postData['args']['companyIds'];
     }
 
     if (!empty($json)) {

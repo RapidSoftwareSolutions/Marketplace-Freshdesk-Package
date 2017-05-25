@@ -160,7 +160,7 @@ Create Forum
 | forumType      | Number     | Denotes the type of forum. 1 - How To's, 2- Ideas, 3 -Problems, 4 - Announcements
 | forumVisibility| Number     | Denotes the visibility level of the forum. 1 - Everyone, 2 - Logged in users only, 3 - Agents only, 4 - Users in specific companies only
 | description    | String     | Description of the forum category
-| companyIdList  | Array      | Comma-separated list of CompanyID. If forumVisibility property is set to 4, the forum is only visible to users belonging to certain companies. Example: 1,2,3
+| companyIdList  | Array      | List of CompanyID. If forumVisibility property is set to 4, the forum is only visible to users belonging to certain companies. Example: 1,2,3
 
 ## Freshdesk.updateForumCategory
 Update Name or Description of Category
@@ -211,7 +211,7 @@ Update Forum by ID
 | forumType      | Number     | Denotes the type of forum. 1 - How To's, 2- Ideas, 3 -Problems, 4 - Announcements
 | forumVisibility| Number     | Denotes the visibility level of the forum. 1 - Everyone, 2 - Logged in users only, 3 - Agents only, 4 - Users in specific companies only
 | description    | String     | Description of the forum category
-| companyIdList  | Array      | Comma-separated list of CompanyID. If forumVisibility property is set to 4, the forum is only visible to users belonging to certain companies. Example: 1,2,3
+| companyIdList  | Array      | List of CompanyID. If forumVisibility property is set to 4, the forum is only visible to users belonging to certain companies. Example: 1,2,3
 | forumCategoryId| Number     | ID of the category to which this forum belongs
 
 ## Freshdesk.getAllForumsFromCategory
@@ -476,7 +476,7 @@ Create Contact
 | description   | String     | A small description of the contact
 | jobTitle      | String     | Job title of the contact
 | language      | String     | Language of the contact. Default language is en. This attribute can only be set if the Multiple Language feature is enabled (Garden plan and above)
-| tags          | Array      | Comma-separated tags associated with this contact
+| tags          | Array      | List of tags associated with this contact
 | timeZone      | string     | Time zone of the contact. Default value is the time zone of the domain. This attribute can only be set if the Multiple Time Zone feature is enabled (Garden plan and above)
 
 ## Freshdesk.updateContact
@@ -501,7 +501,7 @@ Update Contact
 | description   | String     | A small description of the contact
 | jobTitle      | String     | Job title of the contact
 | language      | String     | Language of the contact. Default language is en. This attribute can only be set if the Multiple Language feature is enabled (Garden plan and above)
-| tags          | Array      | Comma-separated tags associated with this contact
+| tags          | Array      | List of tags associated with this contact
 | timeZone      | string     | Time zone of the contact. Default value is the time zone of the domain. This attribute can only be set if the Multiple Time Zone feature is enabled (Garden plan and above)
 
 ## Freshdesk.makeAgent
@@ -673,7 +673,7 @@ Create Solution Folder in Solution Category
 | name       | String     | Unique name of the solution folder
 | visibility | Number     | Accessibility of this folder. 1 - All Users, 2 - Logged in Users, 3 - Agents, 4 - Selected Companies.
 | description| String     | Description of the solution folder
-| companyIds | Array      | Comma-separated IDs of the companies to whom this solution folder is visible. Example: 1,2,3
+| companyIds | Array      | List of IDs of the companies to whom this solution folder is visible. Example: 1,2,3
 
 ## Freshdesk.createTranslatedSolutionFolder
 Create translated Solution Folder in Solution Category
@@ -686,7 +686,7 @@ Create translated Solution Folder in Solution Category
 | name       | String     | Unique name of the solution folder
 | language   | String     | Create a translated solution folder.
 | description| String     | Description of the solution folder
-| companyIds | Array      | Comma-separated IDs of the companies to whom this solution folder is visible. Example: 1,2,3
+| companyIds | Array      | List of IDs of the companies to whom this solution folder is visible. Example: 1,2,3
 
 ## Freshdesk.updateSolutionFolder
 Update Solution Folder
@@ -698,7 +698,7 @@ Update Solution Folder
 | folderId   | Number     | Solution Folder Id
 | name       | String     | Unique name of the solution folder
 | description| String     | Description of the solution folder
-| companyIds | Array      | Comma-separated IDs of the companies to whom this solution folder is visible. Example: 1,2,3
+| companyIds | Array      | List of IDs of the companies to whom this solution folder is visible. Example: 1,2,3
 | visibility | Number     | Folder visibility. 1 - All Users, 2 - Logged in Users, 3 - Agents, 4 - Selected Companies.
 | language   | String     | Update a translated solution folder
 
@@ -743,10 +743,10 @@ Create Solution Article
 | status         | Number     | Status of the solution article. (1 - draft, 2 - published)
 | title          | String     | Title of the solution article
 | type           | Number     | The type of the solution article. (1 - permenant, 2 - workaround)
-| tags           | Array      | Comma-separated strings. Tags that have been associated with the solution article
+| tags           | Array      | List of strings. Tags that have been associated with the solution article
 | metaTitle      | String     | Part of SEO-data
 | metaDescription| String     | Part of SEO-data
-| metaKeywords   | Array      | Comma-separated keywords. Part of SEO-data
+| metaKeywords   | Array      | List of keywords. Part of SEO-data
 
 ## Freshdesk.createTranslatedSolutionArticle
 Create Solution Article
@@ -760,10 +760,10 @@ Create Solution Article
 | status         | Number     | Status of the solution article. (1 - draft, 2 - published)
 | title          | String     | Title of the solution article
 | type           | Number     | The type of the solution article. (1 - permenant, 2 - workaround)
-| tags           | Array      | Comma-separated strings. Tags that have been associated with the solution article
+| tags           | Array      | List of strings. Tags that have been associated with the solution article
 | metaTitle      | String     | Part of SEO-data
 | metaDescription| String     | Part of SEO-data
-| metaKeywords   | Array      | Comma-separated keywords. Part of SEO-data
+| metaKeywords   | Array      | List of keywords. Part of SEO-data
 | language       | String     | Create a translated solution article.
 
 ## Freshdesk.updateSolutionArticle
@@ -779,7 +779,7 @@ Update Solution Article
 | status         | Number          | Status of the solution article. (1 - draft, 2 - published)
 | metaTitle      | String          | Part of SEO-data
 | metaDescription| String          | Part of SEO-data
-| metaKeywords   | Array           | Comma-separated keywords. Part of SEO-data
+| metaKeywords   | Array           | List of keywords. Part of SEO-data
 | tags           | Array Of Strings| Tags that have been associated with the solution article
 | title          | String          | Title of the solution article
 | type           | Number          | The type of the solution article. (1 - permenant, 2 - workaround)

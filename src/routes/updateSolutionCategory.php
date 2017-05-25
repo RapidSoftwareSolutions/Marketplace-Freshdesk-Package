@@ -29,12 +29,7 @@ $app->post('/api/Freshdesk/updateSolutionCategory', function ($request, $respons
         $json['description'] = $postData['args']['description'];
     }
     if (isset($postData['args']['visibleInPortals']) && !empty($postData['args']['visibleInPortals'])) {
-        if (is_array($postData['args']['visibleInPortals'])) {
-            $json['visible_in_portals'] = $postData['args']['visibleInPortals'];
-        }
-        else {
-            $json['visible_in_portals'] = explode(',', $postData['args']['visibleInPortals']);
-        }
+        $json['visible_in_portals'] = $postData['args']['visibleInPortals'];
     }
 
     if (!empty($json)) {

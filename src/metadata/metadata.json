@@ -38,7 +38,13 @@
         },
         {
           "name": "filter",
-          "type": "String",
+          "type": "Select",
+          "options": [
+            "new_and_my_open",
+            "watching",
+            "spam",
+            "deleted"
+          ],
           "info": "The various filters available are new_and_my_open, watching, spam, deleted",
           "required": false
         },
@@ -68,13 +74,23 @@
         },
         {
           "name": "orderBy",
-          "type": "String",
+          "type": "Select",
+          "options": [
+            "created_at",
+            "due_by",
+            "updated_at",
+            "status"
+          ],
           "info": "Order Tickets by created_at, due_by, updated_at, status. Default: created_at",
           "required": false
         },
         {
           "name": "orderType",
-          "type": "String",
+          "type": "Select",
+          "options": [
+            "asc",
+            "desc"
+          ],
           "info": "asc/desc. Default: desc",
           "required": false
         }
@@ -356,25 +372,47 @@
         },
         {
           "name": "attachments",
-          "type": "Array",
+          "type": "List",
           "info": "Array of file links (url). The total size of these attachments cannot exceed 15MB.",
-          "required": false
+          "required": false,
+          "structure": {
+            "name": "url",
+            "type": "String",
+            "info": "Url"
+          }
         },
         {
           "name": "ccEmails",
-          "type": "Array",
+          "type": "List",
           "info": "Array of email address added in the 'cc' field of the incoming ticket email",
-          "required": false
+          "required": false,
+          "structure": {
+            "name": "email",
+            "type": "String",
+            "info": "Email"
+          }
         },
         {
           "name": "customFields",
           "type": "Array",
           "info": "Key value pairs containing the names and values of custom fields. Example: 'custom_fields':{'gadget':'Cold Welder'}",
-          "required": false
+          "required": false,
+          "structure": [
+            {
+              "name": "key",
+              "type": "String",
+              "info": "Key"
+            },
+            {
+              "name": "value",
+              "type": "String",
+              "info": "Value"
+            }
+          ]
         },
         {
           "name": "dueBy",
-          "type": "String",
+          "type": "DatePicker",
           "info": "Timestamp that denotes when the ticket is due to be resolved",
           "required": false
         },
@@ -386,7 +424,7 @@
         },
         {
           "name": "frDueBy",
-          "type": "String",
+          "type": "DatePicker",
           "info": "Timestamp that denotes when the first response is due",
           "required": false
         },
@@ -410,9 +448,14 @@
         },
         {
           "name": "tags",
-          "type": "Array",
+          "type": "List",
           "info": "Array of tags that have been associated with the ticket",
-          "required": false
+          "required": false,
+          "structure": {
+            "name": "tag",
+            "type": "String",
+            "info": "Tag"
+          }
         },
         {
           "name": "companyId",
@@ -528,25 +571,47 @@
         },
         {
           "name": "attachments",
-          "type": "Array",
+          "type": "List",
           "info": "Array of file links (url). The total size of these attachments cannot exceed 15MB. You can only add new attachments to existed.",
-          "required": false
+          "required": false,
+          "structure": {
+            "name": "url",
+            "type": "String",
+            "info": "URL"
+          }
         },
         {
           "name": "ccEmails",
-          "type": "Array",
+          "type": "List",
           "info": "Array of email address added in the 'cc' field of the incoming ticket email",
-          "required": false
+          "required": false,
+          "structure": {
+            "name": "email",
+            "type": "String",
+            "info": "Email"
+          }
         },
         {
           "name": "customFields",
           "type": "Array",
           "info": "Key value pairs containing the names and values of custom fields. Example: 'custom_fields':{'gadget':'Cold Welder'}",
-          "required": false
+          "required": false,
+          "structure": [
+            {
+              "name": "key",
+              "type": "String",
+              "info": "Key"
+            },
+            {
+              "name": "value",
+              "type": "String",
+              "info": "Value"
+            }
+          ]
         },
         {
           "name": "dueBy",
-          "type": "String",
+          "type": "DatePicker",
           "info": "Timestamp that denotes when the ticket is due to be resolved",
           "required": false
         },
@@ -558,7 +623,7 @@
         },
         {
           "name": "frDueBy",
-          "type": "String",
+          "type": "DatePicker",
           "info": "Timestamp that denotes when the first response is due",
           "required": false
         },
@@ -582,9 +647,14 @@
         },
         {
           "name": "tags",
-          "type": "Array",
+          "type": "List",
           "info": "Array of tags that have been associated with the ticket",
-          "required": false
+          "required": false,
+          "structure": {
+            "name": "tag",
+            "type": "String",
+            "info": "Tag"
+          }
         },
         {
           "name": "companyId",
@@ -720,9 +790,14 @@
         },
         {
           "name": "companyIdList",
-          "type": "Array",
-          "info": "Comma-separated list of CompanyID. If forumVisibility property is set to 4, the forum is only visible to users belonging to certain companies. Example: 1,2,3",
-          "required": false
+          "type": "List",
+          "info": "List of CompanyID. If forumVisibility property is set to 4, the forum is only visible to users belonging to certain companies. Example: 1,2,3",
+          "required": false,
+          "structure": {
+            "name": "companyId",
+            "type": "Number",
+            "info": "Company ID"
+          }
         }
       ],
       "callbacks": [
@@ -926,9 +1001,14 @@
         },
         {
           "name": "companyIdList",
-          "type": "Array",
-          "info": "Comma-separated list of CompanyID. If forumVisibility property is set to 4, the forum is only visible to users belonging to certain companies. Example: 1,2,3",
-          "required": false
+          "type": "List",
+          "info": "List of CompanyID. If forumVisibility property is set to 4, the forum is only visible to users belonging to certain companies. Example: 1,2,3",
+          "required": false,
+          "structure": {
+            "name": "companyId",
+            "type": "Number",
+            "info": "Company ID"
+          }
         },
         {
           "name": "forumCategoryId",
@@ -1765,16 +1845,26 @@
           "required": false
         },
         {
-          "name": "group_ids",
-          "type": "Array",
+          "name": "groupIds",
+          "type": "List",
           "info": "Group IDs associated with the agent. Example: 1,2",
-          "required": false
+          "required": false,
+          "structure": {
+            "name": "groupId",
+            "type": "Number",
+            "info": "Group ID"
+          }
         },
         {
           "name": "roleIds",
-          "type": "Array",
+          "type": "List",
           "info": "Role IDs associated with the agent. Atleast one role should be assoicated with the agent. Current logged in agent can't update his/her role_ids",
-          "required": false
+          "required": false,
+          "structure": {
+            "name": "roleId",
+            "type": "Number",
+            "info": "Role ID"
+          }
         },
         {
           "name": "name",
@@ -1906,9 +1996,14 @@
         },
         {
           "name": "notifyEmails",
-          "type": "Array",
+          "type": "List",
           "info": "Email addresses of agents/users who need to be notified about this note",
-          "required": false
+          "required": false,
+          "structure": {
+            "name": "email",
+            "type": "String",
+            "info": "Email"
+          }
         },
         {
           "name": "private",
@@ -2020,7 +2115,19 @@
           "name": "customFields",
           "type": "Array",
           "info": "Key value pairs containing the name and value of the custom field. Only dates in the format YYYY-MM-DD are accepted as input for custom date fields. Example: 'custom_fields':{'gadget':'Cold Welder'}",
-          "required": false
+          "required": false,
+          "structure": [
+            {
+              "name": "key",
+              "type": "String",
+              "info": "Key"
+            },
+            {
+              "name": "value",
+              "type": "String",
+              "info": "Value"
+            }
+          ]
         },
         {
           "name": "description",
@@ -2042,9 +2149,14 @@
         },
         {
           "name": "tags",
-          "type": "Array",
-          "info": "Comma-separated tags associated with this contact",
-          "required": false
+          "type": "List",
+          "info": "List tags associated with this contact",
+          "required": false,
+          "structure": {
+            "name": "tag",
+            "type": "String",
+            "info": "Tag"
+          }
         },
         {
           "name": "timeZone",
@@ -2118,9 +2230,14 @@
         },
         {
           "name": "otherEmails",
-          "type": "Array",
+          "type": "List",
           "info": "Additional emails associated with the contact",
-          "required": false
+          "required": false,
+          "structure": {
+            "name": "email",
+            "type": "String",
+            "info": "Email"
+          }
         },
         {
           "name": "companyId",
@@ -2136,9 +2253,14 @@
         },
         {
           "name": "otherCompanies",
-          "type": "Array",
+          "type": "List",
           "info": "Additional companies associated with the contact. This attribute can only be set if the Multiple Companies feature is enabled (Estate plan and above)",
-          "required": false
+          "required": false,
+          "structure": {
+            "name": "companyId",
+            "type": "Number",
+            "info": "Company ID"
+          }
         },
         {
           "name": "address",
@@ -2156,7 +2278,19 @@
           "name": "customFields",
           "type": "Array",
           "info": "Key value pairs containing the name and value of the custom field. Only dates in the format YYYY-MM-DD are accepted as input for custom date fields. Example: 'custom_fields':{'gadget':'Cold Welder'}",
-          "required": false
+          "required": false,
+          "structure": [
+            {
+              "name": "key",
+              "type": "String",
+              "info": "Key"
+            },
+            {
+              "name": "value",
+              "type": "String",
+              "info": "Value"
+            }
+          ]
         },
         {
           "name": "description",
@@ -2178,9 +2312,14 @@
         },
         {
           "name": "tags",
-          "type": "Array",
-          "info": "Comma-separated tags associated with this contact",
-          "required": false
+          "type": "List",
+          "info": "List tags associated with this contact",
+          "required": false,
+          "structure": {
+            "name": "tag",
+            "type": "String",
+            "info": "Tag"
+          }
         },
         {
           "name": "timeZone",
@@ -2242,15 +2381,25 @@
         },
         {
           "name": "groupIds",
-          "type": "Array",
+          "type": "List",
           "info": "Group IDs associated with the agent",
-          "required": false
+          "required": false,
+          "structure": {
+            "name": "groudId",
+            "type": "Number",
+            "info": "Group ID"
+          }
         },
         {
           "name": "roleIds",
-          "type": "Array",
+          "type": "List",
           "info": "Role IDs associated with the agent. Atleast one role should be assoicated with the agent. Current logged in agent can't update his/her role_ids",
-          "required": false
+          "required": false,
+          "structure": {
+            "name": "roleId",
+            "type": "Number",
+            "info": "Role ID"
+          }
         }
       ],
       "callbacks": [
@@ -2358,7 +2507,19 @@
           "name": "customFields",
           "type": "Array",
           "info": "Key value pairs containing the names and values of custom fields. Only dates in the format YYYY-MM-DD are accepted as input for custom date fields. Example: 'custom_fields':{'gadget':'Cold Welder'}",
-          "required": false
+          "required": false,
+          "structure": [
+            {
+              "name": "key",
+              "type": "String",
+              "info": "Key"
+            },
+            {
+              "name": "value",
+              "type": "String",
+              "info": "Value"
+            }
+          ]
         },
         {
           "name": "description",
@@ -2368,9 +2529,14 @@
         },
         {
           "name": "domains",
-          "type": "Array",
+          "type": "List",
           "info": "Domains of the company. Email addresses of contacts that contain this domain will be associated with that company automatically.",
-          "required": false
+          "required": false,
+          "structure": {
+            "name": "domain",
+            "type": "String",
+            "info": "Domain"
+          }
         },
         {
           "name": "note",
@@ -2422,7 +2588,19 @@
           "name": "customFields",
           "type": "Array",
           "info": "Key value pairs containing the names and values of custom fields. Only dates in the format YYYY-MM-DD are accepted as input for custom date fields. Example: 'custom_fields':{'gadget':'Cold Welder'}",
-          "required": false
+          "required": false,
+          "structure": [
+            {
+              "name": "key",
+              "type": "String",
+              "info": "Key"
+            },
+            {
+              "name": "value",
+              "type": "String",
+              "info": "Value"
+            }
+          ]
         },
         {
           "name": "description",
@@ -2432,9 +2610,14 @@
         },
         {
           "name": "domains",
-          "type": "Array",
+          "type": "List",
           "info": "Domains of the company. Email addresses of contacts that contain this domain will be associated with that company automatically.",
-          "required": false
+          "required": false,
+          "structure": {
+            "name": "domain",
+            "type": "String",
+            "info": "Domain"
+          }
         },
         {
           "name": "note",
@@ -2614,9 +2797,14 @@
         },
         {
           "name": "visibleInPortals",
-          "type": "Array",
+          "type": "List",
           "info": "List of portal IDs where this category is visible. Allowed only if the account is configured with multiple portals. Example: 1,2,3",
-          "required": false
+          "required": false,
+          "structure": {
+            "name": "id",
+            "type": "Number",
+            "info": "ID"
+          }
         }
       ],
       "callbacks": [
@@ -2672,9 +2860,14 @@
         },
         {
           "name": "visibleInPortals",
-          "type": "Array",
+          "type": "List",
           "info": "List of portal IDs where this category is visible. Allowed only if the account is configured with multiple portals. Example: 1,2,3",
-          "required": false
+          "required": false,
+          "structure": {
+            "name": "id",
+            "type": "Number",
+            "info": "ID"
+          }
         }
       ],
       "callbacks": [
@@ -2724,9 +2917,14 @@
         },
         {
           "name": "visibleInPortals",
-          "type": "Array",
+          "type": "List",
           "info": "List of portal IDs where this category is visible. Allowed only if the account is configured with multiple portals. Example: 1,2,3",
-          "required": false
+          "required": false,
+          "structure": {
+            "name": "id",
+            "type": "Number",
+            "info": "ID"
+          }
         },
         {
           "name": "language",
@@ -2896,9 +3094,14 @@
         },
         {
           "name": "companyIds",
-          "type": "Array",
+          "type": "List",
           "info": "Comma-separated IDs of the companies to whom this solution folder is visible. Example: 1,2,3",
-          "required": false
+          "required": false,
+          "structure": {
+            "name": "companyId",
+            "type": "Number",
+            "info": "Company ID"
+          }
         }
       ],
       "callbacks": [
@@ -2954,9 +3157,14 @@
         },
         {
           "name": "companyIds",
-          "type": "Array",
-          "info": "Comma-separated IDs of the companies to whom this solution folder is visible. Example: 1,2,3",
-          "required": false
+          "type": "List",
+          "info": "List IDs of the companies to whom this solution folder is visible. Example: 1,2,3",
+          "required": false,
+          "structure": {
+            "name": "companyId",
+            "type": "Number",
+            "info": "Company ID"
+          }
         }
       ],
       "callbacks": [
@@ -3006,9 +3214,14 @@
         },
         {
           "name": "companyIds",
-          "type": "Array",
-          "info": "Comma-separated IDs of the companies to whom this solution folder is visible. Example: 1,2,3",
-          "required": false
+          "type": "List",
+          "info": "List IDs of the companies to whom this solution folder is visible. Example: 1,2,3",
+          "required": false,
+          "structure": {
+            "name": "companyId",
+            "type": "Number",
+            "info": "Company ID"
+          }
         },
         {
           "name": "visibility",
@@ -3196,9 +3409,14 @@
         },
         {
           "name": "tags",
-          "type": "Array",
-          "info": "Comma-separated strings. Tags that have been associated with the solution article",
-          "required": false
+          "type": "List",
+          "info": "List of strings. Tags that have been associated with the solution article",
+          "required": false,
+          "structure": {
+            "name": "tag",
+            "type": "String",
+            "info": "Tag"
+          }
         },
         {
           "name": "metaTitle",
@@ -3214,9 +3432,14 @@
         },
         {
           "name": "metaKeywords",
-          "type": "Array",
-          "info": "Comma-separated keywords. Part of SEO-data",
-          "required": false
+          "type": "List",
+          "info": "List of keywords. Part of SEO-data",
+          "required": false,
+          "structure": {
+            "name": "metaKeyword",
+            "type": "String",
+            "info": "Meta keyword"
+          }
         }
       ],
       "callbacks": [
@@ -3278,9 +3501,14 @@
         },
         {
           "name": "tags",
-          "type": "Array",
-          "info": "Comma-separated strings. Tags that have been associated with the solution article",
-          "required": false
+          "type": "List",
+          "info": "List of strings. Tags that have been associated with the solution article",
+          "required": false,
+          "structure": {
+            "name": "tag",
+            "type": "String",
+            "info": "Tag"
+          }
         },
         {
           "name": "metaTitle",
@@ -3296,9 +3524,14 @@
         },
         {
           "name": "metaKeywords",
-          "type": "Array",
-          "info": "Comma-separated keywords. Part of SEO-data",
-          "required": false
+          "type": "List",
+          "info": "List of keywords. Part of SEO-data",
+          "required": false,
+          "structure": {
+            "name": "metaKeyword",
+            "type": "String",
+            "info": "Meta keyword"
+          }
         },
         {
           "name": "language",
@@ -3372,15 +3605,25 @@
         },
         {
           "name": "metaKeywords",
-          "type": "Array",
-          "info": "Comma-separated keywords. Part of SEO-data",
-          "required": false
+          "type": "List",
+          "info": "List of keywords. Part of SEO-data",
+          "required": false,
+          "structure": {
+            "name": "metaKeyword",
+            "type": "String",
+            "info": "Meta keyword"
+          }
         },
         {
           "name": "tags",
-          "type": "Array",
+          "type": "List",
           "info": "Tags that have been associated with the solution article",
-          "required": false
+          "required": false,
+          "structure": {
+            "name": "tag",
+            "type": "String",
+            "info": "Tag"
+          }
         },
         {
           "name": "title",
@@ -3549,7 +3792,7 @@
           "required": true
         },
         {
-          "name": "agent_id",
+          "name": "agentId",
           "type": "Number",
           "info": "The agent to whom this time-entry is associated. One agent can have only one timer running. Everything else will be stopped if new timer is on for an agent",
           "required": false
@@ -3561,8 +3804,8 @@
           "required": false
         },
         {
-          "name": "executed_at",
-          "type": "String",
+          "name": "executedAt",
+          "type": "DatePicker",
           "info": "Time at which this time-entry id added/created",
           "required": false
         },
@@ -3573,19 +3816,19 @@
           "required": false
         },
         {
-          "name": "start_time",
+          "name": "startTime",
           "type": "String",
           "info": "The time at which the time-entry is added or the time of the last invoked 'start-timer' action using a toggle",
           "required": false
         },
         {
-          "name": "time_spent",
+          "name": "timeSpent",
           "type": "String",
           "info": "The number of hours (in hh:mm format). Used to set the total time_spent",
           "required": false
         },
         {
-          "name": "timer_running",
+          "name": "timerRunning",
           "type": "Boolean",
           "info": "Indicates if the timer is running",
           "required": false
@@ -3730,7 +3973,7 @@
         },
         {
           "name": "executedAt",
-          "type": "String",
+          "type": "DatePicker",
           "info": "Time at which this time-entry id added/created. Format YYYY-MM-DD",
           "required": false
         },
@@ -4020,9 +4263,14 @@
         },
         {
           "name": "agentIdList",
-          "type": "Array",
-          "info": "Array of agent user ids separated by comma (' , ').",
-          "required": false
+          "type": "List",
+          "info": "List of Agent's ID",
+          "required": false,
+          "structure": {
+            "name": "agentId",
+            "type": "Number",
+            "info": "Agent ID"
+          }
         },
         {
           "name": "autoTicketAssign",
@@ -4090,9 +4338,14 @@
         },
         {
           "name": "agentIdList",
-          "type": "Array",
-          "info": "Array of agent user ids separated by comma (' , ').",
-          "required": false
+          "type": "List",
+          "info": "List of Agent's ID",
+          "required": false,
+          "structure": {
+            "name": "agentId",
+            "type": "Number",
+            "info": "Agent ID"
+          }
         },
         {
           "name": "autoTicketAssign",

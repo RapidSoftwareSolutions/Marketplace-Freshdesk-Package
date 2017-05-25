@@ -38,20 +38,10 @@ $app->post('/api/Freshdesk/updateSolutionArticle', function ($request, $response
         $json['type'] = (int) $postData['args']['type'];
     }
     if (!empty($postData['args']['tags'])) {
-        if (is_array($postData['args']['tags'])) {
-            $json['tags'] = $postData['args']['tags'];
-        }
-        else {
-            $json['tags'] = explode(',', $postData['args']['tags']);
-        }
+        $json['tags'] = $postData['args']['tags'];
     }
     if (!empty($postData['args']['metaKeywords'])) {
-        if (is_array($postData['args']['metaKeywords'])) {
-            $json['seo_data']['meta_keywords'] = $postData['args']['metaKeywords'];
-        }
-        else {
-            $json['seo_data']['meta_keywords'] = explode(',', $postData['args']['metaKeywords']);
-        }
+        $json['seo_data']['meta_keywords'] = $postData['args']['metaKeywords'];
     }
     if (!empty($postData['args']['metaTitle'])) {
         $json['seo_data']['meta_title'] = $postData['args']['metaTile'];

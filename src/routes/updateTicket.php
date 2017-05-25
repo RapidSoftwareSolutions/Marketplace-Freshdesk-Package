@@ -43,7 +43,7 @@ $app->post('/api/Freshdesk/updateTicket', function ($request, $response) {
         ];
     }
 
-    if (isset($postData['args']['attachments']) && !empty($postData['args']['attachments'])) {
+    if (!empty($postData['args']['attachments'])) {
         if (is_array($postData['args']['attachments'])) {
             $attachments = $postData['args']['attachments'];
         }
@@ -124,9 +124,10 @@ $app->post('/api/Freshdesk/updateTicket', function ($request, $response) {
         ];
     }
     if (isset($postData['args']['dueBy']) && strlen($postData['args']['dueBy']) > 0) {
+        $date = new DateTime($postData['args']['dueBy']);
         $formData[] = [
             "name" => "due_by",
-            "contents" => $postData['args']['dueBy']
+            "contents" => $date->getTimestamp()
         ];
     }
     if (!empty($postData['args']['emailConfigId'])) {
@@ -136,9 +137,10 @@ $app->post('/api/Freshdesk/updateTicket', function ($request, $response) {
         ];
     }
     if (isset($postData['args']['frDueBy']) && strlen($postData['args']['frDueBy']) > 0) {
+        $date = new DateTime($postData['args']['frDueBy']);
         $formData[] = [
             "name" => "fr_due_by",
-            "contents" => $postData['args']['frDueBy']
+            "contents" => $date->getTimestamp()
         ];
     }
     if (!empty($postData['args']['groupId'])) {
@@ -159,7 +161,7 @@ $app->post('/api/Freshdesk/updateTicket', function ($request, $response) {
             "contents" => (int) $postData['args']['source']
         ];
     }
-    if (isset($postData['args']['tags']) && strlen($postData['args']['tags']) > 0) {
+    if (!empty($postData['args']['tags'])) {
         $formData[] = [
             "name" => "tags",
             "contents" => $postData['args']['tags']

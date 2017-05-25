@@ -28,19 +28,11 @@ $app->post('/api/Freshdesk/makeAgent', function ($request, $response) {
     if (!empty($postData['args']['ticketScope'])) {
         $args['json']['ticket_scope'] = (int) $postData['args']['ticketScope'];
     }
-    if (isset($postData['args']['groupIds']) && !empty($postData['args']['groupIds'])) {
-        if (is_array($postData['args']['groupIds'])) {
-            $args['json']['group_ids'] = $postData['args']['groupIds'];
-        } else {
-            $args['json']['group_ids'] = explode(',', $postData['args']['groupIds']);
-        }
+    if (!empty($postData['args']['groupIds'])) {
+        $args['json']['group_ids'] = $postData['args']['groupIds'];
     }
     if (isset($postData['args']['roleIds']) && !empty($postData['args']['roleIds'])) {
-        if (is_array($postData['args']['roleIds'])) {
-            $args['json']['role_ids'] = $postData['args']['roleIds'];
-        } else {
-            $args['json']['role_ids'] = explode(',', $postData['args']['roleIds']);
-        }
+        $args['json']['role_ids'] = $postData['args']['roleIds'];
     }
 
     try {

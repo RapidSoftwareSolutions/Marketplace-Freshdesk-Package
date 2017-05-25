@@ -29,21 +29,11 @@ $app->post('/api/Freshdesk/updateAgent', function ($request, $response) {
     if (!empty($postData['args']['ticketScope'])) {
         $json['ticket_scope'] = (int) $postData['args']['ticketScope'];
     }
-    if (isset($postData['args']['groupIds']) && !empty($postData['args']['groupIds'])) {
-        if (is_array($postData['args']['groupIds'])) {
-            $groupIdList = $postData['args']['groupIds'];
-        } else {
-            $groupIdList = explode(',', $postData['args']['groupIds']);
-        }
-        $json['group_ids'] = $groupIdList;
+    if (!empty($postData['args']['groupIds'])) {
+        $json['group_ids'] = $postData['args']['groupIds'];
     }
-    if (isset($postData['args']['roleIds']) && !empty($postData['args']['roleIds'])) {
-        if (is_array($postData['args']['roleIds'])) {
-            $groupIdList = $postData['args']['roleIds'];
-        } else {
-            $groupIdList = explode(',', $postData['args']['roleIds']);
-        }
-        $json['role_ids'] = $groupIdList;
+    if (!empty($postData['args']['roleIds'])) {
+        $json['role_ids'] =  $postData['args']['roleIds'];
     }
     if (isset($postData['args']['name']) && strlen($postData['args']['name']) > 0) {
         $json['name'] = $postData['args']['name'];

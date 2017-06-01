@@ -27,13 +27,18 @@ $app->post('/api/Freshdesk/updateTimeEntry', function ($request, $response) {
     }
     if (!empty($postData['args']['executedAt'])) {
         $date = new DateTime($postData['args']['executedAt']);
-        $json['executed_at'] = $date->format('Y-m-d');
+        if ($date) {
+            $json['executed_at'] = $date->format('Y-m-d\TH:i:s\Z');
+        }
     }
     if (isset($postData['args']['note']) && strlen($postData['args']['note'])) {
         $json['note'] = $postData['args']['note'];
     }
     if (!empty($postData['args']['startTime'])) {
-        $json['start_time'] = $postData['args']['startTime'];
+        $date = new DateTime($postData['args']['startTime']);
+        if ($date) {
+            $json['start_time'] = $date->format('Y-m-d\TH:i:s\Z');
+        }
     }
     if (!empty($postData['args']['timeSpent'])) {
         $json['time_spent'] = $postData['args']['timeSpent'];

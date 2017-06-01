@@ -14,13 +14,13 @@ Use filters to view only specific tickets (those which match the criteria that y
 |-------------|------------|----------
 | apiKey      | credentials| Api Key
 | domain      | credentials| Domain in freshdesk.com service. Example: your-company.freshdesk.com
-| filter      | String     | The various filters available are new_and_my_open, watching, spam, deleted
+| filter      | Select     | The various filters available are new_and_my_open, watching, spam, deleted
 | userId      | Number     | Find Tickets by userId
 | email       | String     | Find Tickets by e-mail
 | companyId   | String     | Find Tickets be Company ID
 | updatedSince| String     | By default only tickets that have been created within the past 30 days will be returned. For older tickets, use this field. Example: 2017-03-27 (ISO 8601)
-| orderBy     | String     | Order Tickets by created_at, due_by, updated_at, status. Default: created_at
-| orderType   | String     | asc/desc. Default: desc
+| orderBy     | Select     | Order Tickets by created_at, due_by, updated_at, status. Default: created_at
+| orderType   | Select     | asc/desc. Default: desc
 
 ## Freshdesk.getSingleTicket
 Find Ticket by ID. By default, certain fields such as conversations, company name and requester email will not be included in the response. They can be retrieved via the embedding functionality for extra API request points.
@@ -87,16 +87,16 @@ Create a new Ticket
 | priority     | number     | Priority of the ticket. The default value is 1.
 | description  | string     | HTML content of the ticket.
 | responderId  | number     | ID of the agent to whom the ticket has been assigned
-| attachments  | Array      | Array of file links (url). The total size of these attachments cannot exceed 15MB.
-| ccEmails     | Array      | Array of email address added in the 'cc' field of the incoming ticket email
+| attachments  | List       | Array of file links (url). The total size of these attachments cannot exceed 15MB.
+| ccEmails     | List       | Array of email address added in the 'cc' field of the incoming ticket email
 | customFields | Array      | Key value pairs containing the names and values of custom fields. Example: 'custom_fields':{'gadget':'Cold Welder'}
-| dueBy        | String     | Timestamp that denotes when the ticket is due to be resolved
+| dueBy        | DatePicker | Timestamp that denotes when the ticket is due to be resolved
 | emailConfigId| Number     | ID of email config which is used for this ticket. (i.e.,  support@yourcompany.com/sales@yourcompany.com) If product_id is given and email_config_id is not given, product's primary email_config_id will be set
-| frDueBy      | String     | Timestamp that denotes when the first response is due
+| frDueBy      | DatePicker | Timestamp that denotes when the first response is due
 | groupId      | Number     | ID of the group to which the ticket has been assigned. The default value is the ID of the group that is associated with the given email_config_id
 | productId    | Number     | ID of the product to which the ticket is associated. It will be ignored if the email_config_id attribute is set in the request.
 | source       | Number     | The channel through which the ticket was created. The default value is 2.
-| tags         | Array      | Array of tags that have been associated with the ticket
+| tags         | List       | Array of tags that have been associated with the ticket
 | companyId    | Number     | Company ID of the requester. This attribute can only be set if the Multiple Companies feature is enabled (Estate plan and above)
 
 ## Freshdesk.updateTicket
@@ -118,16 +118,16 @@ Update Ticket
 | priority     | number     | Priority of the ticket. The default value is 1.
 | description  | string     | HTML content of the ticket.
 | responderId  | number     | ID of the agent to whom the ticket has been assigned
-| attachments  | Array      | Array of file links (url). The total size of these attachments cannot exceed 15MB. You can only add new attachments to existed.
-| ccEmails     | Array      | Array of email address added in the 'cc' field of the incoming ticket email
+| attachments  | List       | Array of file links (url). The total size of these attachments cannot exceed 15MB. You can only add new attachments to existed.
+| ccEmails     | List       | Array of email address added in the 'cc' field of the incoming ticket email
 | customFields | Array      | Key value pairs containing the names and values of custom fields. Example: 'custom_fields':{'gadget':'Cold Welder'}
-| dueBy        | String     | Timestamp that denotes when the ticket is due to be resolved
+| dueBy        | DatePicker | Timestamp that denotes when the ticket is due to be resolved
 | emailConfigId| Number     | ID of email config which is used for this ticket. (i.e.,  support@yourcompany.com/sales@yourcompany.com) If product_id is given and email_config_id is not given, product's primary email_config_id will be set
-| frDueBy      | String     | Timestamp that denotes when the first response is due
+| frDueBy      | DatePicker | Timestamp that denotes when the first response is due
 | groupId      | Number     | ID of the group to which the ticket has been assigned. The default value is the ID of the group that is associated with the given email_config_id
 | productId    | Number     | ID of the product to which the ticket is associated. It will be ignored if the email_config_id attribute is set in the request.
 | source       | Number     | The channel through which the ticket was created. The default value is 2.
-| tags         | Array      | Array of tags that have been associated with the ticket
+| tags         | List       | Array of tags that have been associated with the ticket
 | companyId    | Number     | Company ID of the requester. This attribute can only be set if the Multiple Companies feature is enabled (Estate plan and above)
 
 ## Freshdesk.getAllCompanyFields
@@ -157,10 +157,10 @@ Create Forum
 | domain         | credentials| Domain in freshdesk.com service. Example: your-company.freshdesk.com
 | name           | String     | Unique name of the forum category
 | categoryId     | Number     | category ID
-| forumType      | Number     | Denotes the type of forum. 1 - How To's, 2- Ideas, 3 -Problems, 4 - Announcements
-| forumVisibility| Number     | Denotes the visibility level of the forum. 1 - Everyone, 2 - Logged in users only, 3 - Agents only, 4 - Users in specific companies only
+| forumType      | Select     | Denotes the type of forum. 1 - How To's, 2- Ideas, 3 -Problems, 4 - Announcements
+| forumVisibility| Select     | Denotes the visibility level of the forum. 1 - Everyone, 2 - Logged in users only, 3 - Agents only, 4 - Users in specific companies only
 | description    | String     | Description of the forum category
-| companyIdList  | Array      | List of CompanyID. If forumVisibility property is set to 4, the forum is only visible to users belonging to certain companies. Example: 1,2,3
+| companyIdList  | List       | List of CompanyID. If forumVisibility property is set to 4, the forum is only visible to users belonging to certain companies. Example: 1,2,3
 
 ## Freshdesk.updateForumCategory
 Update Name or Description of Category
@@ -208,10 +208,10 @@ Update Forum by ID
 | domain         | credentials| Domain in freshdesk.com service. Example: your-company.freshdesk.com
 | forumId        | Number     | Forum ID
 | name           | String     | Unique name of Forum
-| forumType      | Number     | Denotes the type of forum. 1 - How To's, 2- Ideas, 3 -Problems, 4 - Announcements
-| forumVisibility| Number     | Denotes the visibility level of the forum. 1 - Everyone, 2 - Logged in users only, 3 - Agents only, 4 - Users in specific companies only
+| forumType      | Select     | Denotes the type of forum. 1 - How To's, 2- Ideas, 3 -Problems, 4 - Announcements
+| forumVisibility| Select     | Denotes the visibility level of the forum. 1 - Everyone, 2 - Logged in users only, 3 - Agents only, 4 - Users in specific companies only
 | description    | String     | Description of the forum category
-| companyIdList  | Array      | List of CompanyID. If forumVisibility property is set to 4, the forum is only visible to users belonging to certain companies. Example: 1,2,3
+| companyIdList  | List      | List of CompanyID. If forumVisibility property is set to 4, the forum is only visible to users belonging to certain companies. Example: 1,2,3
 | forumCategoryId| Number     | ID of the category to which this forum belongs
 
 ## Freshdesk.getAllForumsFromCategory
@@ -419,9 +419,9 @@ Update Agent info
 | agentId    | Number     | Agent ID
 | occasional | Boolean    | Set to true if this is an occasional agent (true => occasional, false => full-time)
 | signature  | String     | Signature of the agent in HTML format
-| ticketScope| Number     | Ticket permission of the agent (1 -> Global Access, 2 -> Group Access, 3 -> Restricted Access). Current logged in agent can't update his/her ticket_scope
-| group_ids  | Array      | Group IDs associated with the agent. Example: 1,2
-| roleIds    | Array      | Role IDs associated with the agent. Atleast one role should be assoicated with the agent. Current logged in agent can't update his/her role_ids
+| ticketScope| Select     | Ticket permission of the agent (1 -> Global Access, 2 -> Group Access, 3 -> Restricted Access). Current logged in agent can't update his/her ticket_scope
+| groupIds   | List       | Group IDs associated with the agent. Example: 1,2
+| roleIds    | List      | Role IDs associated with the agent. Atleast one role should be assoicated with the agent. Current logged in agent can't update his/her role_ids
 | name       | String     | Name of the Agent
 | email      | String     | Email address of the Agent.
 | phone      | String     | Telephone number of the Agent.
@@ -448,9 +448,9 @@ Add Note to Ticket
 | domain      | credentials| Domain in freshdesk.com service. Example: your-company.freshdesk.com
 | ticketId    | Number     | Ticket ID
 | body        | String     | Content of the note in HTML
-| attachments | Array      | Attachments associated with the note. The total size of all of a ticket's attachments cannot exceed 15MB.
+| attachments | List       | List of (url) Attachments associated with the note. The total size of all of a ticket's attachments cannot exceed 15MB.
 | incoming    | Boolean    | Set to true if a particular note should appear as being created from outside (i.e., not through web portal). The default value is false
-| notifyEmails| Array      | Email addresses of agents/users who need to be notified about this note
+| notifyEmails| List       | List of Email addresses of agents/users who need to be notified about this note
 | private     | Boolean    | Set to true if the note is private. The default value is true.
 | userId      | Number     | ID of the agent/user who is adding the note
 
@@ -466,17 +466,17 @@ Create Contact
 | phone         | String     | Telephone number of the contact
 | mobile        | String     | Mobile number of the contact
 | twitterId     | String     | Twitter handle of the contact
-| otherEmails   | Array      | Additional emails associated with the contact
+| otherEmails   | List       | Additional emails associated with the contact
 | companyId     | Number     | ID of the primary company to which this contact belongs
 | viewAllTickets| Boolean    | Set to true if the contact can see all the tickets that are associated with the company to which he belong
-| otherCompanies| Array      | Additional companies associated with the contact. This attribute can only be set if the Multiple Companies feature is enabled (Estate plan and above)
+| otherCompanies| List       | Additional companies associated with the contact. This attribute can only be set if the Multiple Companies feature is enabled (Estate plan and above)
 | address       | String     | Address of the contact.
 | avatar        | File       | Avatar image of the contact The maximum file size is 5MB and the supported file types are .jpg, .jpeg, .jpe, and .png
 | customFields  | Array      | Key value pairs containing the name and value of the custom field. Only dates in the format YYYY-MM-DD are accepted as input for custom date fields. Example: 'custom_fields':{'gadget':'Cold Welder'}
 | description   | String     | A small description of the contact
 | jobTitle      | String     | Job title of the contact
 | language      | String     | Language of the contact. Default language is en. This attribute can only be set if the Multiple Language feature is enabled (Garden plan and above)
-| tags          | Array      | List of tags associated with this contact
+| tags          | List       | List of tags associated with this contact
 | timeZone      | string     | Time zone of the contact. Default value is the time zone of the domain. This attribute can only be set if the Multiple Time Zone feature is enabled (Garden plan and above)
 
 ## Freshdesk.updateContact
@@ -501,7 +501,7 @@ Update Contact
 | description   | String     | A small description of the contact
 | jobTitle      | String     | Job title of the contact
 | language      | String     | Language of the contact. Default language is en. This attribute can only be set if the Multiple Language feature is enabled (Garden plan and above)
-| tags          | Array      | List of tags associated with this contact
+| tags          | List       | List of tags associated with this contact
 | timeZone      | string     | Time zone of the contact. Default value is the time zone of the domain. This attribute can only be set if the Multiple Time Zone feature is enabled (Garden plan and above)
 
 ## Freshdesk.makeAgent
@@ -514,9 +514,9 @@ Make Agent from Contact
 | contactId  | Number          | Contact ID
 | occasional | boolean         | Set to true if this is an occasional agent (true => occasional, false => full-time)
 | signature  | string          | Signature of the agent in HTML format
-| ticketScope| number          | Ticket permission of the agent (1 -> Global Access, 2 -> Group Access, 3 -> Restricted Access). Current logged in agent can't update his/her ticket_scope
-| groupIds   | array of numbers| Group IDs associated with the agent
-| roleIds    | array of numbers| Role IDs associated with the agent. Atleast one role should be assoicated with the agent. Current logged in agent can't update his/her role_ids
+| ticketScope| Select          | Ticket permission of the agent (1 -> Global Access, 2 -> Group Access, 3 -> Restricted Access). Current logged in agent can't update his/her ticket_scope
+| groupIds   | List            | Group IDs associated with the agent
+| roleIds    | List            | Role IDs associated with the agent. Atleast one role should be assoicated with the agent. Current logged in agent can't update his/her role_ids
 
 ## Freshdesk.deleteContact
 Delete Contact
@@ -546,7 +546,7 @@ Create Company
 | name        | String     | Name of the company
 | customFields| Array      | Key value pairs containing the names and values of custom fields. Only dates in the format YYYY-MM-DD are accepted as input for custom date fields. Example: 'custom_fields':{'gadget':'Cold Welder'}
 | description | String     | Description of the company
-| domains     | Array      | Domains of the company. Email addresses of contacts that contain this domain will be associated with that company automatically.
+| domains     | List       | Domains of the company. Email addresses of contacts that contain this domain will be associated with that company automatically.
 | note        | String     | Any specific note about the company
 
 ## Freshdesk.updateCompany
@@ -560,7 +560,7 @@ Update Company
 | name        | String     | Name of the company
 | customFields| Array      | Key value pairs containing the names and values of custom fields. Only dates in the format YYYY-MM-DD are accepted as input for custom date fields. Example: 'custom_fields':{'gadget':'Cold Welder'}
 | description | String     | Description of the company
-| domains     | Array      | Domains of the company. Email addresses of contacts that contain this domain will be associated with that company automatically.
+| domains     | List       | Domains of the company. Email addresses of contacts that contain this domain will be associated with that company automatically.
 | note        | String     | Any specific note about the company
 
 ## Freshdesk.getSingleCompany
@@ -607,7 +607,7 @@ Create a Solution Category
 | domain          | credentials| Domain in freshdesk.com service. Example: your-company.freshdesk.com
 | name            | String     | Unique name of the solution category
 | description     | String     | Description of the solution category
-| visibleInPortals| Array      | List of portal IDs where this category is visible. Allowed only if the account is configured with multiple portals. Example: 1,2,3
+| visibleInPortals| List       | List of portal IDs where this category is visible. Allowed only if the account is configured with multiple portals. Example: 1,2,3
 
 ## Freshdesk.createTranslatedSolutionCategory
 Create a translated solution category to original solution Category ID
@@ -620,7 +620,7 @@ Create a translated solution category to original solution Category ID
 | categoryId      | Number     | Original category ID
 | language        | String     | Create a translated solution category. (Multilingual Feature must be enabled for the account. Supported languages have to be configured from Admin > General Settings > Helpdesk. Configured languages can be retrieved from Helpdesk Settings)
 | description     | String     | Description of the solution category
-| visibleInPortals| Array      | List of portal IDs where this category is visible. Allowed only if the account is configured with multiple portals. Example: 1,2,3
+| visibleInPortals| List       | List of portal IDs where this category is visible. Allowed only if the account is configured with multiple portals. Example: 1,2,3
 
 ## Freshdesk.updateSolutionCategory
 Update a Solution Category
@@ -631,7 +631,7 @@ Update a Solution Category
 | domain          | credentials| Domain in freshdesk.com service. Example: your-company.freshdesk.com
 | name            | String     | Unique name of the solution category
 | description     | String     | Description of the solution category
-| visibleInPortals| Array      | List of portal IDs where this category is visible. Allowed only if the account is configured with multiple portals. Example: 1,2,3
+| visibleInPortals| List      | List of portal IDs where this category is visible. Allowed only if the account is configured with multiple portals. Example: 1,2,3
 | language        | String     | Update a translated solution category.
 
 ## Freshdesk.getSolutionCategory
@@ -671,9 +671,9 @@ Create Solution Folder in Solution Category
 | domain     | credentials| Domain in freshdesk.com service. Example: your-company.freshdesk.com
 | categoryId | Number     | Solution Category Id
 | name       | String     | Unique name of the solution folder
-| visibility | Number     | Accessibility of this folder. 1 - All Users, 2 - Logged in Users, 3 - Agents, 4 - Selected Companies.
+| visibility | Select     | Accessibility of this folder. 1 - All Users, 2 - Logged in Users, 3 - Agents, 4 - Selected Companies.
 | description| String     | Description of the solution folder
-| companyIds | Array      | List of IDs of the companies to whom this solution folder is visible. Example: 1,2,3
+| companyIds | List       | List of IDs of the companies to whom this solution folder is visible. Example: 1,2,3
 
 ## Freshdesk.createTranslatedSolutionFolder
 Create translated Solution Folder in Solution Category
@@ -686,7 +686,7 @@ Create translated Solution Folder in Solution Category
 | name       | String     | Unique name of the solution folder
 | language   | String     | Create a translated solution folder.
 | description| String     | Description of the solution folder
-| companyIds | Array      | List of IDs of the companies to whom this solution folder is visible. Example: 1,2,3
+| companyIds | List       | List of IDs of the companies to whom this solution folder is visible. Example: 1,2,3
 
 ## Freshdesk.updateSolutionFolder
 Update Solution Folder
@@ -698,8 +698,8 @@ Update Solution Folder
 | folderId   | Number     | Solution Folder Id
 | name       | String     | Unique name of the solution folder
 | description| String     | Description of the solution folder
-| companyIds | Array      | List of IDs of the companies to whom this solution folder is visible. Example: 1,2,3
-| visibility | Number     | Folder visibility. 1 - All Users, 2 - Logged in Users, 3 - Agents, 4 - Selected Companies.
+| companyIds | List       | List of IDs of the companies to whom this solution folder is visible. Example: 1,2,3
+| visibility | Select     | Folder visibility. 1 - All Users, 2 - Logged in Users, 3 - Agents, 4 - Selected Companies.
 | language   | String     | Update a translated solution folder
 
 ## Freshdesk.getSolutionFolder
@@ -740,13 +740,13 @@ Create Solution Article
 | domain         | credentials| Domain in freshdesk.com service. Example: your-company.freshdesk.com
 | folderId       | Number     | Solution Folder Id
 | description    | String     | Description of the solution article
-| status         | Number     | Status of the solution article. (1 - draft, 2 - published)
+| status         | Select     | Status of the solution article. (1 - draft, 2 - published)
 | title          | String     | Title of the solution article
 | type           | Number     | The type of the solution article. (1 - permenant, 2 - workaround)
-| tags           | Array      | List of strings. Tags that have been associated with the solution article
+| tags           | List       | List of strings. Tags that have been associated with the solution article
 | metaTitle      | String     | Part of SEO-data
 | metaDescription| String     | Part of SEO-data
-| metaKeywords   | Array      | List of keywords. Part of SEO-data
+| metaKeywords   | List       | List of keywords. Part of SEO-data
 
 ## Freshdesk.createTranslatedSolutionArticle
 Create Solution Article
@@ -757,13 +757,13 @@ Create Solution Article
 | domain         | credentials| Domain in freshdesk.com service. Example: your-company.freshdesk.com
 | articleId      | Number     | Solution Article Id
 | description    | String     | Description of the solution article
-| status         | Number     | Status of the solution article. (1 - draft, 2 - published)
+| status         | Select     | Status of the solution article. (1 - draft, 2 - published)
 | title          | String     | Title of the solution article
 | type           | Number     | The type of the solution article. (1 - permenant, 2 - workaround)
-| tags           | Array      | List of strings. Tags that have been associated with the solution article
+| tags           | List       | List of strings. Tags that have been associated with the solution article
 | metaTitle      | String     | Part of SEO-data
 | metaDescription| String     | Part of SEO-data
-| metaKeywords   | Array      | List of keywords. Part of SEO-data
+| metaKeywords   | List       | List of keywords. Part of SEO-data
 | language       | String     | Create a translated solution article.
 
 ## Freshdesk.updateSolutionArticle
@@ -776,11 +776,11 @@ Update Solution Article
 | articleId      | Number          | Solution Article Id
 | agentId        | Number          | ID of the agent who created the solution article
 | description    | String          | Description of the solution article
-| status         | Number          | Status of the solution article. (1 - draft, 2 - published)
+| status         | Select          | Status of the solution article. (1 - draft, 2 - published)
 | metaTitle      | String          | Part of SEO-data
 | metaDescription| String          | Part of SEO-data
-| metaKeywords   | Array           | List of keywords. Part of SEO-data
-| tags           | Array Of Strings| Tags that have been associated with the solution article
+| metaKeywords   | List            | List of keywords. Part of SEO-data
+| tags           | List            | Tags list that have been associated with the solution article
 | title          | String          | Title of the solution article
 | type           | Number          | The type of the solution article. (1 - permenant, 2 - workaround)
 | language       | String          | Update a translated solution folder
@@ -822,13 +822,13 @@ Create Time entry
 | apiKey       | credentials| Api Key
 | domain       | credentials| Domain in freshdesk.com service. Example: your-company.freshdesk.com
 | ticketId     | Number     | Ticket ID
-| agent_id     | Number     | The agent to whom this time-entry is associated. One agent can have only one timer running. Everything else will be stopped if new timer is on for an agent
+| agentId      | Number     | The agent to whom this time-entry is associated. One agent can have only one timer running. Everything else will be stopped if new timer is on for an agent
 | billable     | Boolean    | Set as true if the entry is billable. Default value is true
-| executed_at  | Datetime   | Time at which this time-entry id added/created
+| executedAt   | Datetime   | Time at which this time-entry id added/created
 | note         | String     | Description on this time-entry
-| start_time   | Datetime   | The time at which the time-entry is added or the time of the last invoked 'start-timer' action using a toggle
-| time_spent   | String     | The number of hours (in hh:mm format). Used to set the total time_spent
-| timer_running| Boolean    | Indicates if the timer is running
+| startTime    | Datetime   | The time at which the time-entry is added or the time of the last invoked 'start-timer' action using a toggle
+| timeSpent    | String     | The number of hours (in hh:mm format). Used to set the total time_spent
+| timerRunning | Boolean    | Indicates if the timer is running
 
 ## Freshdesk.getAllTimeEntries
 Use filters to view only specific time entries (those which match the criteria that you choose). The filters listed in the table below can also be combined.
@@ -937,7 +937,7 @@ Create Group for your agents
 | apiKey          | credentials| Api Key
 | domain          | credentials| Domain in freshdesk.com service. Example: your-company.freshdesk.com
 | name            | String     | Unique name of the group
-| agentIdList     | Array      | Array of agent user ids separated by comma (' , ').
+| agentIdList     | List       | Array of agent user ids separated by comma (' , ').
 | autoTicketAssign| Boolean    | Describes the automatic ticket assignment type. Will not be supported if the 'Round Robin' feature is disabled for the account. The default value is false
 | description     | String     | Description of the group
 | escalateTo      | Number     | The user to whom the escalation email is sent of a ticket is unassigned. To create/update escalate_to with 'none' provide the value 'null' in the request
@@ -952,7 +952,7 @@ Update group
 | domain          | credentials| Domain in freshdesk.com service. Example: your-company.freshdesk.com
 | groupId         | Number     | Group ID
 | name            | String     | Unique name of the group
-| agentIdList     | Array      | Array of agent user ids separated by comma (' , ').
+| agentIdList     | List       | Array of agent user ids separated by comma (' , ').
 | autoTicketAssign| Boolean    | Describes the automatic ticket assignment type. Will not be supported if the 'Round Robin' feature is disabled for the account. The default value is false
 | description     | String     | Description of the group
 | escalateTo      | Number     | The user to whom the escalation email is sent of a ticket is unassigned. To create/update escalate_to with 'none' provide the value 'null' in the request

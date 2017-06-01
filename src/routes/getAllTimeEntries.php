@@ -27,10 +27,16 @@ $app->post('/api/Freshdesk/getAllTimeEntries', function ($request, $response) {
         $param['agent_id'] = (int) $postData['args']['agentId'];
     }
     if (isset($postData['args']['executedAfter']) && strlen($postData['args']['executedAfter']) > 0) {
-        $param['executed_after'] = $postData['args']['executedAfter'];
+        $date = new DateTime($postData['args']['executedAfter']);
+        if ($date) {
+            $param['executed_after'] = $date->format('Y-m-d\TH:i:s\Z');
+        }
     }
     if (isset($postData['args']['executedBefore']) && strlen($postData['args']['executedBefore']) > 0) {
-        $param['executed_before'] = $postData['args']['executedBefore'];
+        $date = new DateTime($postData['args']['executedBefore']);
+        if ($date) {
+            $param['executed_before'] = $date->format('Y-m-d\TH:i:s\Z');
+        }
     }
     if (!empty($postData['args']['billable']) && filter_var($postData['args']['billable'], FILTER_VALIDATE_BOOLEAN)) {
         $param['billable'] = true;

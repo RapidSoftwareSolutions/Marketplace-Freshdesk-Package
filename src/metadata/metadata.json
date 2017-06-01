@@ -348,7 +348,8 @@
         },
         {
           "name": "status",
-          "type": "Number",
+          "type": "Select",
+          "options": ["1", "2"],
           "info": "Status of the ticket. The default Value is 2.",
           "required": true
         },
@@ -401,19 +402,21 @@
             {
               "name": "key",
               "type": "String",
-              "info": "Key"
+              "info": "Key",
+              "required": true
             },
             {
               "name": "value",
               "type": "String",
-              "info": "Value"
+              "info": "Value",
+              "required": true
             }
           ]
         },
         {
           "name": "dueBy",
           "type": "DatePicker",
-          "info": "Timestamp that denotes when the ticket is due to be resolved",
+          "info": "Date that denotes when the ticket is due to be resolved",
           "required": false
         },
         {
@@ -425,7 +428,7 @@
         {
           "name": "frDueBy",
           "type": "DatePicker",
-          "info": "Timestamp that denotes when the first response is due",
+          "info": "Date that denotes when the first response is due",
           "required": false
         },
         {
@@ -600,12 +603,14 @@
             {
               "name": "key",
               "type": "String",
-              "info": "Key"
+              "info": "Key",
+              "required": true
             },
             {
               "name": "value",
               "type": "String",
-              "info": "Value"
+              "info": "Value",
+              "required": true
             }
           ]
         },
@@ -772,13 +777,15 @@
         },
         {
           "name": "forumType",
-          "type": "Number",
+          "type": "Select",
+          "options": ["1", "2", "3", "4"],
           "info": "Denotes the type of forum. 1 - How To's, 2- Ideas, 3 -Problems, 4 - Announcements",
           "required": true
         },
         {
           "name": "forumVisibility",
-          "type": "Number",
+          "type": "Select",
+          "options": ["1", "2", "3", "4"],
           "info": "Denotes the visibility level of the forum. 1 - Everyone, 2 - Logged in users only, 3 - Agents only, 4 - Users in specific companies only",
           "required": true
         },
@@ -796,7 +803,8 @@
           "structure": {
             "name": "companyId",
             "type": "Number",
-            "info": "Company ID"
+            "info": "Company ID",
+            "required": false
           }
         }
       ],
@@ -983,13 +991,15 @@
         },
         {
           "name": "forumType",
-          "type": "Number",
+          "type": "Select",
+          "options": ["1", "2", "3", "4"],
           "info": "Denotes the type of forum. 1 - How To's, 2- Ideas, 3 -Problems, 4 - Announcements",
           "required": false
         },
         {
           "name": "forumVisibility",
-          "type": "Number",
+          "type": "Select",
+          "options": ["1", "2", "3", "4"],
           "info": "Denotes the visibility level of the forum. 1 - Everyone, 2 - Logged in users only, 3 - Agents only, 4 - Users in specific companies only",
           "required": false
         },
@@ -1840,7 +1850,8 @@
         },
         {
           "name": "ticketScope",
-          "type": "Number",
+          "type": "Select",
+          "options": ["1", "2", "3"],
           "info": "Ticket permission of the agent (1 -> Global Access, 2 -> Group Access, 3 -> Restricted Access). Current logged in agent can't update his/her ticket_scope",
           "required": false
         },
@@ -1984,9 +1995,14 @@
         },
         {
           "name": "attachments",
-          "type": "Array",
+          "type": "List",
           "info": "Attachments associated with the note. The total size of all of a ticket's attachments cannot exceed 15MB.",
-          "required": false
+          "required": false,
+          "structure": {
+            "name": "url",
+            "type": "String",
+            "info": "Url to attachment"
+          }
         },
         {
           "name": "incoming",
@@ -2002,7 +2018,8 @@
           "structure": {
             "name": "email",
             "type": "String",
-            "info": "Email"
+            "info": "Email",
+            "required": false
           }
         },
         {
@@ -2077,9 +2094,15 @@
         },
         {
           "name": "otherEmails",
-          "type": "Array",
+          "type": "List",
           "info": "Additional emails associated with the contact",
-          "required": false
+          "required": false,
+          "structure": {
+            "name": "email",
+            "type": "String",
+            "info": "Email",
+            "required": false
+          }
         },
         {
           "name": "companyId",
@@ -2095,9 +2118,15 @@
         },
         {
           "name": "otherCompanies",
-          "type": "Array",
+          "type": "List",
           "info": "Additional companies associated with the contact. This attribute can only be set if the Multiple Companies feature is enabled (Estate plan and above)",
-          "required": false
+          "required": false,
+          "structure": {
+            "name": "company",
+            "type": "String",
+            "info": "Company",
+            "required": false
+          }
         },
         {
           "name": "address",
@@ -2120,12 +2149,15 @@
             {
               "name": "key",
               "type": "String",
-              "info": "Key"
+              "info": "Key",
+              "required": true
             },
             {
               "name": "value",
               "type": "String",
-              "info": "Value"
+              "info": "Value",
+              "required": true
+
             }
           ]
         },
@@ -2375,7 +2407,8 @@
         },
         {
           "name": "ticketScope",
-          "type": "Number",
+          "type": "Select",
+          "options": ["1", "2", "3"],
           "info": "Ticket permission of the agent (1 -> Global Access, 2 -> Group Access, 3 -> Restricted Access). Current logged in agent can't update his/her ticket_scope",
           "required": false
         },
@@ -3082,7 +3115,8 @@
         },
         {
           "name": "visibility",
-          "type": "Number",
+          "type": "Select",
+          "options": ["1", "2", "3", "4"],
           "info": "Accessibility of this folder. 1 - All Users, 2 - Logged in Users, 3 - Agents, 4 - Selected Companies.",
           "required": true
         },
@@ -3095,7 +3129,7 @@
         {
           "name": "companyIds",
           "type": "List",
-          "info": "Comma-separated IDs of the companies to whom this solution folder is visible. Example: 1,2,3",
+          "info": "List of IDs of the companies to whom this solution folder is visible. Example: 1,2,3",
           "required": false,
           "structure": {
             "name": "companyId",
@@ -3225,7 +3259,8 @@
         },
         {
           "name": "visibility",
-          "type": "Number",
+          "type": "Select",
+          "options": ["1", "2", "3", "4"],
           "info": "Folder visibility. 1 - All Users, 2 - Logged in Users, 3 - Agents, 4 - Selected Companies.",
           "required": false
         },
@@ -3391,7 +3426,8 @@
         },
         {
           "name": "status",
-          "type": "Number",
+          "type": "Select",
+          "options": ["1", "2"],
           "info": "Status of the solution article. (1 - draft, 2 - published)",
           "required": true
         },
@@ -3483,7 +3519,8 @@
         },
         {
           "name": "status",
-          "type": "Number",
+          "type": "Select",
+          "options": ["1", "2"],
           "info": "Status of the solution article. (1 - draft, 2 - published)",
           "required": true
         },
@@ -3587,7 +3624,8 @@
         },
         {
           "name": "status",
-          "type": "Number",
+          "type": "Select",
+          "options": ["1", "2"],
           "info": "Status of the solution article. (1 - draft, 2 - published)",
           "required": false
         },
@@ -3817,7 +3855,7 @@
         },
         {
           "name": "startTime",
-          "type": "String",
+          "type": "DateTime",
           "info": "The time at which the time-entry is added or the time of the last invoked 'start-timer' action using a toggle",
           "required": false
         },
@@ -3875,13 +3913,13 @@
         },
         {
           "name": "executedAfter",
-          "type": "String",
+          "type": "DatePicker",
           "info": "Filter by Executed After time",
           "required": false
         },
         {
           "name": "executedBefore",
-          "type": "String",
+          "type": "DatePicker",
           "info": "Filter by Executed Before time",
           "required": false
         },
@@ -3985,7 +4023,7 @@
         },
         {
           "name": "startTime",
-          "type": "String",
+          "type": "DatePicker",
           "info": "The time at which the time-entry is added or the time of the last invoked 'start-timer' action using a toggle",
           "required": false
         },

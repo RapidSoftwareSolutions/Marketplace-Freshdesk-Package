@@ -33,7 +33,8 @@ $app->post('/api/Freshdesk/createTimeEntry', function ($request, $response) {
         $json['note'] = $postData['args']['note'];
     }
     if (!empty($postData['args']['startTime'])) {
-        $json['start_time'] = $postData['args']['startTime'];
+        $date = new DateTime($postData['args']['startTime']);
+        $json['start_time'] = $date->format('Y-m-d');
     }
     if (!empty($postData['args']['timeSpent'])) {
         $json['time_spent'] = $postData['args']['timeSpent'];

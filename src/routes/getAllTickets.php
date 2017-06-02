@@ -23,22 +23,25 @@ $app->post('/api/Freshdesk/getAllTickets', function ($request, $response) {
     if (isset($postData['args']['filter']) && strlen($postData['args']['filter']) > 0) {
         $params['filter'] = $postData['args']['filter'];
     }
-    if (isset($postData['args']['userId']) && strlen($postData['args']['userId']) > 0) {
+    if (!empty($postData['args']['userId'])) {
         $params['requester_id'] = $postData['args']['userId'];
     }
-    if (isset($postData['args']['email']) && strlen($postData['args']['email']) > 0) {
+    if (!empty($postData['args']['email'])) {
         $params['email'] = $postData['args']['email'];
     }
-    if (isset($postData['args']['companyId']) && strlen($postData['args']['companyId']) > 0) {
+    if (!empty($postData['args']['companyId'])) {
         $params['company_id'] = $postData['args']['companyId'];
     }
-    if (isset($postData['args']['updatedSince']) && strlen($postData['args']['updatedSince']) > 0) {
-        $params['updated_since'] = $postData['args']['updatedSince'];
+    if (!empty($postData['args']['updatedSince'])) {
+        $date = new DateTime($postData['args']['updateSince']);
+        if ($date) {
+            $params['updated_since'] = $date->format('Y-m-d');
+        }
     }
-    if (isset($postData['args']['orderBy']) && strlen($postData['args']['orderBy']) > 0) {
+    if (!empty($postData['args']['orderBy'])) {
         $params['order_by'] = $postData['args']['orderBy'];
     }
-    if (isset($postData['args']['orderType']) && strlen($postData['args']['orderType']) > 0) {
+    if (!empty($postData['args']['orderType'])) {
         $params['orderType'] = $postData['args']['orderType'];
     }
 

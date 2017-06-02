@@ -68,7 +68,7 @@
         },
         {
           "name": "updatedSince",
-          "type": "String",
+          "type": "DatePicker",
           "info": "By default only tickets that have been created within the past 30 days will be returned. For older tickets, use this field. Example: 2017-03-27 (ISO 8601)",
           "required": false
         },

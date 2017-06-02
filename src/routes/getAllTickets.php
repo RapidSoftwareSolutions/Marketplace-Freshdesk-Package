@@ -47,7 +47,8 @@ $app->post('/api/Freshdesk/getAllTickets', function ($request, $response) {
         /** @var GuzzleHttp\Client $client */
         $client = $this->httpClient;
         $vendorResponse = $client->get($url, [
-            'headers' => $headers
+            'headers' => $headers,
+            'query' => $params
         ]);
         $vendorResponseBody = $vendorResponse->getBody()->getContents();
         if ($vendorResponse->getStatusCode() == 200) {

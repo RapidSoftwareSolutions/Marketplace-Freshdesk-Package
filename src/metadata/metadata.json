@@ -349,7 +349,7 @@
         {
           "name": "status",
           "type": "Select",
-          "options": ["1", "2"],
+          "options": ["2", "3", "4", "5"],
           "info": "Status of the ticket. The default Value is 2.",
           "required": true
         },

@@ -2135,12 +2135,6 @@
           "required": false
         },
         {
-          "name": "avatar",
-          "type": "File",
-          "info": "Avatar image of the contact The maximum file size is 5MB and the supported file types are .jpg, .jpeg, .jpe, and .png",
-          "required": false
-        },
-        {
           "name": "customFields",
           "type": "Array",
           "info": "Key value pairs containing the name and value of the custom field. Only dates in the format YYYY-MM-DD are accepted as input for custom date fields. Example: 'custom_fields':{'gadget':'Cold Welder'}",
@@ -2366,7 +2360,7 @@
       ]
     },
     {
-      "name": "updateAvatart",
+      "name": "updateAvatar",
       "description": "Update Contact Avatar",
       "args": [
         {

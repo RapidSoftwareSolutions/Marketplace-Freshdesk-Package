@@ -36,6 +36,12 @@ $app->post('/api/Freshdesk/updateCompany', function ($request, $response) {
         $json['note'] = $postData['args']['note'];
     }
 
+    if (!empty($postData['args']['customFields'])) {
+        foreach ($postData['args']['customFields'] as $array) {
+            $json['custom_fields'][$array['key']] = $array['value'];
+        }
+    }
+
     if (!empty($json)) {
         try {
             /** @var GuzzleHttp\Client $client */

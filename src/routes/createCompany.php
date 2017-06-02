@@ -33,6 +33,11 @@ $app->post('/api/Freshdesk/createCompany', function ($request, $response) {
     if (isset($postData['args']['note']) && strlen($postData['args']['note']) > 0) {
         $json['note'] = $postData['args']['note'];
     }
+    if (!empty($postData['args']['customFields'])) {
+        foreach ($postData['args']['customFields'] as $array) {
+            $json['custom_fields'][$array['key']] = $array['value'];
+        }
+    }
 
     try {
         /** @var GuzzleHttp\Client $client */

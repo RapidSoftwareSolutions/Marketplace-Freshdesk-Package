@@ -23,7 +23,11 @@ $app->post('/api/Freshdesk/updateGroup', function ($request, $response) {
         $json['name'] = $postData['args']['name'];
     }
     if (!empty($postData['args']['agentIdList'])) {
-        $json['agent_ids'] = $postData['args']['agentIdList'];
+        $json['agent_ids'] = array_map(
+            function ($item) {
+                return (int) $item;
+            },
+            $postData['args']['agentIdList']);
     }
     if (isset($postData['args']['autoTicketAssign']) && filter_var($postData['args']['autoTicketAssign'], FILTER_VALIDATE_BOOLEAN)) {
         $json['auto_ticket_assign'] = true;
@@ -82,8 +86,7 @@ $app->post('/api/Freshdesk/updateGroup', function ($request, $response) {
                 $result['contextWrites']['to']['status_msg']['info']['Retry-After'] = $exception->getResponse()->getHeader("Retry-After");
             }
         }
-    }
-    else {
+    } else {
         $result['callback'] = 'error';
         $result['contextWrites']['to']['status_code'] = 'API_ERROR';
         $result['contextWrites']['to']['status_msg']['result'] = [

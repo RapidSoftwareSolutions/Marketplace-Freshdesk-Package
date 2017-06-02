@@ -471,7 +471,6 @@ Create Contact
 | viewAllTickets| Boolean    | Set to true if the contact can see all the tickets that are associated with the company to which he belong
 | otherCompanies| List       | Additional companies associated with the contact. This attribute can only be set if the Multiple Companies feature is enabled (Estate plan and above)
 | address       | String     | Address of the contact.
-| avatar        | File       | Avatar image of the contact The maximum file size is 5MB and the supported file types are .jpg, .jpeg, .jpe, and .png
 | customFields  | Array      | Key value pairs containing the name and value of the custom field. Only dates in the format YYYY-MM-DD are accepted as input for custom date fields. Example: 'custom_fields':{'gadget':'Cold Welder'}
 | description   | String     | A small description of the contact
 | jobTitle      | String     | Job title of the contact
@@ -486,6 +485,7 @@ Update Contact
 |---------------|------------|----------
 | apiKey        | credentials| Api Key
 | domain        | credentials| Domain in freshdesk.com service. Example: your-company.freshdesk.com
+| contactId     | Number     | Contact ID
 | name          | String     | Name of the contact
 | email         | String     | Primary email address of the contact. If you want to associate additional email(s) with this contact, use the other_emails attribute.
 | phone         | String     | Telephone number of the contact
@@ -503,6 +503,16 @@ Update Contact
 | language      | String     | Language of the contact. Default language is en. This attribute can only be set if the Multiple Language feature is enabled (Garden plan and above)
 | tags          | List       | List of tags associated with this contact
 | timeZone      | string     | Time zone of the contact. Default value is the time zone of the domain. This attribute can only be set if the Multiple Time Zone feature is enabled (Garden plan and above)
+
+## Freshdesk.updateAvatar
+Update Contact Avatar
+
+| Field         | Type       | Description
+|---------------|------------|----------
+| apiKey        | credentials| Api Key
+| domain        | credentials| Domain in freshdesk.com service. Example: your-company.freshdesk.com
+| contactId     | Number     | Contact ID
+| avatar        | File       | Avatar image of the contact The maximum file size is 5MB and the supported file types are .jpg, .jpeg, .jpe, and .png
 
 ## Freshdesk.makeAgent
 Make Agent from Contact

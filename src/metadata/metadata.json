@@ -2301,12 +2301,6 @@
           "required": false
         },
         {
-          "name": "avatar",
-          "type": "File",
-          "info": "Avatar image of the contact The maximum file size is 5MB and the supported file types are .jpg, .jpeg, .jpe, and .png",
-          "required": false
-        },
-        {
           "name": "customFields",
           "type": "Array",
           "info": "Key value pairs containing the name and value of the custom field. Only dates in the format YYYY-MM-DD are accepted as input for custom date fields. Example: 'custom_fields':{'gadget':'Cold Welder'}",
@@ -2358,6 +2352,46 @@
           "type": "String",
           "info": "Time zone of the contact. Default value is the time zone of the domain. This attribute can only be set if the Multiple Time Zone feature is enabled (Garden plan and above)",
           "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "updateAvatart",
+      "description": "Update Contact Avatar",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "Api Key",
+          "required": true
+        },
+        {
+          "name": "domain",
+          "type": "credentials",
+          "info": "Domain in freshdesk.com service. Example: your-company.freshdesk.com",
+          "required": true
+        },
+        {
+          "name": "contactId",
+          "type": "Number",
+          "info": "Contact ID",
+          "required": true
+        },
+        {
+          "name": "avatar",
+          "type": "File",
+          "info": "Avatar image of the contact The maximum file size is 5MB and the supported file types are .jpg, .jpeg, .jpe, and .png",
+          "required": true
         }
       ],
       "callbacks": [

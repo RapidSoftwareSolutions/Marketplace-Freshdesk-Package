@@ -1,13 +1,13 @@
 <?php
 
-$app->post('/api/Freshdesk/updateContact', function ($request, $response) {
+$app->post('/api/Freshdesk/updateAvatar', function ($request, $response) {
     /** @var \Slim\Http\Response $response */
     /** @var \Slim\Http\Request $request */
     /** @var \Models\checkRequest $checkRequest */
 
     $settings = $this->settings;
     $checkRequest = $this->validation;
-    $validateRes = $checkRequest->validate($request, ['apiKey', 'domain', 'contactId']);
+    $validateRes = $checkRequest->validate($request, ['apiKey', 'domain', 'contactId', 'avatar']);
     if (!empty($validateRes) && isset($validateRes['callback']) && $validateRes['callback'] == 'error') {
         return $response->withHeader('Content-type', 'application/json')->withStatus(200)->withJson($validateRes);
     } else {
@@ -18,64 +18,24 @@ $app->post('/api/Freshdesk/updateContact', function ($request, $response) {
 
     $headers['Authorization'] = "Basic " . base64_encode($postData['args']['apiKey']);
 
-    if (!empty($postData['args']['name'])) {
-        $json['name'] = $postData['args']['name'];
-    }
-    if (!empty($postData['args']['email'])) {
-        $json['email'] = $postData['args']['email'];
-    }
-    if (!empty($postData['args']['phone'])) {
-        $json['phone'] = $postData['args']['phone'];
-    }
-    if (!empty($postData['args']['mobile'])) {
-        $json['mobile'] = $postData['args']['mobile'];
-    }
-    if (!empty($postData['args']['twitterId'])) {
-        $json['twitter_id'] = $postData['args']['twitterId'];
-    }
-    if (!empty($postData['args']['otherEmails'])) {
-        $json['other_emails'] = $postData['args']['otherEmails'];
-    }
-    if (!empty($postData['args']['companyId'])) {
-        $json['company_id'] = $postData['args']['companyId'];
-    }
-    if (is_bool($postData['args']['viewAllTickets'])) {
-        $json['view_all_tickets'] = filter_var($postData['args']['viewAllTickets'], FILTER_VALIDATE_BOOLEAN);
-    }
-    if (!empty($postData['args']['otherCompanies'])) {
-        $json['other_companies'] = $postData['args']['otherCompanies'];
-    }
-    if (!empty($postData['args']['address'])) {
-        $json['address'] =$postData['args']['address'];
-    }
-    if (!empty($postData['args']['customFields'])) {
-        foreach ($postData['args']['customFields'] as $array) {
-            $json['custom_fields'][$array['key']] = $array['value'];
+
+    if (!empty($postData['args']['avatar'])) {
+        $avatar = fopen($postData['args']['avatar'], 'r');
+        if ($avatar) {
+            $formData[] = [
+                "name" => "avatar",
+                "contents" => $avatar
+            ];
         }
     }
-    if (!empty($postData['args']['description'])) {
-        $json['description'] = $postData['args']['description'];
-    }
-    if (!empty($postData['args']['jobTitle'])) {
-        $json['job_title'] = $postData['args']['jobTitle'];
-    }
-    if (!empty($postData['args']['language'])) {
-        $json['language'] = $postData['args']['language'];
-    }
-    if (!empty($postData['args']['tags'])) {
-        $json['tags'] = $postData['args']['tags'];
-    }
-    if (!empty($postData['args']['timeZone'])) {
-        $json['time_zone'] = $postData['args']['timeZone'];
-    }
 
-    if (!empty($json)) {
+    if (!empty($formData)) {
         try {
             /** @var GuzzleHttp\Client $client */
             $client = $this->httpClient;
             $vendorResponse = $client->put($url, [
                 'headers' => $headers,
-                'json' => $json
+                'multipart' => $formData
             ]);
             $vendorResponseBody = $vendorResponse->getBody()->getContents();
             if ($vendorResponse->getStatusCode() == 200) {
@@ -113,7 +73,8 @@ $app->post('/api/Freshdesk/updateContact', function ($request, $response) {
                 $result['contextWrites']['to']['status_msg']['info']['Retry-After'] = $exception->getResponse()->getHeader("Retry-After");
             }
         }
-    } else {
+    }
+    else {
         $result['callback'] = 'error';
         $result['contextWrites']['to']['status_code'] = 'API_ERROR';
         $result['contextWrites']['to']['status_msg']['result'] = [

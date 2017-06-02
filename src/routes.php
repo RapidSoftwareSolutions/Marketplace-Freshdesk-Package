@@ -62,6 +62,7 @@ $routes = [
     'addNoteToTicket',
     'createContact',
     'updateContact',
+    'updateAvatar',
     'makeAgent',
     'deleteContact',
     'deleteAgent',

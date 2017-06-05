@@ -77,7 +77,6 @@
           "type": "Select",
           "options": [
             "created_at",
-            "due_by",
             "updated_at",
             "status"
           ],

@@ -42,7 +42,7 @@ $app->post('/api/Freshdesk/getAllTickets', function ($request, $response) {
         $params['order_by'] = $postData['args']['orderBy'];
     }
     if (!empty($postData['args']['orderType'])) {
-        $params['orderType'] = $postData['args']['orderType'];
+        $params['order_type'] = $postData['args']['orderType'];
     }
 
 

@@ -28,7 +28,7 @@ Use filters to view only specific tickets (those which match the criteria that y
 | userId      | Number     | Find Tickets by userId
 | email       | String     | Find Tickets by e-mail
 | companyId   | String     | Find Tickets be Company ID
-| updatedSince| String     | By default only tickets that have been created within the past 30 days will be returned. For older tickets, use this field. Example: 2017-03-27 (ISO 8601)
+| updatedSince| DatePicker | By default only tickets that have been created within the past 30 days will be returned. For older tickets, use this field.
 | orderBy     | Select     | Order Tickets by created_at, due_by, updated_at, status. Default: created_at
 | orderType   | Select     | asc/desc. Default: desc
 
@@ -100,9 +100,9 @@ Create a new Ticket
 | attachments  | List       | Array of file links (url). The total size of these attachments cannot exceed 15MB.
 | ccEmails     | List       | Array of email address added in the 'cc' field of the incoming ticket email
 | customFields | Array      | Key value pairs containing the names and values of custom fields. Example: 'custom_fields':{'gadget':'Cold Welder'}
-| dueBy        | DatePicker | Timestamp that denotes when the ticket is due to be resolved
+| dueBy        | DatePicker | Date that denotes when the ticket is due to be resolved
 | emailConfigId| Number     | ID of email config which is used for this ticket. (i.e.,  support@yourcompany.com/sales@yourcompany.com) If product_id is given and email_config_id is not given, product's primary email_config_id will be set
-| frDueBy      | DatePicker | Timestamp that denotes when the first response is due
+| frDueBy      | DatePicker | Date that denotes when the first response is due
 | groupId      | Number     | ID of the group to which the ticket has been assigned. The default value is the ID of the group that is associated with the given email_config_id
 | productId    | Number     | ID of the product to which the ticket is associated. It will be ignored if the email_config_id attribute is set in the request.
 | source       | Number     | The channel through which the ticket was created. The default value is 2.

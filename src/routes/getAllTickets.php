@@ -33,9 +33,12 @@ $app->post('/api/Freshdesk/getAllTickets', function ($request, $response) {
         $params['company_id'] = $postData['args']['companyId'];
     }
     if (!empty($postData['args']['updatedSince'])) {
-        $date = new DateTime($postData['args']['updateSince']);
-        if ($date) {
-            $params['updated_since'] = $date->format('Y-m-d');
+        $date = \DateTime::createFromFormat('Y-m-d H:i:s', $postData['args']['updatedSince']);
+        if ($date instanceof DateTime) {
+            $params['updated_since'] = $date->format('Y-m-d\TH:i:s\Z');
+        }
+        else  {
+            $params['updated_since'] = $postData['args']['updatedSince'];
         }
     }
     if (!empty($postData['args']['orderBy'])) {

@@ -124,10 +124,16 @@ $app->post('/api/Freshdesk/updateTicket', function ($request, $response) {
         ];
     }
     if (isset($postData['args']['dueBy']) && strlen($postData['args']['dueBy']) > 0) {
-        $date = new DateTime($postData['args']['dueBy']);
+        $date = \DateTime::createFromFormat('Y-m-d H:i:s', $postData['args']['dueBy']);
+        if ($date instanceof DateTime) {
+            $timestamp = $date->getTimestamp();
+        }
+        else {
+            $timestamp = $postData['args']['dueBy'];
+        }
         $formData[] = [
             "name" => "due_by",
-            "contents" => $date->getTimestamp()
+            "contents" => $timestamp
         ];
     }
     if (!empty($postData['args']['emailConfigId'])) {
@@ -137,10 +143,16 @@ $app->post('/api/Freshdesk/updateTicket', function ($request, $response) {
         ];
     }
     if (isset($postData['args']['frDueBy']) && strlen($postData['args']['frDueBy']) > 0) {
-        $date = new DateTime($postData['args']['frDueBy']);
+        $date = \DateTime::createFromFormat('Y-m-d H:i:s', $postData['args']['frDueBy']);
+        if ($date instanceof DateTime) {
+            $timestamp = $date->getTimestamp();
+        }
+        else {
+            $timestamp = $postData['args']['frDueBy'];
+        }
         $formData[] = [
-            "name" => "fr_due_by",
-            "contents" => $date->getTimestamp()
+            "name" => "due_by",
+            "contents" => $timestamp
         ];
     }
     if (!empty($postData['args']['groupId'])) {

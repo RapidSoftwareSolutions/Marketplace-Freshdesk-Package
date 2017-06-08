@@ -26,18 +26,24 @@ $app->post('/api/Freshdesk/updateTimeEntry', function ($request, $response) {
         $json['billable'] = filter_var($postData['args']['billable'], FILTER_VALIDATE_BOOLEAN);
     }
     if (!empty($postData['args']['executedAt'])) {
-        $date = new DateTime($postData['args']['executedAt']);
-        if ($date) {
+        $date = DateTime::createFromFormat('Y-m-d H:i:s', $postData['args']['executedAt']);
+        if ($date instanceof DateTime) {
             $json['executed_at'] = $date->format('Y-m-d\TH:i:s\Z');
+        }
+        else {
+            $json['executed_at'] = $postData['args']['executedAt'];
         }
     }
     if (isset($postData['args']['note']) && strlen($postData['args']['note'])) {
         $json['note'] = $postData['args']['note'];
     }
     if (!empty($postData['args']['startTime'])) {
-        $date = new DateTime($postData['args']['startTime']);
-        if ($date) {
+        $date = DateTime::createFromFormat('Y-m-d H:i:s', $postData['args']['startTime']);
+        if ($date instanceof DateTime) {
             $json['start_time'] = $date->format('Y-m-d\TH:i:s\Z');
+        }
+        else {
+            $json['start_time'] = $postData['args']['startTime'];
         }
     }
     if (!empty($postData['args']['timeSpent'])) {

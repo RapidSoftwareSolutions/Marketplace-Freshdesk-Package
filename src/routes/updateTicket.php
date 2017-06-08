@@ -151,7 +151,7 @@ $app->post('/api/Freshdesk/updateTicket', function ($request, $response) {
             $timestamp = $postData['args']['frDueBy'];
         }
         $formData[] = [
-            "name" => "due_by",
+            "name" => "fr_due_by",
             "contents" => $timestamp
         ];
     }

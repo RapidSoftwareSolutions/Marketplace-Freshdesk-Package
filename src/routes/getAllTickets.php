@@ -48,7 +48,6 @@ $app->post('/api/Freshdesk/getAllTickets', function ($request, $response) {
         $params['order_type'] = $postData['args']['orderType'];
     }
 
-
     try {
         /** @var GuzzleHttp\Client $client */
         $client = $this->httpClient;

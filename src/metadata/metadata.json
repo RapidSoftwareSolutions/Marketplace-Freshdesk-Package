@@ -19,6 +19,11 @@
       "domain"
     ]
   },
+  "steps": [
+    "Go to the Freshdeks Website and login or signup",
+    "In the upper right corner, select your profile picture, then 'Profile settings'",
+    "Your ApiKey will be on the right side of the profile settings page"
+  ],
   "blocks": [
     {
       "name": "getAllTickets",

@@ -5,7 +5,7 @@ Manage customer support tickets, agents and monitoring.
 * Credentials: apiKey, domain
 
 ## How to get credentials: 
-1. Go to the [Freshdeks Website]https://freshdesk.com/login and login or signup
+1. Go to the [Freshdeks Website](https://freshdesk.com/login) and login or signup
 2. In the upper right corner, select your profile picture, then 'Profile settings'
 2. Your ApiKey will be on the right side of the profile settings page
  
